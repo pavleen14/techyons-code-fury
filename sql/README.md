@@ -1,0 +1,1 @@
+This folder will contain all the sql commands and stored procedure codes
