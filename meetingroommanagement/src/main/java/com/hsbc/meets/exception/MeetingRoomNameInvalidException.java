@@ -1,3 +1,6 @@
+/**
+ * @author ShubhraBhuniaGhosh
+ */
 package com.hsbc.meets.exception;
 
 public class MeetingRoomNameInvalidException extends Exception {

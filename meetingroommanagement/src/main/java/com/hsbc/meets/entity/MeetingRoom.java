@@ -1,17 +1,11 @@
 /**
- * This entity sub-package stores the classes such as MeetingRoom which
- * represents the logical components of the application. 
- * 
- * @author pavleen 
- * @since 0.0.1
+ * @author ShubhraBhuniaGhosh
  */
 package com.hsbc.meets.entity;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MeetingRoom {
-
 	private int meetingRoomId;
 	private String meetingRoomName;
 	private int seatingCapacity;
@@ -19,22 +13,24 @@ public class MeetingRoom {
 	private List<String> amenities;
 	private int creditsPerHour;
 	private int noOfFeedbacks;
-
-	// constructors
-
-	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, int rating, String[] amenities,
-			int creditsPerHour, int noOfFeedbacks) {
-		super();
-		this.meetingRoomId = meetingRoomId;
+	
+	public MeetingRoom(String meetingRoomName, int seatingCapacity, List<String> amenities,
+			int creditsPerHour) {
+		this.meetingRoomName = meetingRoomName;
+		this.seatingCapacity = seatingCapacity;
+		this.amenities = amenities;
+		this.creditsPerHour = creditsPerHour;
+	}
+	
+	public MeetingRoom(String meetingRoomName, int seatingCapacity, int rating, List<String> amenities,
+			int creditsPerHour, int noOfFeedbacks, boolean availability) {
 		this.meetingRoomName = meetingRoomName;
 		this.seatingCapacity = seatingCapacity;
 		this.rating = rating;
-		Amenities = amenities;
+		this.amenities = amenities;
 		this.creditsPerHour = creditsPerHour;
 		this.noOfFeedbacks = noOfFeedbacks;
 	}
-
-	// getters & setters
 
 	public String getMeetingRoomName() {
 		return meetingRoomName;
@@ -60,12 +56,12 @@ public class MeetingRoom {
 		this.rating = rating;
 	}
 
-	public String[] getAmenities() {
-		return Amenities;
+	public List<String> getAmenities() {
+		return amenities;
 	}
 
-	public void setAmenities(String[] amenities) {
-		Amenities = amenities;
+	public void setAmenities(List<String> amenities) {
+		this.amenities = amenities;
 	}
 
 	public int getCreditsPerHour() {
@@ -84,14 +80,9 @@ public class MeetingRoom {
 		this.noOfFeedbacks = noOfFeedbacks;
 	}
 
-	// toString()
-
-	@Override
-	public String toString() {
-		return "MeetingRoom [meetingRoomId=" + meetingRoomId + ", meetingRoomName=" + meetingRoomName
-				+ ", seatingCapacity=" + seatingCapacity + ", rating=" + rating + ", Amenities="
-				+ Arrays.toString(Amenities) + ", creditsPerHour=" + creditsPerHour + ", noOfFeedbacks=" + noOfFeedbacks
-				+ "]";
+	public int getMeetingRoomId() {
+		return meetingRoomId;
 	}
-
+	
+	
 }
