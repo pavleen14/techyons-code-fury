@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /**
  * @author ShubharBhuniaGhosh
  */
@@ -67,4 +68,10 @@ public abstract class MeetingRoomValidation {
 		return false;
 		
 	}
+=======
+package com.hsbc.meets.validation;
+
+public class MeetingRoomValidation {
+
+>>>>>>> Stashed changes
 }
