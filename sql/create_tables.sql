@@ -84,29 +84,3 @@ CREATE TABLE `amenities` (
   `AmenityCost` decimal(4,2) DEFAULT NULL,
   PRIMARY KEY (`AmenityId`)
 );
-
-
-delimiter //
-create trigger feedback_ins 
-after insert 
-on feedback
-for each row
-update meetingroom set rating=(select avg(Rating) from Feedback where MeetingRoomId= NEW.MeetingRoomId), 
-NumberOfFeedbacks= coalesce(NumberOfFeedbacks,0)+1 
-where MeetingRoomId= NEW.MeetingRoomId;//
-delimiter ;
-
-
-delimiter //
-create trigger Meeting_emenities_ins 
-after insert 
-on meeting_room_amenities
-for each row
-update MeetingRoom set perHourCost=(select sum(AmenityCost) from amenities a join (select * from meeting_room_amenities
- where MeetingRoomId=NEW.MeetingRoomId)x  on a.amenityId= x.amenityId)+
-case when seatingcapacity<=5 then 0 
-when seatingcapacity>5 and seatingcapacity<=10 then 10
-else 20
-end
-where MeetingRoomId= NEW.MeetingRoomId;//
-delimiter ;
