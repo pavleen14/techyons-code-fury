@@ -173,7 +173,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 		int amenitieId = -1;
 		try {
 			stmt = con.prepareStatement("SELECT AmenityId FROM amenities WHERE AmenityName = ?");
-			stmt.setString(1, amenitieName);
+			stmt.setString(1, amenitieName.toLowerCase());
 			resultSet = stmt.executeQuery();
 			if(resultSet.next()) {
 				amenitieId = resultSet.getInt(1);
