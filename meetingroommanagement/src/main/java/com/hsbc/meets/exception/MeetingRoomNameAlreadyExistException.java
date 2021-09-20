@@ -6,4 +6,4 @@ public class MeetingRoomNameAlreadyExistException extends Exception {
 		// TODO Auto-generated method stub
 		return "Meeting RoomName Already Exist Exception";
 	}
-	}
+}

@@ -31,44 +31,38 @@ public class MeetingRoomServiceImpl {
 		 *		Throw exception
 		 */
 	}
-	
-	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities,
-			int creditsPerHour, int rating, int noOfFeedbacks) throws MeetingRoomDoesNotExistsException, MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomNameAlreadyExistException {	
-		/*
-		 * Get room name the admin wants to change from controller
-		 * Along with that get the new room info from controller 
-		 * Check if the room has any meetings booked
-		 * If room has meetings booked:
-		 * 		Throw exception
-		 * If no meetings are booked
-		 * 		Check for validity
-		 * 		If valid
-		 * 			Calculate the new credit per hour
-		 * 			Pass it to the dao layer
-		 * 		If not valid	
-		 * 			Throw exception
-		 */
-		
+
+	public boolean editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities,
+			int creditsPerHour, int rating, int noOfFeedbacks) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomNameAlreadyExistException{
+
 		MeetingRoomDao dao = null;
 		if(MeetingRoomValidation.validateMeetingRoom(meetingRoomName, seatingCapacity, amenities)) {
 			creditsPerHour = this.calculateCredit(seatingCapacity,amenities);
 			MeetingRoom newMeetingRoom = new MeetingRoom(meetingRoomId,meetingRoomName, seatingCapacity, amenities,creditsPerHour,rating,noOfFeedbacks);
 			dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
-			return dao.updateMeetingRoomById(newMeetingRoom);
+			int numberOfRowsUpdate = 0;
+			numberOfRowsUpdate+=dao.updateMeetingRoomById(newMeetingRoom);
+			dao.deleteAminitiesByMeetingRoomById(newMeetingRoom.getMeetingRoomId());
+			for(String amenitie:amenities) {
+				numberOfRowsUpdate+=dao.insertAminitieByMeetingRoomById(meetingRoomId, amenitie);
+			}
+			if(numberOfRowsUpdate==(amenities.size()+1)) {
+				return true;
+			}
 		}
-		return -1;
+		return false;
 	}
-	
-	
+
+
 	public int calculateCredit(int seatingCapacity,List<String> amenities){
 		int craditPerHour = 0;
-		
+
 		if(seatingCapacity>5 && seatingCapacity<=10) {
 			craditPerHour+=10;
 		}else if(seatingCapacity>10) {
 			craditPerHour+=20;
 		}
-		
+
 		String [] listOfAmenities = {"projector", "wifi connection", "conference call facility", "whiteboard", "water dispenser", "tv", "coffee machine"};
 		int[] amenitiesCredits = {5,10,15,5,5,10,10};
 		for(String amenitie: amenities) {
@@ -99,7 +93,7 @@ public class MeetingRoomServiceImpl {
 //		arr.add("projector");
 //		arr.add("wifi connection");
 //		MeetingRoomServiceImpl m= new MeetingRoomServiceImpl();
-//		System.out.println(m.editMeetingRoom(10, "hgfdskj", 66, arr, 0, 0, 0));
+//		System.out.println(m.editMeetingRoom(7, "papadkon", 66, arr, 0, 0, 0));
 //	}
 
 }

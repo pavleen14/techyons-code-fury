@@ -15,4 +15,7 @@ public interface MeetingRoomDao {
 	public void addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException;
 	public List <MeetingRoom> displayMeetingRoom();
 	public int updateMeetingRoomById(MeetingRoom newMeetingRoom) throws MeetingRoomDoesNotExistsException, MeetingRoomNameAlreadyExistException;
+	public int insertAminitieByMeetingRoomById(int meetingRoomId, String amenitie);
+	public int deleteAminitiesByMeetingRoomById(int meetingRoomId);
+	public boolean checkMeetingRoomNameAlreadyExists(String meetingRoomName,int meetingRoomId) throws MeetingRoomNameAlreadyExistException;
 }
