@@ -37,7 +37,6 @@ public class MeetingRoomServiceImpl {
 
 		MeetingRoomDao dao = null;
 		if(MeetingRoomValidation.validateMeetingRoom(meetingRoomName, seatingCapacity, amenities)) {
-			creditsPerHour = this.calculateCredit(seatingCapacity,amenities);
 			MeetingRoom newMeetingRoom = new MeetingRoom(meetingRoomId,meetingRoomName, seatingCapacity, amenities,creditsPerHour,rating,noOfFeedbacks);
 			dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
 			int numberOfRowsUpdate = 0;
@@ -54,40 +53,40 @@ public class MeetingRoomServiceImpl {
 	}
 
 
-	public int calculateCredit(int seatingCapacity,List<String> amenities){
-		int craditPerHour = 0;
-
-		if(seatingCapacity>5 && seatingCapacity<=10) {
-			craditPerHour+=10;
-		}else if(seatingCapacity>10) {
-			craditPerHour+=20;
-		}
-
-		String [] listOfAmenities = {"projector", "wifi connection", "conference call facility", "whiteboard", "water dispenser", "tv", "coffee machine"};
-		int[] amenitiesCredits = {5,10,15,5,5,10,10};
-		for(String amenitie: amenities) {
-			for(int index = 0; index<listOfAmenities.length; index++) {
-				if(amenitie.toLowerCase().equals(listOfAmenities[index])) {
-					craditPerHour+=amenitiesCredits[index];
-					break;
-				}
-			}	
-		}
-
-		return craditPerHour;
-
-	}
-
-	public int updateRating(int noOfFeedbacks, int rating, List<Integer> newRatingList){
-		int currentRating = rating*noOfFeedbacks;
-		noOfFeedbacks+=newRatingList.size();
-		for(int newRating: newRatingList) {
-			rating+=newRating;
-		}
-		rating = (int)rating/noOfFeedbacks;
-		return rating;
-
-	}
+//	public int calculateCredit(int seatingCapacity,List<String> amenities){
+//		int craditPerHour = 0;
+//
+//		if(seatingCapacity>5 && seatingCapacity<=10) {
+//			craditPerHour+=10;
+//		}else if(seatingCapacity>10) {
+//			craditPerHour+=20;
+//		}
+//
+//		String [] listOfAmenities = {"projector", "wifi connection", "conference call facility", "whiteboard", "water dispenser", "tv", "coffee machine"};
+//		int[] amenitiesCredits = {5,10,15,5,5,10,10};
+//		for(String amenitie: amenities) {
+//			for(int index = 0; index<listOfAmenities.length; index++) {
+//				if(amenitie.toLowerCase().equals(listOfAmenities[index])) {
+//					craditPerHour+=amenitiesCredits[index];
+//					break;
+//				}
+//			}	
+//		}
+//
+//		return craditPerHour;
+//
+//	}
+//
+//	public int updateRating(int noOfFeedbacks, int rating, List<Integer> newRatingList){
+//		int currentRating = rating*noOfFeedbacks;
+//		noOfFeedbacks+=newRatingList.size();
+//		for(int newRating: newRatingList) {
+//			rating+=newRating;
+//		}
+//		rating = (int)rating/noOfFeedbacks;
+//		return rating;
+//
+//	}
 //	public static void main(String[] args) throws MeetingRoomDoesNotExistsException, MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomNameAlreadyExistException {
 //		ArrayList<String> arr = new ArrayList<String>();
 //		arr.add("projector");
