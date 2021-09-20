@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 /**
  * @author ShubharBhuniaGhosh
  */
@@ -7,13 +6,14 @@ package com.hsbc.meets.validation;
 
 import java.util.List;
 
+import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
 import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInalidException;
 
 public abstract class MeetingRoomValidation {
 	
-	public static boolean validateMeetingRoomName(String name) throws MeetingRoomNameInvalidException {
+	private static boolean validateMeetingRoomName(String name) throws MeetingRoomNameInvalidException {
 		
 		if(name.length()<4 || name.length()>20) {
 			throw new MeetingRoomNameInvalidException();
@@ -30,7 +30,7 @@ public abstract class MeetingRoomValidation {
 	}
 
 	
-	public static boolean validateMeetingRoomSeatingCapacity(int seatingCapacity) throws MeetingRoomSeatingCapacityInalidException {
+	private static boolean validateMeetingRoomSeatingCapacity(int seatingCapacity) throws MeetingRoomSeatingCapacityInalidException {
 		if(seatingCapacity>=6 && seatingCapacity<=250) {
 			return true;
 		}
@@ -38,7 +38,7 @@ public abstract class MeetingRoomValidation {
 	}
 	
 	
-	public static boolean validateMeetingRoomAmenities(List<String> amenities) throws MeetingRoomAmenitiesInvalidException{
+	private static boolean validateMeetingRoomAmenities(List<String> amenities) throws MeetingRoomAmenitiesInvalidException{
 		if(amenities.size()<2 || amenities.size()>7) {
 			throw new MeetingRoomAmenitiesInvalidException();
 		}
@@ -61,17 +61,12 @@ public abstract class MeetingRoomValidation {
 	}
 	
 	
-	public static boolean validateMeetingRoom(String name, int seatingCapacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException{
-		if(MeetingRoomValidation.validateMeetingRoomName(name) && MeetingRoomValidation.validateMeetingRoomSeatingCapacity(seatingCapacity) && MeetingRoomValidation.validateMeetingRoomAmenities(amenities)) {
+	public static boolean validateMeetingRoom(String meetingRoomName, int seatingCapacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException{
+		if(MeetingRoomValidation.validateMeetingRoomName(meetingRoomName) && MeetingRoomValidation.validateMeetingRoomSeatingCapacity(seatingCapacity) && MeetingRoomValidation.validateMeetingRoomAmenities(amenities)) {
 			return true;
 		}
 		return false;
 		
 	}
-=======
-package com.hsbc.meets.validation;
 
-public class MeetingRoomValidation {
-
->>>>>>> Stashed changes
 }
