@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usersDocument>  
+    <users>  
+        <userId>101</userId>  
+        <name>Amit Kumar</name>  
+        <email>amit.kumar@hscc.co.in</email>  
+        <phone>+91 1111111111</phone>  
+        <credits>2000</credits>  
+        <role>ADMIN</role>  
+        <password>abc</password>  
+        <lastLogin>Mon Sep 20 19:01:11 IST 2021</lastLogin>  
+    </users>
+    <users>  
+        <userId>102</userId>  
+        <name>Sachin Kumar</name>  
+        <email>sachin.kumar@hscc.co.in</email>  
+        <phone>+91 1111111111</phone>  
+        <credits>2000</credits>  
+        <role>ADMIN</role>  
+        <password>abc</password>  
+        <lastLogin>Mon Sep 20 18:01:11 IST 2021</lastLogin>  
+    </users>
+    <users>  
+        <userId>103</userId>  
+        <name>Ram Kumar</name>  
+        <email>ram.kumar@hscc.co.in</email>  
+        <phone>+91 1111111111</phone>  
+        <credits>1500</credits>  
+        <role>MANAGER</role>  
+        <password>abc</password>  
+        <lastLogin>Mon Sep 20 17:01:11 IST 2021</lastLogin>  
+    </users> 
+    <users>  
+        <userId>104</userId>  
+        <name>Raj Kumar</name>  
+        <email>raj.kumar@hscc.co.in</email>  
+        <phone>+91 1111111111</phone>  
+        <credits>600</credits>  
+        <role>MANAGER</role>  
+        <password>abc</password>  
+        <lastLogin>Mon Sep 20 16:01:11 IST 2021</lastLogin>  
+    </users> 
+    <users>  
+        <userId>105</userId>  
+        <name>Rohit Kumar</name>  
+        <email>rohit.kumar@hscc.co.in</email>  
+        <phone>+91 1111111111</phone>  
+        <credits>1000</credits>  
+        <role>MEMBER</role>  
+        <password>abc</password>  
+        <lastLogin>Mon Sep 20 15:01:11 IST 2021</lastLogin>  
+    </users> 
+    <users>  
+        <userId>106</userId>  
+        <name>Rahul Kumar</name>  
+        <email>rahul.kumar@hscc.co.in</email>  
+        <phone>+91 1111111111</phone>  
+        <credits>200</credits>  
+        <role>MEMBER</role>  
+        <password>abc</password>  
+        <lastLogin>Mon Sep 20 14:01:11 IST 2021</lastLogin>  
+    </users> 
+</usersDocument>  

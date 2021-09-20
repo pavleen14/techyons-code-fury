@@ -36,7 +36,9 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HomeService service = HomeFactory.getHomeService();
-		boolean usersImported = service.importUsers();
-		// TODO return PrintWrite me true
+		String importStatus = service.importUsers();
+		
+		resp.getWriter().write(importStatus);;
+		
 	}
 }
