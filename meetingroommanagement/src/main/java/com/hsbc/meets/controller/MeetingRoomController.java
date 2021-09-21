@@ -73,9 +73,7 @@ public class MeetingRoomController extends HttpServlet {
 		int roomCredits = 0; 
 		int creditsPerHour = 0; 
 		int sumOfAmenities =0; 
-		System.out.println(req.getParameter("mid"));
-		System.out.println(req.getParameter("mname"));
-		System.out.println(req.getParameter("mcapacity"));
+		
 
 
 		int roomId = Integer.parseInt(req.getParameter("mid"));
@@ -89,7 +87,7 @@ public class MeetingRoomController extends HttpServlet {
 			roomCredits = 10; 
 		else 
 			roomCredits = 20; 
-		
+				
 		for(int i =0; i<roomAmenities.length; i++) {
 			if(roomAmenities[i].equalsIgnoreCase("Projector"))
 					sumOfAmenities += 5; 
