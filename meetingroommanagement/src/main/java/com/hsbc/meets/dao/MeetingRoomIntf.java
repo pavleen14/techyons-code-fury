@@ -15,7 +15,7 @@ import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
 
 public interface MeetingRoomIntf {
 
-	public void addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException;
+	public MeetingRoom addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException;
 
 	public void updateMeetingRoomById(MeetingRoom meetingRoom) throws MeetingRoomDoesNotExistsException;
 

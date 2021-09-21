@@ -14,14 +14,14 @@ public class MeetingRoom {
 	int meetingRoomId;
 	String meetingRoomName;
 	int seatingCapacity;
-	int rating = 0;
+	float rating;
 	String[] Amenities;
 	int creditsPerHour;
-	int noOfFeedbacks = 0;
+	int noOfFeedbacks;
 
 	// constructors
 
-	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, int rating, String[] amenities,
+	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, float rating, String[] amenities,
 			int creditsPerHour, int noOfFeedbacks) {
 		super();
 		this.meetingRoomId = meetingRoomId;
@@ -32,9 +32,30 @@ public class MeetingRoom {
 		this.creditsPerHour = creditsPerHour;
 		this.noOfFeedbacks = noOfFeedbacks;
 	}
+	
+	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, String[] amenities,
+			int creditsPerHour) {
+		super();
+		this.meetingRoomId = meetingRoomId;
+		this.meetingRoomName = meetingRoomName;
+		this.seatingCapacity = seatingCapacity;
+		this.rating = 0;
+		Amenities = amenities;
+		this.creditsPerHour = creditsPerHour;
+		this.noOfFeedbacks =0;
+		}
+
 
 	// getters & setters
 
+	public int getMeetingRoomId() {
+		return meetingRoomId;
+	}
+
+	public void setMeetingRoomId(int meetingRoomId) {
+		this.meetingRoomId = meetingRoomId;
+	}
+	
 	public String getMeetingRoomName() {
 		return meetingRoomName;
 	}
@@ -51,11 +72,11 @@ public class MeetingRoom {
 		this.seatingCapacity = seatingCapacity;
 	}
 
-	public int getRating() {
+	public float getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 
@@ -82,8 +103,6 @@ public class MeetingRoom {
 	public void setNoOfFeedbacks(int noOfFeedbacks) {
 		this.noOfFeedbacks = noOfFeedbacks;
 	}
-
-	// toString()
 
 	@Override
 	public String toString() {
