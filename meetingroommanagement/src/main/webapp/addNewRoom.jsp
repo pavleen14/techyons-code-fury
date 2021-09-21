@@ -23,10 +23,8 @@
    <input type="checkbox"  name="amenities" value="TV"> TV
    <input type="checkbox"  name="amenities" value="Coffee-Machine"> Coffee Machine 
    <input type ="submit" value ="Add New Employee">  
-   <!--  <input type="button" onclick="window.location.href = 'http://localhost:8080/meetingroommanagement/roomController/add'" value="Add Meeting Room"/>
--->
+  
 </form>
 <p>
-<h3><a href="roomController/list" >View Meeting Rooms</a></h3>
 </body>
 </html>
