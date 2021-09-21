@@ -1,6 +1,6 @@
 package com.hsbc.meets.service.impl;
 
-import java.io.File;
+import java.sql.SQLException;
 
 import javax.xml.bind.JAXBException;
 
@@ -10,31 +10,36 @@ import com.hsbc.meets.exception.UsersAlreadyExistException;
 import com.hsbc.meets.factory.HomeFactory;
 import com.hsbc.meets.service.HomeService;
 
-public class HomeServiceImpl implements HomeService {
+/**
+ * Service class to handle business logic 
+ * related to home screen
+ * 
+ * @author rishi
+ *
+ */
 
+public class HomeServiceImpl implements HomeService {
+	
+	/**
+	 * @return import status of XML
+	 */
 	public String importUsers() {
-		
-		// TODO store this as servlet config or env variable
-		final String XML_FILE_PATH = "D:\\HSBC\\Training\\Web\\techyons-code-fury\\meetingroommanagement\\src\\main\\webapp\\resources\\users.xml";
 		HomeDao dao = HomeFactory.getHomeDao();
-		String importStatus = "";
-		
-		File xmlFile = new File(XML_FILE_PATH);
+		String importStatus = "";		
 
 		try {
-			dao.importUsers(xmlFile);
-			importStatus = "Users successfully imported"; 
+			importStatus = dao.importUsers();	
 		} catch (UsersAlreadyExistException e) {
 			importStatus = "Users already imported";
-			e.printStackTrace();
-		} catch (JAXBException e) {
-			importStatus = "Error occured while importing users";
 			e.printStackTrace();
 		} catch (EmptyXmlFileException e) {
 			importStatus = "No data available to import";
 			e.printStackTrace();
-		}
-		
+		} catch (JAXBException | SQLException e) {
+			importStatus = "Error occured while importing users";
+			e.printStackTrace();
+		} 
+
 		return importStatus;
 	}
 }

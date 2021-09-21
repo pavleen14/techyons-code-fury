@@ -1,10 +1,7 @@
 package com.hsbc.meets.entity;
 
-import java.util.Date;
-
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.hsbc.meets.util.Role;
+import java.time.LocalDateTime;
 
 
 public class User {
@@ -15,7 +12,7 @@ public class User {
 	private int credits;
 	private Role role;
 	private String password;
-	private Date lastLogin;
+	private LocalDateTime lastLogin;
 	
 	public int getUserId() {
 		return userId;
@@ -59,10 +56,10 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getLastLogin() {
+	public LocalDateTime getLastLogin() {
 		return lastLogin;
 	}
-	public void setLastLogin(Date lastLogin) {
+	public void setLastLogin(LocalDateTime lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 	@Override
