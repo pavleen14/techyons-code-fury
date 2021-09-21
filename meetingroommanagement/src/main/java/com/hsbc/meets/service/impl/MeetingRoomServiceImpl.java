@@ -14,9 +14,10 @@ import com.hsbc.meets.exception.MeetingRoomNameAlreadyExistException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
 import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInalidException;
 import com.hsbc.meets.factory.MeetingRoomDaoFactory;
+import com.hsbc.meets.service.MeetingRoomService;
 import com.hsbc.meets.validation.MeetingRoomValidation;
 
-public class MeetingRoomServiceImpl {
+public class MeetingRoomServiceImpl implements MeetingRoomService{
 
 	public void createNewMeetingRoom(String name, int seatingCapacity, List<String> amenities) {
 		/*
@@ -41,9 +42,9 @@ public class MeetingRoomServiceImpl {
 			dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
 			int numberOfRowsUpdate = 0;
 			numberOfRowsUpdate+=dao.updateMeetingRoomById(newMeetingRoom);
-			dao.deleteAminitiesByMeetingRoomById(newMeetingRoom.getMeetingRoomId());
+			dao.deleteAmenitiesByMeetingRoomById(newMeetingRoom.getMeetingRoomId());
 			for(String amenitie:amenities) {
-				numberOfRowsUpdate+=dao.insertAminitieByMeetingRoomById(meetingRoomId, amenitie);
+				numberOfRowsUpdate+=dao.insertAmenitieByMeetingRoomById(meetingRoomId, amenitie);
 			}
 			if(numberOfRowsUpdate==(amenities.size()+1)) {
 				return true;

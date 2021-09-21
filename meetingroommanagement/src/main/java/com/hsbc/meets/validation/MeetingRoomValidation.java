@@ -46,7 +46,7 @@ public abstract class MeetingRoomValidation {
 		}
 		ArrayList<Integer> amenitiesIdList = new ArrayList<Integer>();
 		for(String amenitie: amenities) {
-			if(MeetingRoomDaoFactory.getMeetingRoomDaoObject().getAminitieIdByAminitieName(amenitie)==-1) {
+			if(MeetingRoomDaoFactory.getMeetingRoomDaoObject().getAmenitieIdByAmenitieName(amenitie)==-1) {
 				throw new MeetingRoomAmenitiesInvalidException();
 			}
 		}
