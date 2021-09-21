@@ -24,7 +24,9 @@
                 <td>${room.meetingRoomId}</td>
                 <td>${room.meetingRoomName}</td>
                 <td>${room.rating}</td>
-                <td>${room.amenities[0]}<br> ${room.amenities[1]}</td>
+  <%--   commenting for JDBC part only, to be used when stored procedures are implemented 
+  <td>${room.amenities[0]}<br> ${room.amenities[1]}</td> --%> 
+  				<td>${room.amenities}</td>
                 <td>${room.creditsPerHour}</td>
                 <td>${room.noOfFeedbacks}</td>                
                 

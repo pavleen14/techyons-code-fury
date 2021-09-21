@@ -18,7 +18,12 @@ public class MeetingRoom {
 	String[] Amenities;
 	int creditsPerHour;
 	int noOfFeedbacks;
-
+	/*
+	using the below data type only for implementing JDBC, 
+	because my local DB has amenities in String Type : this needs to be deleted later
+	when procedures/triggers will be implemented. 
+    */
+	String amenities; 
 	// constructors
 
 	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, float rating, String[] amenities,
@@ -44,10 +49,58 @@ public class MeetingRoom {
 		this.creditsPerHour = creditsPerHour;
 		this.noOfFeedbacks =0;
 		}
-
+	/*
+	using the below  constructor only for implementing JDBC(List all meeting rooms)
+	because my local DB has amenities in String Type : this needs to be deleted later
+	when procedures/triggers will be implemented. 
+    */
+		public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, float rating, String amenities,
+				int creditsPerHour, int noOfFeedbacks) {
+			
+			this.meetingRoomId = meetingRoomId;
+			this.meetingRoomName = meetingRoomName;
+			this.seatingCapacity = seatingCapacity;
+			this.rating = rating;
+			this.amenities = amenities;
+			this.creditsPerHour = creditsPerHour;
+			this.noOfFeedbacks = noOfFeedbacks;
+		
+	}
+		
+		/*
+		using the below  constructor only for implementing JDBC(Creating a new Meeting room)
+		because my local DB has amenities in String Type : this needs to be deleted later
+		when procedures/triggers will be implemented. 
+	    */
+		public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, String amenities,
+				int creditsPerHour) {
+			super();
+			this.meetingRoomId = meetingRoomId;
+			this.meetingRoomName = meetingRoomName;
+			this.seatingCapacity = seatingCapacity;
+			this.rating = 0;
+			this.amenities = amenities;
+			this.creditsPerHour = creditsPerHour;
+			this.noOfFeedbacks =0;
+			}
 
 	// getters & setters
 
+	/*
+	 * the following getter/setter for String amenities, needs to be deleted.  
+	 */
+	
+	public String getamenities() {
+			return amenities;
+		}
+
+	public void setAmenities(String amenities) {
+		this.amenities = amenities;
+	}
+	
+	/*
+	 * delete the above getter/setter later 
+	 */
 	public int getMeetingRoomId() {
 		return meetingRoomId;
 	}
