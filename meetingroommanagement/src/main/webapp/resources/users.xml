@@ -5,7 +5,7 @@
         <userId>101</userId>  
         <name>Amit Kumar</name>  
         <email>amit.kumar@hscc.co.in</email>  
-        <phone>+919111111111</phone>  
+        <phone>+919111231111</phone>  
         <credits>0</credits>  
         <role>ADMIN</role>  
         <password>Amit@123</password>
@@ -14,7 +14,7 @@
         <userId>102</userId>  
         <name>Sachin Kumar</name>  
         <email>sachin.kumar@hscc.co.in</email>  
-        <phone>+919111111111</phone>  
+        <phone>+919111118911</phone>  
         <credits>0</credits>  
         <role>ADMIN</role>  
         <password>Sachin@123</password>  
@@ -23,7 +23,7 @@
         <userId>103</userId>  
         <name>Ram Kumar</name>  
         <email>ram.kumar@hscc.co.in</email>  
-        <phone>+917111111111</phone>  
+        <phone>+917111188111</phone>  
         <credits>1500</credits>  
         <role>MANAGER</role>  
         <password>Ram@1234</password>  
@@ -32,7 +32,7 @@
         <userId>104</userId>  
         <name>Raj Kumar</name>  
         <email>raj.kumar@hscc.co.in</email>  
-        <phone>+917111111111</phone>  
+        <phone>+917111771111</phone>  
         <credits>2000</credits>  
         <role>MANAGER</role>  
         <password>Raj@1234</password>  
@@ -41,8 +41,8 @@
         <userId>105</userId>  
         <name>Rohit Kumar</name>  
         <email>rohit.kumar@hscc.co.in</email>  
-        <phone>+918111111111</phone>  
-        <credits>0</credits>  
+        <phone>+918111661111</phone>  
+        <credits>10</credits>  
         <role>MEMBER</role>  
         <password>Rohit@123</password>  
     </users> 
@@ -54,5 +54,57 @@
         <credits>0</credits>  
         <role>MEMBER</role>  
         <password>Rahul@123</password>  
+    </users><users>  
+        <userId>107</userId>  
+        <name>Ashwin Kumar</name>  
+        <email>ashwin.kumar@hscc.co.in</email>  
+        <phone>+918111551111</phone>  
+        <credits>0</credits>  
+        <role>MEMBER</role>  
+        <password>Ashwin@123</password>  
     </users> 
+    <users>  
+        <userId>108</userId>  
+        <name>Pratik Kumar</name>  
+        <email>pratik.kumar@hscc.co.in</email>  
+        <phone>+917112211111</phone>  
+        <credits>0</credits>  
+        <role>MEMBER</role>  
+        <password>Pratik@123</password>  
+    </users>
+    <users>  
+        <userId>109</userId>  
+        <name>Sakshi Kumari</name>  
+        <email>sakshi.kumar@hscc.co.in</email>  
+        <phone>+919111133111</phone>  
+        <credits>0</credits>  
+        <role>MEMBER</role>  
+        <password>Sakshi@123</password>  
+    </users><users>  
+        <userId>110</userId>  
+        <name>Rakhi Kumari</name>  
+        <email>rakhi.kumar@hscc.co.in</email>  
+        <phone>+918111111144</phone>  
+        <credits>1000</credits>  
+        <role>MANAGER</role>  
+        <password>Rakhi@123</password>  
+    </users> 
+    <users>  
+        <userId>111</userId>  
+        <name>Deepa Kumari</name>  
+        <email>Deepa.kumar@hscc.co.in</email>  
+        <phone>+918111111111</phone>  
+        <credits>0</credits>  
+        <role>MEMBER</role>  
+        <password>Deepa@123</password>  
+    </users>
+    <users>  
+        <userId>112</userId>  
+        <name>Monika Kumari</name>  
+        <email>monika.kumar@hscc.co.in</email>  
+        <phone>+919111111111</phone>  
+        <credits>0</credits>  
+        <role>ADMIN</role>  
+        <password>Monika@123</password>  
+    </users>
 </usersDocument>  

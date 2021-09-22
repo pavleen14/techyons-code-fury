@@ -2,8 +2,21 @@ package com.hsbc.meets.util;
 import java.security.NoSuchAlgorithmException;  
 import java.security.MessageDigest;  
 
-
+/**
+ * Encrypts the user password.
+ * 
+ * @author rishi
+ *
+ */
 public class Encryption {
+	
+	/**
+	 * Applies MD5 encryption to
+	 * the user password.
+	 * 
+	 * @param password in normal string
+	 * @return encrypted password
+	 */
 	public static String md5(String password)   
 	{
 		String encryptedPassword = null;

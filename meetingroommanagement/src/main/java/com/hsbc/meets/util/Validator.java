@@ -4,13 +4,35 @@ import java.util.regex.Pattern;
 
 import com.hsbc.meets.entity.User;
 
+/**
+ * Validates the fields of user's data.
+ * 
+ * @author rishi
+ *
+ */
 public class Validator {
 	private static Pattern pattern;
 	
+	/**
+	 * Validates the user's data while importing
+	 * user into database
+	 * 
+	 * @param user object to be validated
+	 * @return true if all the data of user is in correct format
+	 * 
+	 */
 	public boolean validateUser(User user) {
-		return validateName(user.getName()) && validateEmail(user.getEmail()) && validatePhone(user.getPhone()) && validateCredits(user.getRole(), user.getCredits()) && validatePassword(user.getPassword());
+		boolean isValid = validateName(user.getName()) && validateEmail(user.getEmail()) && validatePhone(user.getPhone()) && validateCredits(user.getRole(), user.getCredits()) && validatePassword(user.getPassword());
+		return isValid;
 	}
 	
+	/**
+	 * Validates user's name format. Only characters and spaces are allowed
+	 * 
+	 * @param name to be validated
+	 * @return true if name is in correct format
+	 * 
+	 */
 	private boolean validateName(String name) {
 		final String nameRegex = "^[\\p{L} ]+$";
 		pattern = Pattern.compile(nameRegex);
@@ -20,8 +42,15 @@ public class Validator {
 		
 		return pattern.matcher(name).matches();
 	}
-	
-	private boolean validateEmail(String email) {
+
+	/**
+	 * Validates user's email format
+	 * 
+	 * @param email to be validated
+	 * @return true if email is in correct format
+	 * 
+	 */
+	public boolean validateEmail(String email) {
 		final String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
 		pattern = Pattern.compile(emailRegex);
 		
@@ -30,7 +59,14 @@ public class Validator {
 		
 		return pattern.matcher(email).matches();
 	}
-	
+
+	/**
+	 * Validates user's phone format
+	 * 
+	 * @param phone to be validated
+	 * @return true if phone is in correct format
+	 * 
+	 */
 	private boolean validatePhone(String phone) {
 		final String phoneRegex = "^(?!0+$)(\\+91)?[7-9][0-9]{9}$";
 		pattern = Pattern.compile(phoneRegex);
@@ -41,6 +77,14 @@ public class Validator {
 		return pattern.matcher(phone).matches();
 	}
 
+	/**
+	 * Validates if user's credits and role
+	 * 
+	 * @param role of user
+	 * @param credits of user
+	 * @return true if credits are valid for user's role
+	 * 
+	 */
 	private boolean validateCredits(Role role, int credits) {
 		if(role == null || role.toString() == "")
 			return false;
@@ -65,7 +109,7 @@ public class Validator {
 	 * 
 	 * @return boolean based on if password is valid or not
 	 */
-	private boolean validatePassword(String password) {
+	public boolean validatePassword(String password) {
 		final String passwordRegex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
 		pattern = Pattern.compile(passwordRegex);
 		

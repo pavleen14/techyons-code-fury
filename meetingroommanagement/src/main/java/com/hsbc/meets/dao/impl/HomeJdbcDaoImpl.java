@@ -12,25 +12,35 @@ import javax.xml.bind.JAXBException;
 
 import com.hsbc.meets.dao.HomeDao;
 import com.hsbc.meets.entity.User;
-import com.hsbc.meets.exception.EmptyXmlFileException;
+import com.hsbc.meets.exception.EmptyUsersDataFileException;
 import com.hsbc.meets.exception.UsersAlreadyExistException;
 import com.hsbc.meets.util.Connectivity;
 import com.hsbc.meets.util.Encryption;
 import com.hsbc.meets.util.Validator;
 import com.hsbc.meets.util.XmlParser;
 
+/**
+ * Connects with MySQL database using
+ * JDBC Driver to handle the data of homepage.
+ * 
+ * @author rishi
+ *
+ */
 public class HomeJdbcDaoImpl implements HomeDao {
 
 	private static final String CHECK_ROWS_IN_USERS_SQL = "SELECT COUNT(*) FROM users";
 	private static final String INSERT_USERS_DATA_SQL = "INSERT INTO users (ID, Name, Email, Phone, Credits, Role, Password) VALUES(?,?,?,?,?,?,?)";
 	private static final String XML_FILE_PATH = "src/main/webapp/resources/users.xml";
-	
+
+	/**
+	 * Fetches all users from XML file to store into database.
+	 */
 	@Override
-	public String importUsers() throws UsersAlreadyExistException, JAXBException, EmptyXmlFileException, SQLException {
+	public String importUsers() throws UsersAlreadyExistException, EmptyUsersDataFileException, SQLException {
 		Connection connection = Connectivity.getConnection();
 		PreparedStatement statement = null;
 		String importStatus = "";
-		
+
 		try {
 			if(dbHasData(connection)) {
 				File xmlFile = new File(XML_FILE_PATH);
@@ -60,7 +70,7 @@ public class HomeJdbcDaoImpl implements HomeDao {
 
 							// It's executed every 1000 items because some JDBC drivers 
 							// and/or DBs may have a limitation on batch length.
-							if (records % 1000 == 0 || records == users.size()) {
+							if (records % 1000 == 0 || records <= users.size()) {
 								statement.executeBatch();
 								connection.commit();
 							}
@@ -74,14 +84,18 @@ public class HomeJdbcDaoImpl implements HomeDao {
 							System.out.println(user);
 						}
 						importStatus = "Successfully imported "+(users.size() - usersNotImported.size())+" uesrs.\nCould not import "+usersNotImported.size()+" users due to data inconsistency.";
+					} else {
+						importStatus = "Successfully imported "+(users.size())+" uesrs.";
 					}
 				} else {
-					throw new EmptyXmlFileException();
+					throw new EmptyUsersDataFileException("XML");
 				}
 			} else {
 				throw new UsersAlreadyExistException();
 			}
 
+		} catch (JAXBException e) {
+			e.printStackTrace();
 		} finally {
 			try {
 				if(statement != null)
