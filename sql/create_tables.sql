@@ -1,3 +1,6 @@
+CFEATE database projectdatabase;
+use projectdatabase;
+#execute 2nd line when you are working on database ,then you will not get any error while referring a table
 CREATE TABLE `users` (
   `ID` int NOT NULL,
   `Name` varchar(45) NOT NULL,
@@ -7,7 +10,8 @@ CREATE TABLE `users` (
   `Role` enum('Admin','Manager','Member') DEFAULT NULL,
   `Password` varchar(45) NOT NULL,
   `LastLogin` datetime DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Email_UNIQUE` (`Email`)
 )
 
 CREATE TABLE `meetingroom` (
@@ -19,7 +23,7 @@ CREATE TABLE `meetingroom` (
   `NumberOfFeedbacks` int NOT NULL,
   PRIMARY KEY (`MeetingRoomId`),
   UNIQUE KEY `Name_UNIQUE` (`Name`)
-) 
+)
 
 CREATE TABLE `meeting` (
   `MeetingId` int NOT NULL AUTO_INCREMENT,
@@ -60,13 +64,20 @@ CREATE TABLE `projectdatabase`.`feedback` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-    CREATE TABLE `meeting_room_amenities` (
+CREATE TABLE `amenities` (
+  `AmenityId` int NOT NULL,
+  `AmenityName` varchar(45) DEFAULT NULL,
+  `AmenityCost` decimal(4,2) DEFAULT NULL,
+  PRIMARY KEY (`AmenityId`)
+);
+
+CREATE TABLE `meeting_room_amenities` (
   `AmenityId` int NOT NULL,
   `MeetingRoomId` int NOT NULL,
   PRIMARY KEY (`AmenityId`,`MeetingRoomId`),
   KEY `MeetingRoomId_idx` (`MeetingRoomId`),
   CONSTRAINT `AmenityId` FOREIGN KEY (`AmenityId`) REFERENCES `amenities` (`AmenityId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `MeetingRoomId` FOREIGN KEY (`MeetingRoomId`) REFERENCES `meetingroom` (`MeetingRoomId`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `MeetingRoomConstraint` FOREIGN KEY (`MeetingRoomId`) REFERENCES `meetingroom` (`MeetingRoomId`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE `attendee` (
@@ -78,9 +89,3 @@ CREATE TABLE `attendee` (
   CONSTRAINT `UserID` FOREIGN KEY (`UserId`) REFERENCES `users` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE `amenities` (
-  `AmenityId` int NOT NULL,
-  `AmenityName` varchar(45) DEFAULT NULL,
-  `AmenityCost` decimal(4,2) DEFAULT NULL,
-  PRIMARY KEY (`AmenityId`)
-);
