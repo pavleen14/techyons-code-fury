@@ -14,13 +14,13 @@ import java.util.Arrays;
 
 public class MeetingRoom {
 
-	int meetingRoomId;
-	String meetingRoomName;
-	int seatingCapacity;
-	float rating;
-	String[] Amenities;
-	int creditsPerHour;
-	int noOfFeedbacks;
+	private int meetingRoomId;
+	private String meetingRoomName;
+	private int seatingCapacity;
+	private float rating;
+	private String[] Amenities;
+	private int creditsPerHour;
+	private int noOfFeedbacks;
 	/*
 	using the below data type only for implementing JDBC, 
 	because my local DB has amenities in String Type : this needs to be deleted later
@@ -29,6 +29,16 @@ public class MeetingRoom {
 	String amenities; 
 	// constructors
 
+	public MeetingRoom(String meetingRoomName, int seatingCapacity, String[] amenities,
+			int creditsPerHour, int rating, int noOfFeedbacks) {
+		this.meetingRoomName = meetingRoomName;
+		this.seatingCapacity = seatingCapacity;
+		this.Amenities = amenities;
+		this.creditsPerHour = creditsPerHour;
+		this.rating = rating;
+		this.noOfFeedbacks = noOfFeedbacks;
+	}
+	
 	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, float rating, String[] amenities,
 			int creditsPerHour, int noOfFeedbacks) {
 		super();
@@ -36,19 +46,19 @@ public class MeetingRoom {
 		this.meetingRoomName = meetingRoomName;
 		this.seatingCapacity = seatingCapacity;
 		this.rating = rating;
-		Amenities = amenities;
+		this.Amenities = amenities;
 		this.creditsPerHour = creditsPerHour;
 		this.noOfFeedbacks = noOfFeedbacks;
 	}
 	
-	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, String[] amenities,
+	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity,String[] amenities,
 			int creditsPerHour) {
 		super();
 		this.meetingRoomId = meetingRoomId;
 		this.meetingRoomName = meetingRoomName;
 		this.seatingCapacity = seatingCapacity;
 		this.rating = 0;
-		Amenities = amenities;
+		this.Amenities = amenities;
 		this.creditsPerHour = creditsPerHour;
 		this.noOfFeedbacks =0;
 		}
@@ -167,5 +177,9 @@ public class MeetingRoom {
 				+ Arrays.toString(Amenities) + ", creditsPerHour=" + creditsPerHour + ", noOfFeedbacks=" + noOfFeedbacks
 				+ "]";
 	}
+
+	
+
+	
 
 }

@@ -11,7 +11,6 @@
 <h2>All Available Rooms</h2>
     <table border="1">
         <tr>
-            <th>Room Id</th>
             <th>Room Name</th>
             <th>Rating</th>
             <th>Amenities Available</th>
@@ -21,7 +20,7 @@
         <e:forEach items="${room}" var="room">
             <e:set var="eid" value="${room.meetingRoomId}" />
             <tr>
-                <td>${room.meetingRoomId}</td>
+               
                 <td>${room.meetingRoomName}</td>
                 <td>${room.rating}</td>
   <%--   commenting for JDBC part only, to be used when stored procedures are implemented 
