@@ -6,11 +6,21 @@ import java.sql.Connection;
 
 import com.hsbc.meets.exception.InvalidPropFileException;
 
-
+/**
+ * Establishes connection with the database
+ * 
+ * @author rishi
+ *
+ */
 public class Connectivity {
 	public static Connection connection = null;
 	public static SQLConnectionCredentials credentials = null;
 	
+	/**
+	 * Creates connection if doesn't already exists
+	 * 
+	 * @return Connection object
+	 */
 	public static Connection getConnection() {
 		try {
 			if(connection == null) {
@@ -26,6 +36,9 @@ public class Connectivity {
 		return connection;
 	}
 
+	/**
+	 * Closes the connection.
+	 */
 	public static void closeConnection() {
 		try {
 			if(connection != null) {

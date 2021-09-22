@@ -61,7 +61,9 @@ public class Validator {
 	}
 
 	/**
-	 * Validates user's phone format
+	 * Validates user's phone number format.
+	 * Must start with +91,
+	 * followed by 10 digits(starting with either 7, 8 or 9).
 	 * 
 	 * @param phone to be validated
 	 * @return true if phone is in correct format
@@ -78,7 +80,8 @@ public class Validator {
 	}
 
 	/**
-	 * Validates if user's credits and role
+	 * Validates if user's credits are
+	 * valid for it's role.
 	 * 
 	 * @param role of user
 	 * @param credits of user
@@ -98,14 +101,15 @@ public class Validator {
 
 	/**
 	 * Checks if password matches given criteria:
-	 * 1. At least one upper case alphabet
-	 * 2. At least one lower case alphabet
-	 * 3. At least one digit
-	 * 4. At least one secial character
-	 * 	- allowed special characters: @, #, $, %, ^, &, -, +, =, (, )
-	 * 5. Password length between 8-20 charactes
+	 * <ol> 
+	 * 	<li>At least one upper case alphabet</li>
+	 * 	<li> At least one lower case alphabet</li>
+	 * 	<li> At least one digit</li>
+	 * 	<li> At least one secial character</li> - allowed special characters: @, #, $, %, ^, &, -, +, =, (, )
+	 * 	<li> Password length between 8-20 charactes</li>
+	 * </ol>
 	 * 
-	 * @param password
+	 * @param password of user
 	 * 
 	 * @return boolean based on if password is valid or not
 	 */
