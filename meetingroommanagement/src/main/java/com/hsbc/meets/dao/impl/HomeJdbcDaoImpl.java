@@ -28,6 +28,7 @@ import com.hsbc.meets.util.XmlParser;
  */
 public class HomeJdbcDaoImpl implements HomeDao {
 
+	private static final String SELECT_USERS_BY_NAME_SQL = "SELECT ID, Name, Email FROM users WHERE Name LIKE ?";
 	private static final String CHECK_ROWS_IN_USERS_SQL = "SELECT COUNT(*) FROM users";
 	private static final String INSERT_USERS_DATA_SQL = "INSERT INTO users (ID, Name, Email, Phone, Credits, Role, Password) VALUES(?,?,?,?,?,?,?)";
 	private static final String XML_FILE_PATH = "src/main/webapp/resources/users.xml";
@@ -115,4 +116,28 @@ public class HomeJdbcDaoImpl implements HomeDao {
 
 		return rs.next() && rs.getInt(1) == 0;
 	}
+
+	@Override
+	public List<User> searchUserByName(String searchString) throws SQLException {
+		List<User> matchedUsers = new ArrayList<>();
+		User user = null;
+		Connection connection = Connectivity.getConnection();
+		
+		PreparedStatement statement = connection.prepareStatement(SELECT_USERS_BY_NAME_SQL);
+		statement.setString(1, searchString+"%");
+		
+		ResultSet resultSet = statement.executeQuery();
+		
+		while(resultSet.next())
+		{
+			user = new User();
+			user.setUserId(resultSet.getInt("ID"));
+			user.setName(resultSet.getString("Name"));
+			user.setEmail(resultSet.getString("Email"));
+			matchedUsers.add(user);
+		}
+		
+		return matchedUsers;
+	}
+
 }

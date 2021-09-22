@@ -40,13 +40,13 @@ public class Connectivity {
 	 * Closes the connection.
 	 */
 	public static void closeConnection() {
-		try {
-			if(connection != null) {
+		if(connection != null) {
+			try {
 				connection.close();
 				System.out.println("Connection closed.");
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 }

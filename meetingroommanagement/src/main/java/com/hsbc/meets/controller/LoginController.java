@@ -15,6 +15,7 @@ import com.hsbc.meets.entity.User;
 import com.hsbc.meets.exception.InvalidCredentialsException;
 import com.hsbc.meets.factory.LoginFactory;
 import com.hsbc.meets.service.LoginService;
+import com.hsbc.meets.util.Connectivity;
 
 /**
  * This is Login Controller handling authentication and authorization of user 
@@ -87,6 +88,15 @@ public class LoginController extends HttpServlet {
 				e1.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * Closes the Connection.
+	 */
+	@Override
+	public void destroy() {
+		Connectivity.closeConnection();
+		super.destroy();
 	}
 
 }

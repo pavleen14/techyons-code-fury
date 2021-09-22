@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hsbc.meets.factory.HomeFactory;
 import com.hsbc.meets.service.HomeService;
+import com.hsbc.meets.util.Connectivity;
 
 /**
  * Handles the requests to
@@ -24,12 +25,24 @@ import com.hsbc.meets.service.HomeService;
 @WebServlet("/")
 public class HomeController extends HttpServlet {
 	/**
-	 * Forwards the request control to homepage.
+	 * <ol>
+	 * 	<li>Returns list of users if
+	 * 		'search' parameter is sent in request.</li>
+	 * 	<li>Forwards the request control to homepage if 'search' is null.</li>
+	 * </ol>
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("views/home.jsp");
-		dispatcher.forward(req, resp);
+		String searchString = req.getParameter("search");
+		
+		if(searchString != null) {
+			HomeService service = HomeFactory.getHomeService();
+			String matchedUsersJsonString = service.searchUsersByName(searchString);
+			resp.getWriter().write(matchedUsersJsonString);
+		} else {
+			RequestDispatcher dispatcher = req.getRequestDispatcher("views/home.jsp");
+			dispatcher.forward(req, resp);
+		}
 	}
 
 	/**
@@ -44,5 +57,14 @@ public class HomeController extends HttpServlet {
 		String importStatus = service.importUsers();
 
 		resp.getWriter().write(importStatus);
+	}
+	
+	/**
+	 * Closes the Connection.
+	 */
+	@Override
+	public void destroy() {
+		Connectivity.closeConnection();
+		super.destroy();
 	}
 }

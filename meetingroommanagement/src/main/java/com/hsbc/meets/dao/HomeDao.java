@@ -2,7 +2,9 @@ package com.hsbc.meets.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.hsbc.meets.entity.User;
 import com.hsbc.meets.exception.EmptyUsersDataFileException;
 import com.hsbc.meets.exception.UsersAlreadyExistException;
 
@@ -37,4 +39,16 @@ public interface HomeDao {
 	 * @throws SQLException
 	 */
 	public boolean dbHasData(Connection connection) throws SQLException;
+	
+	/**
+	 * Searches for users in database
+	 * whose name starts with the
+	 * given search string
+	 * 
+	 * @param searchString to search users by Name
+	 * @return list of users whose name 
+	 * 		   starts with the provided search string
+	 * @throws SQLException
+	 */
+	public List<User> searchUserByName(String searchString) throws SQLException;
 }
