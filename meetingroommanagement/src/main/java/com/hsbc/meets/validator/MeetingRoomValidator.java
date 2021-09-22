@@ -1,6 +1,8 @@
 package com.hsbc.meets.validator;
 
+import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalid;
+import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInvalidException;
 
 public class MeetingRoomValidator {
 	
@@ -18,6 +20,36 @@ public class MeetingRoomValidator {
 			}
 		}
 		return true;
+	}
+	
+	private static boolean validateMeetingRoomSeatingCapacity(int seatingCapacity) throws MeetingRoomSeatingCapacityInvalidException {
+		if(seatingCapacity>=6 && seatingCapacity<=250) {
+			return true;
+		}
+		throw new MeetingRoomSeatingCapacityInvalidException();
+	}
+
+
+	private static boolean validateMeetingRoomAmenities(String[] amenities) throws MeetingRoomAmenitiesInvalidException{
+		if(amenities.length<2 || amenities.length>7) {
+			throw new MeetingRoomAmenitiesInvalidException();
+		}
+//		ArrayList<Integer> amenitiesIdList = new ArrayList<Integer>();
+//		for(String amenitie: amenities) {
+//			if(MeetingRoomDaoFactory.getMeetingRoomDaoObject().getAminitieIdByAminitieName(amenitie)==-1) {
+//				throw new MeetingRoomAmenitiesInvalidException();
+//			}
+//		}
+		return true;
+	}
+
+
+	public static boolean validateMeetingRoom(String meetingRoomName, int seatingCapacity, String[] amenities) throws MeetingRoomNameInvalid, MeetingRoomSeatingCapacityInvalidException, MeetingRoomAmenitiesInvalidException{
+		if(MeetingRoomValidator.validateMeetingRoomName(meetingRoomName) && MeetingRoomValidator.validateMeetingRoomSeatingCapacity(seatingCapacity) && MeetingRoomValidator.validateMeetingRoomAmenities(amenities)) {
+			return true;
+		}
+		return false;
+
 	}
 
 }
