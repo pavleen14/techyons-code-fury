@@ -7,6 +7,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * This Connection factory is used for establishing 
+ * connection with the Database.  
+ * 
+ * @author PavleenKaur
+ *
+ *
+ */
 public class ConnectionFactory {
 	
 	public static Properties loadPropertiesFile() throws Exception {

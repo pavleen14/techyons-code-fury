@@ -14,6 +14,14 @@ import com.hsbc.meets.dao.impl.MeetingRoomImpl;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.factory.MeetingRoomFactory;
 
+/**
+ * The class is the Controller class
+ * for the entity meeting Room. 
+ * 
+ * @author PavleenKaur
+ * @author ShubhraBhuniaGhosh
+ *
+ */
 
 @WebServlet("/roomController/*")
 public class MeetingRoomController extends HttpServlet {

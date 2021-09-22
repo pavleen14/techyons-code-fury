@@ -4,6 +4,13 @@ import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalid;
 import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInvalidException;
 
+/**
+ * The class contains the different validations which have
+ * been applied while creating and editing meeting rooms.   
+ * 
+ * @author PavleenKaur
+ *
+ */
 public class MeetingRoomValidator {
 	
 	private static boolean validateMeetingRoomName(String name) throws MeetingRoomNameInvalid {

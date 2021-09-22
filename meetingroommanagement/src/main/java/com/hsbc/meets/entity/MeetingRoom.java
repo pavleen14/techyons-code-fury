@@ -1,13 +1,16 @@
-/**
- * This entity sub-package stores the classes such as MeetingRoom which
- * represents the logical components of the application. 
- * 
- * @author pavleen 
- * @since 0.0.1
- */
 package com.hsbc.meets.entity;
 
 import java.util.Arrays;
+
+/**
+ * The is the entity class for the Meeting Room 
+ * which is the basic logical component
+ * of the application. 
+ * 
+ * @author PavleenKaur
+ * @author ShubhraBhuniaGhosh
+ *
+ */
 
 public class MeetingRoom {
 
