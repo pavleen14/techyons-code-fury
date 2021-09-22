@@ -1,8 +1,8 @@
+package com.hsbc.meets.exception;
 /**
+ * This Exception is thrown when Meeting room name already exists in the database in the respected table.
  * @author ShubhraBhuniaGhosh
  */
-package com.hsbc.meets.exception;
-
 public class MeetingRoomNameAlreadyExistException extends Exception {
 	@Override
 	public String toString() {

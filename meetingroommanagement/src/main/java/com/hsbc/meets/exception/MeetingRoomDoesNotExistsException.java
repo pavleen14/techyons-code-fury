@@ -1,8 +1,8 @@
+package com.hsbc.meets.exception;
 /**
+ * This exception is thrown when selected meeting room doesn't exists.
  * @author ShubhraBhuniaGhosh
  */
-package com.hsbc.meets.exception;
-
 public class MeetingRoomDoesNotExistsException extends Exception {
 	@Override
 	public String toString() {

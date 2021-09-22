@@ -1,10 +1,9 @@
-/**
- * @author ShubhraBhuniaGhosh
- */
 package com.hsbc.meets.entity;
 
 import java.util.List;
-
+/**
+ * @author ShubhraBhuniaGhosh
+ */
 public class MeetingRoom {
 	private int meetingRoomId;
 	private String meetingRoomName;
@@ -13,9 +12,6 @@ public class MeetingRoom {
 	private int creditsPerHour;
 	private int rating;
 	private int noOfFeedbacks;
-	
-	
-
 	
 	public MeetingRoom(String meetingRoomName, int seatingCapacity, List<String> amenities) {
 		this.meetingRoomName = meetingRoomName;

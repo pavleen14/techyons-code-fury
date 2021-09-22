@@ -1,6 +1,3 @@
-/**
- * @author ShubhraBhuniaGhosh
- */
 package com.hsbc.meets.service.impl;
 
 import java.util.ArrayList;
@@ -16,41 +13,30 @@ import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInalidException;
 import com.hsbc.meets.factory.MeetingRoomDaoFactory;
 import com.hsbc.meets.service.MeetingRoomService;
 import com.hsbc.meets.validation.MeetingRoomValidation;
-
+/**
+ * This class implements all the methods declared in {@link MeetingRoomService}
+ * @author ShubhraBhuniaGhosh
+ *
+ */
 public class MeetingRoomServiceImpl implements MeetingRoomService{
 
-	public void createNewMeetingRoom(String name, int seatingCapacity, List<String> amenities) {
-		/*
-		 * Check for validity
-		 * If valid
-		 * 		Calculate the new credit per hour
-		 * 		Pass it to the dao layer
-		 * 		set rating = 0 and noOfFeedback = 0
-		 * 		create object
-		 * 		pass to dao to store
-		 *If not valid
-		 *		Throw exception
-		 */
-	}
-
-	public boolean editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities,
+	/**
+	 * @author ShubhraBhuniaGhosh
+	 */
+	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities,
 			int creditsPerHour, int rating, int noOfFeedbacks) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomNameAlreadyExistException{
 
-		MeetingRoomDao dao = null;
-		if(MeetingRoomValidation.validateMeetingRoom(meetingRoomName, seatingCapacity, amenities)) {
+		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		int numberOfRowsUpdate = 0;
+		if(MeetingRoomValidation.validateMeetingRoom(dao, meetingRoomId, meetingRoomName, seatingCapacity, amenities)) {
 			MeetingRoom newMeetingRoom = new MeetingRoom(meetingRoomId,meetingRoomName, seatingCapacity, amenities,creditsPerHour,rating,noOfFeedbacks);
-			dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
-			int numberOfRowsUpdate = 0;
 			numberOfRowsUpdate+=dao.updateMeetingRoomById(newMeetingRoom);
 			dao.deleteAmenitiesByMeetingRoomById(newMeetingRoom.getMeetingRoomId());
-			for(String amenitie:amenities) {
-				numberOfRowsUpdate+=dao.insertAmenitieByMeetingRoomById(meetingRoomId, amenitie);
-			}
-			if(numberOfRowsUpdate==(amenities.size()+1)) {
-				return true;
+			for(String amenityName:amenities) {
+				numberOfRowsUpdate+=dao.insertAmenityInAmenityMeetingRoomById(meetingRoomId, amenityName);
 			}
 		}
-		return false;
+		return numberOfRowsUpdate;
 	}
 
 
@@ -88,12 +74,12 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 //		return rating;
 //
 //	}
-//	public static void main(String[] args) throws MeetingRoomDoesNotExistsException, MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomNameAlreadyExistException {
-//		ArrayList<String> arr = new ArrayList<String>();
-//		arr.add("projector");
-//		arr.add("wifi connection");
-//		MeetingRoomServiceImpl m= new MeetingRoomServiceImpl();
-//		System.out.println(m.editMeetingRoom(7, "papadkon", 66, arr, 0, 0, 0));
-//	}
+	public static void main(String[] args) throws MeetingRoomDoesNotExistsException, MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomNameAlreadyExistException {
+		ArrayList<String> arr = new ArrayList<String>();
+		arr.add("conference call facility");
+		arr.add("whiteboard");
+		MeetingRoomServiceImpl m= new MeetingRoomServiceImpl();
+		System.out.println(m.editMeetingRoom(55, "pakodnora", 33, arr, 0, 0, 0));
+	}
 
 }

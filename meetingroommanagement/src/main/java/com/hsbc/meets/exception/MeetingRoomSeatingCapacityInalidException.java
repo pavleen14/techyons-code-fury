@@ -1,8 +1,8 @@
+package com.hsbc.meets.exception;
 /**
+ * This Exception is thrown when Seating capacity mentioned is invalid.
  * @author ShubhraBhuniaGhosh
  */
-package com.hsbc.meets.exception;
-
 public class MeetingRoomSeatingCapacityInalidException extends Exception {
 	@Override
 	public String toString() {
