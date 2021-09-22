@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.hsbc.meets.dao.MeetingRoomIntf;
+import com.hsbc.meets.dao.MeetingRoomDao;
 import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
 import com.hsbc.meets.factory.ConnectionFactory;
 
-public class MeetingRoomImpl implements MeetingRoomIntf {
+public class MeetingRoomDbDaoImpl implements MeetingRoomDao {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -20,7 +20,7 @@ public class MeetingRoomImpl implements MeetingRoomIntf {
 	List<MeetingRoom> roomList = new ArrayList<>();
 	final String viewAllRooms = "select * from meetingroom";
 	final String addMeetingRoomQuery = "insert into meetingroom values(?,?,?,?,?)";
-	public MeetingRoomImpl() {
+	public MeetingRoomDbDaoImpl() {
 //  Commenting out the hard-coded data part which was used previously
 //		String amenities1[] = { "Projector", "Wifi-Connection" };
 //		String amenities2[] = { "Whiteboard", "WaterDispenser" };

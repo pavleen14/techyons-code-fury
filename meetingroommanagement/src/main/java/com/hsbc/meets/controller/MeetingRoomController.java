@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hsbc.meets.dao.impl.MeetingRoomImpl;
+import com.hsbc.meets.dao.impl.MeetingRoomDbDaoImpl;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
-import com.hsbc.meets.factory.MeetingRoomFactory;
+import com.hsbc.meets.factory.MeetingRoomServiceFactory;
 
 /**
  * The class is the Controller class
@@ -26,12 +26,12 @@ import com.hsbc.meets.factory.MeetingRoomFactory;
 @WebServlet("/roomController/*")
 public class MeetingRoomController extends HttpServlet {
 
-	MeetingRoomImpl dao;
+	MeetingRoomDbDaoImpl dao;
 	ServletContext context;
 //	MeetingRoomFactory factory; 
 
 	public void init() throws ServletException {
-		dao = new MeetingRoomImpl();
+		dao = new MeetingRoomDbDaoImpl();
 		context = this.getServletContext();
 	}
 
@@ -46,14 +46,14 @@ public class MeetingRoomController extends HttpServlet {
 
 			if (path.equals("list")) {
 		
-				MeetingRoomFactory.serviceFactory().showAllMeetingRooms(req, resp);
+				MeetingRoomServiceFactory.serviceFactory().showAllMeetingRooms(req, resp);
 				
 			} else if(path.equals("create")) {
 				req.getRequestDispatcher("/addNewRoom.jsp").forward(req, resp);
 			}
 			else if (path.equals("add")) {
 				try {
-					MeetingRoomFactory.serviceFactory().addMeetingRoom(req, resp);
+					MeetingRoomServiceFactory.serviceFactory().addMeetingRoom(req, resp);
 
 				} catch (MeetingRoomAlreadyExistsException r) {
 

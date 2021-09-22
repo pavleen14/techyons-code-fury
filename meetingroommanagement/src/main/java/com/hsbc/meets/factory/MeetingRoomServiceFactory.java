@@ -9,7 +9,7 @@ import com.hsbc.meets.service.impl.MeetingRoomServiceImpl;
  *
  *
  */
-public class MeetingRoomFactory {
+public class MeetingRoomServiceFactory {
 		
 		public static MeetingRoomServiceImpl serviceFactory() {
 			

@@ -8,13 +8,13 @@ package com.hsbc.meets.exception;
  *
  *
  */
-public class MeetingRoomNameInvalid extends Exception{
+public class MeetingRoomNameInvalidException extends Exception{
 
-	public MeetingRoomNameInvalid() {
+	public MeetingRoomNameInvalidException() {
 		super();
 	}
 
-	public MeetingRoomNameInvalid (String message) {
+	public MeetingRoomNameInvalidException (String message) {
 		super(message);
 	}
 

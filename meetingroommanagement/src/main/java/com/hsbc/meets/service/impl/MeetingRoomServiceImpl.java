@@ -7,16 +7,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hsbc.meets.dao.impl.MeetingRoomImpl;
+import com.hsbc.meets.dao.impl.MeetingRoomDbDaoImpl;
 import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
-import com.hsbc.meets.service.MeetingRoomServiceIntf;
+import com.hsbc.meets.service.MeetingRoomService;
 
-public class MeetingRoomServiceImpl implements MeetingRoomServiceIntf{
-	MeetingRoomImpl dao;
+public class MeetingRoomServiceImpl implements MeetingRoomService{
+	MeetingRoomDbDaoImpl dao;
 
 	public MeetingRoomServiceImpl(){
-		dao = new MeetingRoomImpl();
+		dao = new MeetingRoomDbDaoImpl();
 	}
 
 	@Override

@@ -9,4 +9,4 @@
  * @since 0.0.1l
  *
  */
-package com.hsbc.meets.validator;
+package com.hsbc.meets.validation;

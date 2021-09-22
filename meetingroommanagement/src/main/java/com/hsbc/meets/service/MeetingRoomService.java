@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 
-public interface MeetingRoomServiceIntf{
+public interface MeetingRoomService{
 	
 	public void showAllMeetingRooms(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException;

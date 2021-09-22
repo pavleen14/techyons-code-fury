@@ -13,7 +13,7 @@ import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
 
-public interface MeetingRoomIntf {
+public interface MeetingRoomDao {
 
 	public MeetingRoom addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException;
 
