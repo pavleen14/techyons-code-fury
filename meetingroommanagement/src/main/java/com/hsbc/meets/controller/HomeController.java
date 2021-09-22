@@ -13,8 +13,10 @@ import com.hsbc.meets.factory.HomeFactory;
 import com.hsbc.meets.service.HomeService;
 
 /**
- * This controller handles the requests from 
- * the Home Page of our application
+ * Handles the requests to
+ * GET Home page of the application and
+ * import users from XML to database.
+ * 
  * @author rishi
  *
  */
@@ -22,21 +24,25 @@ import com.hsbc.meets.service.HomeService;
 @WebServlet("/")
 public class HomeController extends HttpServlet {
 	/**
-	 * This method forwards GET request to the Home Page
+	 * Forwards the request control to homepage.
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("views/home.jsp");
 		dispatcher.forward(req, resp);
 	}
-	
+
 	/**
-	 * This method handles the import users requests
+	 * Fetches the instance of appropriate service class
+	 * to handle import users request. 
+	 * 
+	 * @return import status message of XML file to database
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HomeService service = HomeFactory.getHomeService();
-		boolean usersImported = service.importUsers();
-		// TODO return PrintWrite me true
+		String importStatus = service.importUsers();
+
+		resp.getWriter().write(importStatus);
 	}
 }

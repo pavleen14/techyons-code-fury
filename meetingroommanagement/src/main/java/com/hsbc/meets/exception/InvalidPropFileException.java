@@ -46,4 +46,5 @@ public class InvalidPropFileException extends Exception {
 			return super.toString();
 		}
 	}
+
 }
