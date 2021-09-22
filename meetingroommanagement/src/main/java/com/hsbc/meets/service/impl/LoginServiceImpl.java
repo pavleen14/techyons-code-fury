@@ -19,7 +19,6 @@ public class LoginServiceImpl implements LoginService {
 		User authenticatedUser = null;
 		if (!validator.validateEmail(email) && !validator.validatePassword(password)) {
 			throw new InvalidCredentialsException();
-
 		} else {
 			LoginDao loginDao = LoginFactory.getLoginDao();
 			authenticatedUser = loginDao.validate(email, Encryption.md5(password));
@@ -27,5 +26,4 @@ public class LoginServiceImpl implements LoginService {
 		return authenticatedUser;
 
 	}
-
 }
