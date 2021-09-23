@@ -11,7 +11,7 @@ import com.hsbc.meets.service.impl.MeetingRoomServiceImpl;
  */
 public class MeetingRoomServiceFactory {
 		
-		public static MeetingRoomServiceImpl serviceFactory() {
+		public static MeetingRoomServiceImpl getService() {
 			
 			MeetingRoomServiceImpl meetService = new MeetingRoomServiceImpl();
 			

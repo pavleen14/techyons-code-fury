@@ -20,28 +20,20 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 	}
 
 	@Override
-	public void showAllMeetingRooms(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		List<MeetingRoom> elist = dao.showAllMeetingRooms();
-		req.setAttribute("elist", elist);
-		req.getRequestDispatcher("/roomlist.jsp").forward(req, resp);
+	public List<MeetingRoom> showAllMeetingRooms()
+			throws IOException {
 		
+		List<MeetingRoom> elist = dao.showAllMeetingRooms();
+		return elist;
 	}
 
 	@Override
-	public void addMeetingRoom(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException, MeetingRoomAlreadyExistsException {
+	public void addMeetingRoom(int roomId,String roomName , int roomCapacity , String[] roomAmenities)
+			throws IOException, MeetingRoomAlreadyExistsException {
 
 		int roomCredits = 0; 
 		int creditsPerHour = 0; 
 		int sumOfAmenities =0; 
-		
-
-
-		int roomId = Integer.parseInt(req.getParameter("mid"));
-		String roomName = req.getParameter("mname");
-		int roomCapacity = Integer.parseInt(req.getParameter("mcapacity"));
-		String[] roomAmenities = req.getParameterValues("amenities");
  
 		if(roomCapacity <=5)
 			roomCredits = 0; 
@@ -71,7 +63,6 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		
 		MeetingRoom room = new MeetingRoom(roomId,roomName, roomCapacity, roomAmenities, creditsPerHour);
 		dao.addMeetingRoom(room);
-		showAllMeetingRooms(req, resp);
 	}
 
 }

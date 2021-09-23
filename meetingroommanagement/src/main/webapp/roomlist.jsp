@@ -29,7 +29,7 @@
                 <td>${room.creditsPerHour}</td>
                 <td>${room.noOfFeedbacks}</td>                
                 
-                <td><a href="../roomController/${room.meetingRoomId}">Edit Room Details</a></td>
+                <td><a href="/admin?option=edit" >${room.meetingRoomId}">Edit Room Details</a></td>
             </tr>
         </e:forEach>
     </table>
