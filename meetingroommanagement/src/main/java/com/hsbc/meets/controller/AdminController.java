@@ -34,13 +34,10 @@ public class AdminController extends HttpServlet {
 		String option = req.getParameter("option");
 		
 		if (option == null) {
-			option = "";
-		}
-		
-		if( option.equals("list")) {
+			req.getRequestDispatcher("/admin.jsp").forward(req, resp);
+		} else if( option.equals("list")) {
 			req.getRequestDispatcher("/meetingroom").forward(req, resp);
-		}
-		else if( option.equals("create") ) {
+		} else if( option.equals("create") ) {
 			req.getRequestDispatcher("/addNewRoom.jsp").forward(req, resp);
 		} else if( option.equals("edit") ) {
 			//req.getRequestDispatcher("/editroom.jsp").forward(req, resp);

@@ -3,14 +3,17 @@ package com.hsbc.meets.service.impl;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.hsbc.meets.dao.MeetingRoomDao;
 import com.hsbc.meets.dao.impl.MeetingRoomDbDaoImpl;
 import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
+import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
+import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
+import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
+import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInalidException;
+import com.hsbc.meets.factory.MeetingRoomDaoFactory;
 import com.hsbc.meets.service.MeetingRoomService;
+import com.hsbc.meets.validation.MeetingRoomValidation;
 
 public class MeetingRoomServiceImpl implements MeetingRoomService{
 	MeetingRoomDbDaoImpl dao;
@@ -63,6 +66,25 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		
 		MeetingRoom room = new MeetingRoom(roomId,roomName, roomCapacity, roomAmenities, creditsPerHour);
 		dao.addMeetingRoom(room);
+	}
+
+	@Override
+	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities,
+			int creditsPerHour, int rating, int noOfFeedbacks)
+			throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException,
+			MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException {
+		
+		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		int numberOfRowsUpdate = 0;
+		if(MeetingRoomValidation.validateMeetingRoom(dao, meetingRoomId, meetingRoomName, seatingCapacity, amenities)) {
+//			MeetingRoom newMeetingRoom = new MeetingRoom(meetingRoomId,meetingRoomName, seatingCapacity, amenities,creditsPerHour,rating,noOfFeedbacks);
+//			numberOfRowsUpdate+=dao.updateMeetingRoomById(newMeetingRoom);
+//			dao.deleteAmenitiesByMeetingRoomById(newMeetingRoom.getMeetingRoomId());
+//			for(String amenityName:amenities) {
+//				numberOfRowsUpdate+=dao.insertAmenityInAmenityMeetingRoomById(meetingRoomId, amenityName);
+//			}
+		}
+		return numberOfRowsUpdate;
 	}
 
 }
