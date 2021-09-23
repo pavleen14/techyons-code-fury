@@ -9,25 +9,31 @@ import com.hsbc.meets.exception.InvalidCredentialsException;
 /**
  * Helps implement DAO classes which
  * intends to handle the data on login page.
- * @author welcome
+ * 
+ * @author Muskan
  *
  */
 
 public interface LoginDao {
+	
 	/**
-	 * This method is for validating user credentials
+	 * Validates user credentials from database.
+	 * 
 	 * @param email
 	 * @param encryptedPassword
-	 * @return authenticated user object
-	 * @throws InvalidCredentialsException
+	 * @return User object after successful authentication
+	 * @throws InvalidCredentialsException when authentication fails
 	 */
-	public User validate(String email,String encryptedPassword)throws SQLException,ClassNotFoundException, InvalidCredentialsException;
+	public User validate(String email,String encryptedPassword) throws SQLException,ClassNotFoundException, InvalidCredentialsException;
+	
+	
 	/**
-	 * This method is for updating the last logged in for authenticated user 
-	 * @param id
-	 * @param con
+	 * Updates the last login to current timestamp
+	 * after successful authentication
+	 * @param id of user
+	 * @param connection to database
 	 *
 	 */
-	public void updateLastLogin(int id, Connection con) throws SQLException;
+	public void updateLastLogin(int id, Connection connection) throws SQLException;
 
 }

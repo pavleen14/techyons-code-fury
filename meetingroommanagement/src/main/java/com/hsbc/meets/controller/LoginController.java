@@ -18,24 +18,25 @@ import com.hsbc.meets.service.LoginService;
 import com.hsbc.meets.util.Connectivity;
 
 /**
- * This is Login Controller handling authentication and authorization of user 
+ * Handling authentication and authorization of user 
+ * 
  * @author Muskan
  *
  */
-
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	/**
-	 * This method forward the Login page for the get request of login page
+	 * Forward the request control to login page.
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("views/login.jsp");
 		dispatcher.forward(req, resp);
 	}
+
 	/**
-	 * This method takes email and password for user 
-	 * authentication and forwards it to the authorized page
+	 * Authenticates user and forwards it to the 
+	 * page based on their Role in their organization.
 	 */
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) {
@@ -44,14 +45,15 @@ public class LoginController extends HttpServlet {
 		String password = req.getParameter("password");
 
 		LoginService service = LoginFactory.getLoginService();
-		User user;
-		HttpSession session = null;
+		HttpSession session = req.getSession();
+		User user = null;
+
 		try {
 			user = service.authentication(email, password);
-			String destPage = "";
-			session = req.getSession();
+			
 			session.setAttribute("user", user);
-			destPage = user.getRole().toString().toLowerCase();
+			
+			String destPage = user.getRole().toString().toLowerCase();
 			try {
 				resp.sendRedirect(destPage);
 			} catch (IOException e) {
@@ -59,10 +61,11 @@ public class LoginController extends HttpServlet {
 			}
 		} catch (InvalidCredentialsException e) {
 			e.printStackTrace();
+			
 			try {
-				session = req.getSession();
 				session.setAttribute("email", email);
-				session.setAttribute("message", "Invalid Credentials");
+				session.setAttribute("message", "Invalid credentials");
+				
 				RequestDispatcher dispatcher =  req.getRequestDispatcher("views/login.jsp");
 				try {
 					dispatcher.forward(req, resp);
@@ -74,10 +77,11 @@ public class LoginController extends HttpServlet {
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
+			
 			try {
-				session = req.getSession();
 				session.setAttribute("email", email);
-				session.setAttribute("message", "Something went wrong!!! Try again later");
+				session.setAttribute("message", "Something went wrong.\nTry again later.");
+				
 				RequestDispatcher dispatcher =  req.getRequestDispatcher("views/login.jsp");
 				try {
 					dispatcher.forward(req, resp);
@@ -91,7 +95,7 @@ public class LoginController extends HttpServlet {
 	}
 
 	/**
-	 * Closes the Connection.
+	 * Closes the connection.
 	 */
 	@Override
 	public void destroy() {

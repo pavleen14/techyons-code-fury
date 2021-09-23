@@ -15,15 +15,17 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public User authentication(String email, String password)
 			throws InvalidCredentialsException, ClassNotFoundException, SQLException {
+		
 		Validator validator = new Validator();
 		User authenticatedUser = null;
-		if (!validator.validateEmail(email) && !validator.validatePassword(password)) {
-			throw new InvalidCredentialsException();
-		} else {
+		
+		if (validator.validateEmail(email) && validator.validatePassword(password)) {
 			LoginDao loginDao = LoginFactory.getLoginDao();
 			authenticatedUser = loginDao.validate(email, Encryption.md5(password));
+		} else {
+			throw new InvalidCredentialsException();
 		}
+		
 		return authenticatedUser;
-
 	}
 }

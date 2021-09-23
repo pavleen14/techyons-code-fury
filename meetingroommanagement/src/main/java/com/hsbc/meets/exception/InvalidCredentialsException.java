@@ -1,7 +1,8 @@
 package com.hsbc.meets.exception;
 
 /**
- * Generates when user enters invalid credentials .
+ * Generated when user enters invalid credentials.
+ * 
  * @author Muskan
  *
  */

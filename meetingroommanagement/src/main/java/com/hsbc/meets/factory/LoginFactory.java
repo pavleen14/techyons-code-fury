@@ -13,23 +13,23 @@ import com.hsbc.meets.service.impl.LoginServiceImpl;
  *
  */
 public class LoginFactory {
+	
 	/**
-	 * This method is to get an object of dao class implementing login dao.
-	 * @return
+	 * @return object of a dao class implementing LoginDao.
 	 */
 	public static LoginDao getLoginDao()
 	{
 		LoginDao dao = new LoginJdbcDaoImpl();
 		return dao;
 	}
+	
+	
     /**
-     * This method is to get an object of service class implementing login service
-     * @return
+     * @return object of a service class implementing LoginService.
      */
 	public static LoginService getLoginService()
 	{
 		LoginService service = new LoginServiceImpl();
 		return service;
-
 	}
 }

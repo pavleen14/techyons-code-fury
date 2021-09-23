@@ -17,9 +17,7 @@
 	</div>
 	<div id="roomdetails">Meeting room</div>
 	<script type="text/javascript">
-	
-	</html>
-	
+		
 		function importUsers() {
 			let xhttp = new XMLHttpRequest();
 			let method = "POST";
