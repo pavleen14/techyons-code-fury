@@ -1,5 +1,10 @@
 package com.hsbc.meets.util;
-import java.security.NoSuchAlgorithmException;  
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.hsbc.meets.factory.LoggerFactory;
+
 import java.security.MessageDigest;  
 
 /**
@@ -9,6 +14,7 @@ import java.security.MessageDigest;
  *
  */
 public class Encryption {
+	static Logger logger = LoggerFactory.getLogger();
 	
 	/**
 	 * Applies MD5 encryption to
@@ -44,7 +50,7 @@ public class Encryption {
 		}   
 		catch (NoSuchAlgorithmException e)   
 		{  
-			e.printStackTrace();  
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}  
 
 		return encryptedPassword;

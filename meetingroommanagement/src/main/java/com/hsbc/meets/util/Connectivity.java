@@ -2,9 +2,12 @@ package com.hsbc.meets.util;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.sql.Connection;
 
 import com.hsbc.meets.exception.InvalidPropFileException;
+import com.hsbc.meets.factory.LoggerFactory;
 
 /**
  * Establishes connection with the database
@@ -15,6 +18,7 @@ import com.hsbc.meets.exception.InvalidPropFileException;
 public class Connectivity {
 	public static Connection connection = null;
 	public static SQLConnectionCredentials credentials = null;
+	static Logger logger = LoggerFactory.getLogger();
 	
 	/**
 	 * Creates connection if doesn't already exists
@@ -27,10 +31,10 @@ public class Connectivity {
 				credentials = SQLConnectionCredentials.readCredentials();
 				Class.forName(credentials.getDriverName());
 				connection = DriverManager.getConnection(credentials.getUrl(), credentials.getUsername(), credentials.getPassword());
-				System.out.println("Connection extablished to DB.");
+				logger.log(Level.INFO, "Connection extablished to DB.");
 			}
 		} catch (ClassNotFoundException | SQLException | InvalidPropFileException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return connection;
@@ -43,9 +47,9 @@ public class Connectivity {
 		if(connection != null) {
 			try {
 				connection.close();
-				System.out.println("Connection closed.");
+				logger.log(Level.INFO, "Connection closed.");
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 	}

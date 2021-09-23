@@ -47,4 +47,10 @@ public class InvalidPropFileException extends Exception {
 		}
 	}
 
+	/**
+	 * @return the error message
+	 */
+	public String getMessage() {
+		return this.toString();
+	}
 }

@@ -7,6 +7,14 @@ package com.hsbc.meets.exception;
  *
  */
 public class InvalidCredentialsException extends Exception {
+	
+	/**
+	 * @return the error message
+	 */
+	public String getMessage() {
+		return this.toString();
+	}
+	
 	@Override
 	public String toString()
 	{

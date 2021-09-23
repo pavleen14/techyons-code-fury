@@ -1,13 +1,17 @@
 package com.hsbc.meets.dao.impl;
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.hsbc.meets.dao.LoginDao;
 import com.hsbc.meets.entity.User;
 import com.hsbc.meets.exception.InvalidCredentialsException;
+import com.hsbc.meets.factory.LoggerFactory;
 import com.hsbc.meets.util.Connectivity;
+import com.hsbc.meets.util.Query;
 import com.hsbc.meets.util.Role;
 
 /**
@@ -17,22 +21,18 @@ import com.hsbc.meets.util.Role;
  *
  */
 public class LoginJdbcDaoImpl implements LoginDao {
+	static Logger logger = LoggerFactory.getLogger();
 	
-	private static final String SELECT_USER_IF_AUTHENTICATED_SQL = "SELECT ID, Name, Email, Phone, Credits, Role, LastLogin FROM users WHERE Email=? AND Password=?";
-	private static final String UPDATE_LAST_LOGIN_TO_CURRENT_TIMESTAMP = "UPDATE users SET LastLogin=CURRENT_TIMESTAMP() WHERE ID=?";
-
 	@Override
 	public User validate(String email, String encryptedPassword) throws SQLException, InvalidCredentialsException
 	{
 		Connection connection = Connectivity.getConnection();
 		User user= null;
 
-		PreparedStatement statement = connection.prepareStatement(SELECT_USER_IF_AUTHENTICATED_SQL);
+		CallableStatement statement = connection.prepareCall(Query.LOGIN_SELECT_USER_IF_AUTHENTICATED_SQL.getQuery());
 		statement.setString(1,email);
 		statement.setString(2,encryptedPassword);
 		
-//		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 		ResultSet resultSet = statement.executeQuery();
 				
 		if(resultSet.next())
@@ -59,18 +59,18 @@ public class LoginJdbcDaoImpl implements LoginDao {
 	@Override
 	public void updateLastLogin(int id, Connection connection) throws SQLException
 	{
-		PreparedStatement statement = connection.prepareStatement(UPDATE_LAST_LOGIN_TO_CURRENT_TIMESTAMP);
+		CallableStatement statement = connection.prepareCall(Query.LOGIN_UPDATE_LAST_LOGIN_TO_CURRENT_TIMESTAMP.getQuery());
 		statement.setInt(1, id);
 		
 		int rowsUpdated = statement.executeUpdate();
 		
 		if(rowsUpdated == 1)
 		{
-			System.out.println("Last login updated!");
+			logger.log(Level.INFO, "Logged in userId: " + id);
 		}
 		else
 		{
-			System.out.println("Error updating last login for userId: " + id);
+			logger.log(Level.INFO, "Error updating last login for userId: " + id);
 		}
 	}
 }

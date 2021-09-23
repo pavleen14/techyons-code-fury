@@ -16,9 +16,16 @@ public class EmptyUsersDataFileException extends Exception {
 	public EmptyUsersDataFileException(String fileType) {
 		this.fileType = fileType;
 	}
-
+	
+	/**
+	 * @return the error message
+	 */
+	public String getMessage() {
+		return this.toString();
+	}
+	
 	@Override
 	public String toString() {
-		return "No data found in " + fileType + " file to add";
+		return this.toString();
 	}
 }

@@ -1,10 +1,13 @@
 package com.hsbc.meets.util;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hsbc.meets.entity.User;
+import com.hsbc.meets.factory.LoggerFactory;
 
 /**
  * Deals with data transformation.
@@ -13,6 +16,7 @@ import com.hsbc.meets.entity.User;
  *
  */
 public class Converter {
+	static Logger logger = LoggerFactory.getLogger();
 	
 	/**
 	 * Converts list of User objects to a JSON string.
@@ -26,7 +30,7 @@ public class Converter {
 		try {
 			userDetailsStr = mapper.writeValueAsString(users);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return userDetailsStr;		
 	}

@@ -2,6 +2,8 @@ package com.hsbc.meets.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.hsbc.meets.entity.User;
 import com.hsbc.meets.exception.InvalidCredentialsException;
+import com.hsbc.meets.factory.LoggerFactory;
 import com.hsbc.meets.factory.LoginFactory;
 import com.hsbc.meets.service.LoginService;
 import com.hsbc.meets.util.Connectivity;
@@ -25,6 +28,8 @@ import com.hsbc.meets.util.Connectivity;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+	static Logger logger = LoggerFactory.getLogger();
+	
 	/**
 	 * Forward the request control to login page.
 	 */
@@ -57,10 +62,10 @@ public class LoginController extends HttpServlet {
 			try {
 				resp.sendRedirect(destPage);
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, e.getMessage(), e);
 			}
 		} catch (InvalidCredentialsException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 			
 			try {
 				session.setAttribute("email", email);
@@ -70,13 +75,13 @@ public class LoginController extends HttpServlet {
 				try {
 					dispatcher.forward(req, resp);
 				} catch (ServletException e1) {
-					e1.printStackTrace();
+					logger.log(Level.SEVERE, e1.getMessage(), e1);
 				}
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				logger.log(Level.SEVERE, e1.getMessage(), e1);
 			}
 		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 			
 			try {
 				session.setAttribute("email", email);
@@ -86,10 +91,10 @@ public class LoginController extends HttpServlet {
 				try {
 					dispatcher.forward(req, resp);
 				} catch (ServletException e1) {
-					e1.printStackTrace();
+					logger.log(Level.SEVERE, e.getMessage(), e1);
 				}
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				logger.log(Level.SEVERE, e.getMessage(), e1);
 			}
 		}
 	}

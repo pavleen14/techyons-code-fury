@@ -2,12 +2,15 @@ package com.hsbc.meets.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.hsbc.meets.dao.HomeDao;
 import com.hsbc.meets.entity.User;
 import com.hsbc.meets.exception.EmptyUsersDataFileException;
 import com.hsbc.meets.exception.UsersAlreadyExistException;
 import com.hsbc.meets.factory.HomeFactory;
+import com.hsbc.meets.factory.LoggerFactory;
 import com.hsbc.meets.service.HomeService;
 import com.hsbc.meets.util.Converter;
 
@@ -19,6 +22,7 @@ import com.hsbc.meets.util.Converter;
  */
 
 public class HomeServiceImpl implements HomeService {
+	static Logger logger = LoggerFactory.getLogger();
 	
 	public String importUsers() {
 		HomeDao dao = HomeFactory.getHomeDao();
@@ -28,13 +32,13 @@ public class HomeServiceImpl implements HomeService {
 			importStatus = dao.importUsers();	
 		} catch (UsersAlreadyExistException e) {
 			importStatus = "Users already imported";
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		} catch (EmptyUsersDataFileException e) {
 			importStatus = "No data available to import";
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		} catch (SQLException e) {
 			importStatus = "Error occured while importing users";
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		} 
 
 		return importStatus;
@@ -49,7 +53,7 @@ public class HomeServiceImpl implements HomeService {
 			List<User> matchedUsers = dao.searchUserByName(searchString);
 			matchedUsersJsonString.append(Converter.objectToJsonString(matchedUsers));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 				
 		return matchedUsersJsonString.toString();
