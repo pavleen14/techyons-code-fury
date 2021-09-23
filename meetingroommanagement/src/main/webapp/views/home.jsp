@@ -22,17 +22,15 @@
 	
 		function importUsers() {
 			let xhttp = new XMLHttpRequest();
-			let url = "http://localhost:8080/meetingroommanagement/"
-			xhttp.open("POST", url);
-			//xhttp.send();
+			let method = "POST";
+			let url = "http://localhost:8080/meetingroommanagement/";
+			xhttp.open(method, url);
+			xhttp.send();
 
 			xhttp.onload = function() {
-				let usersImported = xhttp.responseText;
-				if(usersImported == "true") {
-					// TODO show user popup saying "Users imported successfully"
-				} else if(usersImported == "false") {
-					// TODO show user popup saying "Users already added to DB"
-				}
+				let importStatus = xhttp.responseText;
+				console.log(importStatus);
+				// TODO show popup to user with importStatus as messaage
 			}
 		}
 		

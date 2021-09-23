@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hsbc.meets.factory.HomeFactory;
 import com.hsbc.meets.service.HomeService;
+import com.hsbc.meets.util.Connectivity;
 
 /**
- * This controller handles the requests from 
- * the Home Page of our application
+ * Handles the requests to
+ * GET Home page of the application and
+ * import users from XML to database.
+ * 
  * @author rishi
  *
  */
@@ -22,21 +25,46 @@ import com.hsbc.meets.service.HomeService;
 @WebServlet("/")
 public class HomeController extends HttpServlet {
 	/**
-	 * This method forwards GET request to the Home Page
+	 * <ol>
+	 * 	<li>Returns list of users if
+	 * 		'search' parameter is sent in request.</li>
+	 * 	<li>Forwards the request control to homepage if 'search' is null.</li>
+	 * </ol>
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("views/home.jsp");
-		dispatcher.forward(req, resp);
+		String searchString = req.getParameter("search");
+		
+		if(searchString != null) {
+			HomeService service = HomeFactory.getHomeService();
+			String matchedUsersJsonString = service.searchUsersByName(searchString);
+			resp.getWriter().write(matchedUsersJsonString);
+		} else {
+			RequestDispatcher dispatcher = req.getRequestDispatcher("views/home.jsp");
+			dispatcher.forward(req, resp);
+		}
 	}
-	
+
 	/**
-	 * This method handles the import users requests
+	 * Fetches the instance of appropriate service class
+	 * to handle import users request. 
+	 * 
+	 * @return import status message of XML file to database
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HomeService service = HomeFactory.getHomeService();
-		boolean usersImported = service.importUsers();
-		// TODO return PrintWrite me true
+		String importStatus = service.importUsers();
+
+		resp.getWriter().write(importStatus);
+	}
+	
+	/**
+	 * Closes the Connection.
+	 */
+	@Override
+	public void destroy() {
+		Connectivity.closeConnection();
+		super.destroy();
 	}
 }
