@@ -72,13 +72,13 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 
 	public void addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException{
 		try (
-			PreparedStatement pstmt = con.prepareStatement(INSERT_MEETING_ROOM_SQL);			
+				CallableStatement stmt  = con.prepareCall(INSERT_MEETING_ROOM_SQL);			
 		)
 		{
-			pstmt.setString(1, meetingRoom.getMeetingRoomName());
-			pstmt.setInt(2, meetingRoom.getSeatingCapacity());
+			stmt.setString(1, meetingRoom.getMeetingRoomName());
+			stmt.setInt(2, meetingRoom.getSeatingCapacity());
 			
-			pstmt.execute();
+			stmt.execute();
 
 			/**
 			 * NOTE : From Alan
@@ -100,10 +100,10 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	 * @author ShubhraBhuniaGhosh
 	 */
 	public int updateMeetingRoomById(MeetingRoom newMeetingRoom) throws MeetingRoomDoesNotExistsException {
-		PreparedStatement stmt = null;
+		CallableStatement stmt = null;
 		int numberOfRowsUpdate  = -1;
 		try {
-			stmt = con.prepareStatement(UPDATE_MEETING_ROOM_BY_ID_SQL);
+			stmt = con.prepareCall(UPDATE_MEETING_ROOM_BY_ID_SQL);
 			stmt.setString(1, newMeetingRoom.getMeetingRoomName());
 			stmt.setInt(2, newMeetingRoom.getSeatingCapacity());
 			numberOfRowsUpdate = stmt.executeUpdate();
@@ -133,10 +133,10 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	 * @author ShubhraBhuniaGhosh
 	 */
 	public int deleteAmenitiesByMeetingRoomById(int meetingRoomId) {
-		PreparedStatement stmt = null;
+		CallableStatement stmt = null;
 		int numberOfRowsUpdate  = -1;
 		try {
-			stmt = con.prepareStatement(DELETE_AMENITIES_BY_MEETING_ROOM_ID_SQL);
+			stmt = con.prepareCall(DELETE_AMENITIES_BY_MEETING_ROOM_ID_SQL);
 			stmt.setInt(1,meetingRoomId);
 			numberOfRowsUpdate = stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -161,11 +161,11 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	 * @author ShubhraBhuniaGhosh
 	 */
 	public int getAmenityIdByAmenityName(String amenityName) throws MeetingRoomAmenitiesInvalidException{
-		PreparedStatement stmt = null;
+		CallableStatement stmt = null;
 		ResultSet resultSet = null;
 		int amenityId = -1;
 		try {
-			stmt = con.prepareStatement(GET_AMENITY_ID_BY_AMENITY_NAME);
+			stmt = con.prepareCall(GET_AMENITY_ID_BY_AMENITY_NAME);
 			stmt.setString(1, amenityName.toLowerCase());
 			resultSet = stmt.executeQuery();
 			if(resultSet.next()) {
@@ -203,11 +203,11 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	 * @author ShubhraBhuniaGhosh
 	 */
 	public int insertAmenitiesInAmenityMeetingRoomById(int meetingRoomId, List<String> amenities) throws MeetingRoomAmenitiesInvalidException{
-		PreparedStatement stmt = null;
+		CallableStatement stmt = null;
 		int numberOfRowsUpdate  = -1;
 //		int amenityId = getAmenityIdByAmenityName(amenityName);
 //		try {
-//			stmt = con.prepareStatement(INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL);
+//			stmt = con.prepareCall(INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL);
 //			stmt.setInt(1,amenityId);
 //			stmt.setInt(2, meetingRoomId);
 //			numberOfRowsUpdate = stmt.executeUpdate();
@@ -235,10 +235,10 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	 * @author ShubhraBhuniaGhosh
 	 */
 	public boolean checkMeetingRoomNameAlreadyExists(String meetingRoomName,int meetingRoomId) throws MeetingRoomAlreadyExistsException{
-		PreparedStatement stmt = null;
+		CallableStatement stmt = null;
 		ResultSet resultSet = null;
 		try {
-			stmt = con.prepareStatement(SELECT_MEETINGROOM_ID_FROM_MEETINGROOM_BY_NAME_SQL);
+			stmt = con.prepareCall(SELECT_MEETINGROOM_ID_FROM_MEETINGROOM_BY_NAME_SQL);
 			stmt.setString(1, meetingRoomName);
 			resultSet = stmt.executeQuery();
 			if(resultSet.next()) {
@@ -276,10 +276,10 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	 */
 	public List<String> getAllAmenities(){
 		List<String> amenities = null;
-		PreparedStatement stmt = null;
 		ResultSet resultSet = null;
+		CallableStatement stmt = null;
 		try {
-			stmt = con.prepareStatement(TO_GET_ALL_AMENITIES_SQL);
+			stmt = con.prepareCall(TO_GET_ALL_AMENITIES_SQL);
 			resultSet = stmt.executeQuery();
 			amenities = new ArrayList<String>();
 			while(resultSet.next()) {
@@ -317,7 +317,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 		ResultSet rs = null;
 		try 
 		{
-			stmt=con.prepareCall("{call sp_ShowAllMeetingRooms()}"); 
+			stmt=con.prepareCall(SELECT_ALL_ROOMS_SQL); 
 		    rs = stmt.executeQuery();
 			while (rs.next()) {
 
