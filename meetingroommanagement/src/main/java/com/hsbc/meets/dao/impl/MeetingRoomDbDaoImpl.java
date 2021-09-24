@@ -201,7 +201,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	/**
 	 * @author ShubhraBhuniaGhosh
 	 */
-	public int insertAmenitiesInAmenityMeetingRoomById(int meetingRoomId, List<String> amenityName) throws MeetingRoomAmenitiesInvalidException{
+	public int insertAmenitiesInAmenityMeetingRoomById(int meetingRoomId, List<String> amenities) throws MeetingRoomAmenitiesInvalidException{
 		PreparedStatement stmt = null;
 		int numberOfRowsUpdate  = -1;
 //		int amenityId = getAmenityIdByAmenityName(amenityName);
@@ -319,11 +319,13 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			pstmt = con.prepareStatement(SELECT_ALL_ROOMS_SQL);
 		    rs = pstmt.executeQuery();
 			while (rs.next()) {
-				/*using the below constructor only for implementing JDBC, 
-				because my local DB has amenities in String Type : this needs to be deleted later
-				when procedures/triggers will be implemented. 
+				/*Dummy value till we change dao 
 				 */
-				MeetingRoom meet = new MeetingRoom(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getFloat(4), rs.getString(5), rs.getInt(6), rs.getInt(7));
+				MeetingRoom meet = new MeetingRoom(
+						"name",
+						10,
+						new ArrayList<String>()
+						);
 				roomList.add(meet);		
 			}
 		} catch (SQLException e) {

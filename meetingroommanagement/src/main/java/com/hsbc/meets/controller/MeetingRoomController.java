@@ -60,12 +60,15 @@ public class MeetingRoomController extends HttpServlet {
 
 		MeetingRoomService meetingRoomService = MeetingRoomServiceFactory.getService();
 		try {
-			int roomId = Integer.parseInt(req.getParameter("mid"));
 			String roomName = req.getParameter("mname");
 			int roomCapacity = Integer.parseInt(req.getParameter("mcapacity"));
-			String[] roomAmenities = req.getParameterValues("amenities");
+			List<String> roomAmenities = new ArrayList<String>();
+			
+			for(String amenity : req.getParameterValues("amenities")) {
+				roomAmenities.add(amenity);
+			}
 	 
-			meetingRoomService.addMeetingRoom(roomId,roomName,roomCapacity,roomAmenities);
+			meetingRoomService.addMeetingRoom(roomName,roomCapacity,roomAmenities);
 			out.println(true);
 
 		} catch (MeetingRoomAlreadyExistsException r) {

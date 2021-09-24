@@ -15,7 +15,7 @@ public interface MeetingRoomService{
 	public List<MeetingRoom> showAllMeetingRooms()
 			throws IOException;
 	
-	public void addMeetingRoom(int roomId,String roomName , int capacity , String[] amenities)
+	public void addMeetingRoom(String roomName , int capacity , List<String> amenities)
 			throws IOException, MeetingRoomAlreadyExistsException;
 
 	/**

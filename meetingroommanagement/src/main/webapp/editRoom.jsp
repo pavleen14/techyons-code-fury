@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>Edit the Meeting Room !</h3>
-<form action="edit">
+<form action="meetingroom" method="POST">
    Meeting Room Name : 
    <input type="text"> <%= request.getParameter("mname")%><p>
    Capacity of the Room : 
@@ -22,6 +22,7 @@
    <input type="checkbox"  name="amenities" value="Coffee-Machine"> Coffee Machine 
    <input type ="submit" value ="Update">  
    <!-- this has to look like a button -->
+   <input type = "hidden" name="editflag" value="true"/>
    <a href="admin.jsp">Cancel</a>
   
 </form>

@@ -31,7 +31,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 	}
 
 	@Override
-	public void addMeetingRoom(int roomId,String roomName , int roomCapacity , String[] roomAmenities)
+	public void addMeetingRoom(String roomName , int roomCapacity , List<String> roomAmenities)
 			throws IOException, MeetingRoomAlreadyExistsException {
 
 		int roomCredits = 0; 
@@ -45,26 +45,26 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		else 
 			roomCredits = 20; 
 				
-		for(int i =0; i<roomAmenities.length; i++) {
-			if(roomAmenities[i].equalsIgnoreCase("Projector"))
+		for(String amenity : roomAmenities) {
+			if(amenity.equalsIgnoreCase("Projector"))
 					sumOfAmenities += 5; 
-			if(roomAmenities[i].equalsIgnoreCase("Wifi-Connection"))
+			if(amenity.equalsIgnoreCase("Wifi-Connection"))
 					sumOfAmenities += 10; 
-			if(roomAmenities[i].equalsIgnoreCase("Conference-Call-Facility"))
+			if(amenity.equalsIgnoreCase("Conference-Call-Facility"))
 				sumOfAmenities += 15;
-			if(roomAmenities[i].equalsIgnoreCase("White-Board"))
+			if(amenity.equalsIgnoreCase("White-Board"))
 				sumOfAmenities += 5; 
-			if(roomAmenities[i].equalsIgnoreCase("Water-Dispenser"))
+			if(amenity.equalsIgnoreCase("Water-Dispenser"))
 				sumOfAmenities += 5;
-			if(roomAmenities[i].equalsIgnoreCase("TV"))
+			if(amenity.equalsIgnoreCase("TV"))
 				sumOfAmenities += 10;
-			if(roomAmenities[i].equalsIgnoreCase("Coffee-Machine"))
+			if(amenity.equalsIgnoreCase("Coffee-Machine"))
 				sumOfAmenities += 10;
 		}
 		
 		creditsPerHour = roomCredits + sumOfAmenities; 
 		
-		MeetingRoom room = new MeetingRoom(roomId,roomName, roomCapacity, roomAmenities, creditsPerHour);
+		MeetingRoom room = new MeetingRoom(roomName, roomCapacity, roomAmenities);
 		dao.addMeetingRoom(room);
 	}
 

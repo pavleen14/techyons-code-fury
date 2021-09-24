@@ -164,7 +164,7 @@ public class MeetingRoomValidation {
 	 * @return
 	 */
 	public MeetingRoom getRoom() {
-		return new MeetingRoom(meetingRoomId, name, capacity, name, 0);
+		return new MeetingRoom(meetingRoomId, name, capacity, amenities);
 	}
 	
 	
