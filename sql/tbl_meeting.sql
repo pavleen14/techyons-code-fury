@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `meeting`;
+DROP TABLE IF EXISTS `tbl_meeting`;
 CREATE TABLE `tbl_meeting` (
   `MeetingId` int NOT NULL AUTO_INCREMENT,
   `Title` varchar(45) NOT NULL,
