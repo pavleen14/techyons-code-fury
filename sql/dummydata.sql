@@ -10,16 +10,16 @@ INSERT INTO `tbl_amenities` (`AmenityId`, `AmenityName`, `AmenityCost`) VALUES (
 INSERT INTO `tbl_amenities` (`AmenityId`, `AmenityName`, `AmenityCost`) VALUES ('7', 'coffee machine', '10');
 
 select * from tbl_users;
-insert into tbl_users values('user1','user1@gmail.com','9876523455',0,'Admin','password1',curdate());
-insert into tbl_users values('user2','user2@gmail.com','9876523455',0,'Admin','password2',curdate());
-insert into tbl_users values('user3','user3@gmail.com','9876523455',0,'Admin','password3',curdate());
-insert into tbl_users values('user4','user4@gmail.com','9876523455',2000,'Manager','password4',curdate());
-insert into tbl_users values('user5','user5@gmail.com','9876523455',2000,'Manager','password5',curdate());
-insert into tbl_users values('user6','user6@gmail.com','9876523455',2000,'Manager','password6',curdate());
-insert into tbl_users values('user7','user7@gmail.com','9876523455',0,'Member','password7',curdate());
-insert into tbl_users values('user8','user8@gmail.com','9876523455',0,'Member','password8',curdate());
-insert into tbl_users values('user9','user9@gmail.com','9876523455',0,'Member','password9',curdate());
-insert into tbl_users values('user10','user10@gmail.com','9876523455',0,'Member','password10',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user1','user1@gmail.com','9876523455',0,'Admin','password1',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user2','user2@gmail.com','9876523455',0,'Admin','password2',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user3','user3@gmail.com','9876523455',0,'Admin','password3',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user4','user4@gmail.com','9876523455',2000,'Manager','password4',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user5','user5@gmail.com','9876523455',2000,'Manager','password5',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user6','user6@gmail.com','9876523455',2000,'Manager','password6',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user7','user7@gmail.com','9876523455',0,'Member','password7',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user8','user8@gmail.com','9876523455',0,'Member','password8',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user9','user9@gmail.com','9876523455',0,'Member','password9',curdate());
+insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user10','user10@gmail.com','9876523455',0,'Member','password10',curdate());
 
 select * from tbl_meeting;
 insert into tbl_meeting values(ceiling(RAND()*1000000),'first meeting',4,'2021-01-23 12:45:56','2021-01-23 1:30:56','CONFERENCE_CALL',1,4);
