@@ -57,7 +57,7 @@
 				for(i=0;i<recievedRoomData.length;i++)
 					{
 					var roomDetails="";
-					roomDetails+= "<p>"+"Name :"+roomDetails[i].Name+"<br>"+"Seating Capacity :"+roomDetails[i].SeatingCapacity+"<br>"+"Total Meetings Conducted :"+roomDetails[i].NumberOfMeetings+"<br>"+"Ratings :"+roomDetails[i].Ratings+"</p>";
+					roomDetails+= "<p>"+"Name :"+recievedRoomData[i].Name+"<br>"+"Seating Capacity :"+recievedRoomData[i].SeatingCapacity+"<br>"+"Total Meetings Conducted :"+recievedRoomData[i].NumberOfMeetings+"<br>"+"Ratings :"+recievedRoomData[i].Ratings+"</p>";
 					roomid.insertAdjacentHTML('beforeend',roomDetails);
 					}
 			}
