@@ -29,7 +29,12 @@
                 <td>${room.creditsPerHour}</td>
                 <td>${room.noOfFeedbacks}</td>                
                 
+<<<<<<< Upstream, based on branch 'meeting-room' of https://github.com/TheForeverLost/techyons-code-fury.git
                 <td><a href="/admin?option=edit" >${room.meetingRoomName}">Edit Room Details</a></td>
+=======
+                <td><a href="/admin?option=edit" >${room.meetingRoomId}">Edit Room Details</a></td>
+                <td><a href="../roomController/${room.meetingRoomName}">Edit Room Details</a></td>
+>>>>>>> dc580c4 adding Callable statement for showAllMeetingRooms
             </tr>
         </e:forEach>
     </table>

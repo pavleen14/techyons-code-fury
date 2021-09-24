@@ -1,5 +1,6 @@
 package com.hsbc.meets.dao.impl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
+
 /**
  *This class implements all the methods declared in {@link MeetingRoomDao}
  * @author ShubhraBhuniaGhosh
@@ -33,9 +35,9 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	 * Database credentials 
 	 */
 	private static final String USER_NAME = "root";
-	private static final String PASSWORD = "root";	
+	private static final String PASSWORD = "root123";	
 	private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/projectdatabase";
+	private static final String URL = "jdbc:mysql://localhost:3306/project";
 
 	private Connection con;
 	
@@ -59,7 +61,6 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	 * @author ShubhraBhuniaGhosh
 	 */
 	protected void finalize()  {
-		//System.out.println("in distructor");
 		try {
 			if(con!=null) {
 				con.close();
@@ -312,13 +313,14 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	@Override
 	public List<MeetingRoom> showAllMeetingRooms() {
 		List<MeetingRoom> roomList = new ArrayList<>();
-		PreparedStatement pstmt = null;
+		CallableStatement stmt = null;
 		ResultSet rs = null;
 		try 
 		{
-			pstmt = con.prepareStatement(SELECT_ALL_ROOMS_SQL);
-		    rs = pstmt.executeQuery();
+			stmt=con.prepareCall("{call sp_ShowAllMeetingRooms()}"); 
+		    rs = stmt.executeQuery();
 			while (rs.next()) {
+
 				/*Dummy value till we change dao 
 				 */
 				MeetingRoom meet = new MeetingRoom(
@@ -326,14 +328,15 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 						10,
 						new ArrayList<String>()
 						);
+
 				roomList.add(meet);		
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(pstmt != null)
+			if(stmt != null)
 				try {
-					pstmt.close();
+					stmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
