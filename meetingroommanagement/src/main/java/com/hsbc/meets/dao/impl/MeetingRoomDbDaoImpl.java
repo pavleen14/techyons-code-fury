@@ -23,14 +23,14 @@ import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
  */
 public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 
-	private static final String TO_GET_ALL_AMENITIES_SQL = "SELECT AmenityName FROM amenities";
-	private static final String GET_AMENITY_ID_BY_AMENITY_NAME = "SELECT AmenityId FROM amenities WHERE AmenityName = ?";
-	private static final String DELETE_AMENITIES_BY_MEETING_ROOM_ID_SQL = "DELETE FROM meeting_room_amenities WHERE MeetingRoomId = ?";
-	private static final String SELECT_MEETINGROOM_ID_FROM_MEETINGROOM_BY_NAME_SQL = "SELECT MeetingRoomId FROM meetingroom WHERE Name=?";
-	private static final String INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL = "INSERT INTO meeting_room_amenities (AmenityId,MeetingRoomId) VALUES (?, ?)";
-	private static final String UPDATE_MEETING_ROOM_BY_ID_SQL = "UPDATE meetingroom SET Name = ?, SeatingCapacity = ? WHERE MeetingRoomId = ?";
-	private static final String INSERT_MEETING_ROOM_SQL = "INSERT INTO meetingroom (Name,SeatingCapacity) VALUES(?,?)";
-	private static final String SELECT_ALL_ROOMS_SQL = "SELECT * FROM meetingroom";
+	private static final String TO_GET_ALL_AMENITIES_SQL = "call sp_GetAmenityName()";
+	private static final String GET_AMENITY_ID_BY_AMENITY_NAME = "call sp_GetAmenityIdByAmenityName();";
+	private static final String DELETE_AMENITIES_BY_MEETING_ROOM_ID_SQL = "call sp_DeleteAmenitiesByMeetingRoomId(?)";
+	private static final String SELECT_MEETINGROOM_ID_FROM_MEETINGROOM_BY_NAME_SQL = "call sp_SelectMeetingRoomIdFromMeetingRoomByName(?)";
+	private static final String INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL = "call sp_InsertAmenityInMeetingRoomAmenities(?,?)";
+	private static final String UPDATE_MEETING_ROOM_BY_ID_SQL = "call sp_UpdateMeetingRoomById(?,?,?)";
+	private static final String INSERT_MEETING_ROOM_SQL = "call sp_AddMeetingRoom(?,?)";
+	private static final String SELECT_ALL_ROOMS_SQL = "call sp_DisplayMeetingRoomExceptId()";
 	/**
 	 * Database credentials 
 	 */
