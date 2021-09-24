@@ -69,21 +69,19 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 	}
 
 	@Override
-	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities,
-			int creditsPerHour, int rating, int noOfFeedbacks)
+	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities)
 			throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException,
 			MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException {
 		
 		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
 		int numberOfRowsUpdate = 0;
-		if(MeetingRoomValidation.validateMeetingRoom(dao, meetingRoomId, meetingRoomName, seatingCapacity, amenities)) {
-//			MeetingRoom newMeetingRoom = new MeetingRoom(meetingRoomId,meetingRoomName, seatingCapacity, amenities,creditsPerHour,rating,noOfFeedbacks);
-//			numberOfRowsUpdate+=dao.updateMeetingRoomById(newMeetingRoom);
-//			dao.deleteAmenitiesByMeetingRoomById(newMeetingRoom.getMeetingRoomId());
-//			for(String amenityName:amenities) {
-//				numberOfRowsUpdate+=dao.insertAmenityInAmenityMeetingRoomById(meetingRoomId, amenityName);
-//			}
-		}
+		MeetingRoomValidation validator = new MeetingRoomValidation(meetingRoomId,meetingRoomName,seatingCapacity,amenities); 
+		MeetingRoom room = validator.getRoom();
+		numberOfRowsUpdate += dao.updateMeetingRoomById(room);
+		dao.deleteAmenitiesByMeetingRoomById(meetingRoomId);
+		
+		
+		
 		return numberOfRowsUpdate;
 	}
 

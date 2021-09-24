@@ -58,11 +58,11 @@ public interface MeetingRoomDao {
 	 * In case it there is an unexpected event it returns -1.
 	 * 
 	 * @param meetingRoomId
-	 * @param amenityName
+	 * @param amenities
 	 * @return no of rows affected
 	 * @throws MeetingRoomAmenitiesInvalidException
 	 */
-	public int insertAmenityInAmenityMeetingRoomById(int meetingRoomId, String amenityName) throws MeetingRoomAmenitiesInvalidException;
+	public int insertAmenitiesInAmenityMeetingRoomById(int meetingRoomId, List<String> amenities) throws MeetingRoomAmenitiesInvalidException;
 	
 	/**
 	 * This method checks if meeting room name already exists in the database except in that data itself.

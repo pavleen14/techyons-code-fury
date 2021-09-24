@@ -201,31 +201,31 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	/**
 	 * @author ShubhraBhuniaGhosh
 	 */
-	public int insertAmenityInAmenityMeetingRoomById(int meetingRoomId, String amenityName) throws MeetingRoomAmenitiesInvalidException{
+	public int insertAmenitiesInAmenityMeetingRoomById(int meetingRoomId, List<String> amenityName) throws MeetingRoomAmenitiesInvalidException{
 		PreparedStatement stmt = null;
 		int numberOfRowsUpdate  = -1;
-		int amenityId = getAmenityIdByAmenityName(amenityName);
-		try {
-			stmt = con.prepareStatement(INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL);
-			stmt.setInt(1,amenityId);
-			stmt.setInt(2, meetingRoomId);
-			numberOfRowsUpdate = stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally
-		{
-			try
-			{
-				if(stmt != null)
-				{
-					stmt.close();
-				}
-			}
-			catch (SQLException e) 
-			{
-				e.printStackTrace();
-			}
-		}
+//		int amenityId = getAmenityIdByAmenityName(amenityName);
+//		try {
+//			stmt = con.prepareStatement(INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL);
+//			stmt.setInt(1,amenityId);
+//			stmt.setInt(2, meetingRoomId);
+//			numberOfRowsUpdate = stmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally
+//		{
+//			try
+//			{
+//				if(stmt != null)
+//				{
+//					stmt.close();
+//				}
+//			}
+//			catch (SQLException e) 
+//			{
+//				e.printStackTrace();
+//			}
+//		}
 		return numberOfRowsUpdate;
 	}
 

@@ -2,6 +2,7 @@ package com.hsbc.meets.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -14,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.hsbc.meets.dao.impl.MeetingRoomDbDaoImpl;
 import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
+import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
+import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
+import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
+import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInalidException;
 import com.hsbc.meets.factory.MeetingRoomServiceFactory;
 import com.hsbc.meets.service.MeetingRoomService;
 
@@ -69,7 +74,31 @@ public class MeetingRoomController extends HttpServlet {
 			out.print(false);
 		}
 		
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doPut(req, resp);
+		resp.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = resp.getWriter();
 		
+		MeetingRoomService meetingRoomService = MeetingRoomServiceFactory.getService();
+		int roomId = Integer.parseInt(req.getParameter("mid"));
+		String roomName = req.getParameter("mname");
+		int roomCapacity = Integer.parseInt(req.getParameter("mcapacity"));
+		List<String> roomAmenities = new ArrayList<String>();
+		
+		for(String amenity : req.getParameterValues("amenities")) {
+			roomAmenities.add(amenity);
+		}
+		
+		try {
+			meetingRoomService.editMeetingRoom(roomId, roomName, roomCapacity, roomAmenities);
+		} catch (MeetingRoomNameInvalidException | MeetingRoomSeatingCapacityInalidException
+				| MeetingRoomAmenitiesInvalidException | MeetingRoomDoesNotExistsException
+				| MeetingRoomAlreadyExistsException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

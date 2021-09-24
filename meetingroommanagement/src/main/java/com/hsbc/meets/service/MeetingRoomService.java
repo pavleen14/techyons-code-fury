@@ -28,9 +28,6 @@ public interface MeetingRoomService{
 	 * @param meetingRoomName
 	 * @param seatingCapacity
 	 * @param amenities
-	 * @param creditsPerHour
-	 * @param rating
-	 * @param noOfFeedbacks
 	 * @return no of rows updated
 	 * @throws MeetingRoomNameInvalidException
 	 * @throws MeetingRoomSeatingCapacityInalidException
@@ -38,7 +35,6 @@ public interface MeetingRoomService{
 	 * @throws MeetingRoomDoesNotExistsException
 	 * @throws MeetingRoomNameAlreadyExistException
 	 */
-	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities,
-			int creditsPerHour, int rating, int noOfFeedbacks) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException;
+	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException;
 
 }
