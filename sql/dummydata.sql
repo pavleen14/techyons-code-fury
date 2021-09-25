@@ -21,15 +21,15 @@ insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('
 insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user9','user9@gmail.com','9876523455',0,'Member','password9',curdate());
 insert into tbl_users(Name,Email,Phone,Credits,Role,Password,LastLogin) values('user10','user10@gmail.com','9876523455',0,'Member','password10',curdate());
 
-select * from tbl_meeting;
-insert into tbl_meeting values(ceiling(RAND()*1000000),'first meeting',4,'2021-01-23 12:45:56','2021-01-23 1:30:56','CONFERENCE_CALL',1,4);
-insert into tbl_meeting values(ceiling(RAND()*1000000),'second meeting',5,'2021-01-23 1:31:56','2021-01-23 2:00:56','CONFERENCE_CALL',2,5);
-insert into tbl_meeting values(ceiling(RAND()*1000000),'third meeting',6,'2021-01-23 2:01:56','2021-01-23 2:15:56','CONFERENCE_CALL',3,6);
-
 select * from tbl_meetingroom;
-insert into tbl_meetingroom(MeetingRoomId,Name,SeatingCapacity) values(ceiling(RAND()*1000000),'first meeting room',20);
-insert into tbl_meetingroom(MeetingRoomId,Name,SeatingCapacity) values(ceiling(RAND()*1000000),'second meeting room',20);
-insert into tbl_meetingroom(MeetingRoomId,Name,SeatingCapacity) values(ceiling(RAND()*1000000),'third meeting room',20);
+insert into tbl_meetingroom(MeetingRoomId,Name,SeatingCapacity) values(1,'first meeting room',20);
+insert into tbl_meetingroom(MeetingRoomId,Name,SeatingCapacity) values(2,'second meeting room',20);
+insert into tbl_meetingroom(MeetingRoomId,Name,SeatingCapacity) values(3,'third meeting room',20);
+
+select * from tbl_meeting;
+insert into tbl_meeting values(1,'first meeting',4,'2021-01-23 12:45:56','2021-01-23 1:30:56','CONFERENCE_CALL',1,4);
+insert into tbl_meeting values(2,'second meeting',5,'2021-01-23 1:31:56','2021-01-23 2:00:56','CONFERENCE_CALL',2,5);
+insert into tbl_meeting values(3,'third meeting',6,'2021-01-23 2:01:56','2021-01-23 2:15:56','CONFERENCE_CALL',3,6);
 
 select * from tbl_attendee;
 insert into tbl_attendee values(1,1);
