@@ -2,7 +2,10 @@ package com.hsbc.meets.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+
+import javax.servlet.ServletContext;
 
 import com.hsbc.meets.exception.InvalidPropFileException;
 
@@ -19,7 +22,7 @@ import com.hsbc.meets.exception.InvalidPropFileException;
  */
 public class SQLConnectionCredentials {
 
-	private final static String FILEPATH = "src/main/webapp/WEB-INF/connection.prop";
+	private final static String FILEPATH = "connection.prop";
 	
 	private String driverName;
 	private String url;
@@ -34,8 +37,10 @@ public class SQLConnectionCredentials {
 	 * @throws InvalidPropFileException if file not found or property not found 
 	 */
 	public static SQLConnectionCredentials readCredentials() throws InvalidPropFileException {
-		try {
-			FileInputStream fis = new FileInputStream(FILEPATH); 
+		try (
+			InputStream fis = SQLConnectionCredentials.class.getResourceAsStream(FILEPATH)
+		)
+		{
 			Properties properties = new Properties();
 
 			properties.load(fis);
@@ -66,10 +71,11 @@ public class SQLConnectionCredentials {
 				username,
 				password
 			);
-
+			
 		}catch(IOException e) {
 			throw new InvalidPropFileException(e);
 		}
+		
 
 	}
 
@@ -115,5 +121,16 @@ public class SQLConnectionCredentials {
 	 */
 	public String getPassword() {
 		return password;
+	}
+
+	public static void main(String[] args) {
+		try {
+			SQLConnectionCredentials cred = readCredentials();
+			System.out.println(cred.getDriverName());
+		} catch (InvalidPropFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
