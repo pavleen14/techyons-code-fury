@@ -5,7 +5,7 @@ DELIMITER $$
 USE `meeting_room_booking_db`$$
 CREATE PROCEDURE `sp_GetAllUsers` ()
 BEGIN
-	select * from tbl_users;
+	SELECT Name,Email FROM tbl_users;
 END$$
 
 DELIMITER ;

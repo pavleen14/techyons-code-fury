@@ -1,5 +1,5 @@
 USE `meeting_room_booking_db`;
-DROP procedure IF EXISTS `sp_GetAmenityIdByAmenityName`;
+DROP PROCEDURE IF EXISTS `sp_GetAmenityIdByAmenityName`;
 
 DELIMITER $$
 USE `meeting_room_booking_db`$$
