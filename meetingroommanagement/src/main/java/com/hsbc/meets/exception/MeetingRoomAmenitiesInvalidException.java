@@ -8,17 +8,20 @@ package com.hsbc.meets.exception;
  *
  */
 
-public class MeetingRoomAmenitiesInvalidException extends Exception {
+public class MeetingRoomAmenitiesInvalidException extends MeetingRoomInvalidException {
 	
 	public MeetingRoomAmenitiesInvalidException()
 	{
 		super();
-		
 	}
 	
 	public MeetingRoomAmenitiesInvalidException(String message)
 	{
 		super(message);
-		
+	}
+	
+	@Override
+	public String toString() {
+		return "You have added some invalided amenities";
 	}
 }

@@ -7,8 +7,6 @@
 <body>
 <h3>Fill in the details to add new meeting room !</h3>
 <form action="http://localhost:8080/meetingroommanagement/meetingroom" method=POST>
-   Meeting Room Id : 
-   <input type="text" name="mid" ><p>
    Meeting Room Name : 
    <input type="text" name="mname"><p>
    Capacity of the Room : 

@@ -79,15 +79,6 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			stmt.setInt(2, meetingRoom.getSeatingCapacity());
 			
 			stmt.execute();
-
-			/**
-			 * NOTE : From Alan
-			 * 
-			 * When we implement this using stored procedures
-			 * We will return a meeting room on room creation so that we have the
-			 * meeting room ID
-			 * 
-			 */
 			
 		} catch (SQLIntegrityConstraintViolationException se) {
 			throw new MeetingRoomAlreadyExistsException();
@@ -200,33 +191,26 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	}
 	
 	/**
-	 * @author ShubhraBhuniaGhosh
+	 * @author alan
 	 */
 	public int insertAmenitiesInAmenityMeetingRoomById(int meetingRoomId, List<String> amenities) throws MeetingRoomAmenitiesInvalidException{
-		CallableStatement stmt = null;
-		int numberOfRowsUpdate  = -1;
-//		int amenityId = getAmenityIdByAmenityName(amenityName);
-//		try {
-//			stmt = con.prepareCall(INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL);
-//			stmt.setInt(1,amenityId);
-//			stmt.setInt(2, meetingRoomId);
-//			numberOfRowsUpdate = stmt.executeUpdate();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally
-//		{
-//			try
-//			{
-//				if(stmt != null)
-//				{
-//					stmt.close();
-//				}
-//			}
-//			catch (SQLException e) 
-//			{
-//				e.printStackTrace();
-//			}
-//		}
+		int numberOfRowsUpdate  = 0;
+		
+		try (
+			CallableStatement stmt = con.prepareCall(INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL)
+		){
+			for(String amenity : amenities ) {
+				stmt.setString(1, amenity);
+				stmt.setInt(2,meetingRoomId);
+				stmt.addBatch();
+			}
+			int[] updateCountArray = stmt.executeBatch();
+			for(int x : updateCountArray) {
+				numberOfRowsUpdate += x;
+			}
+		} catch (SQLException e) {
+			throw new MeetingRoomAmenitiesInvalidException();
+		}
 		return numberOfRowsUpdate;
 	}
 

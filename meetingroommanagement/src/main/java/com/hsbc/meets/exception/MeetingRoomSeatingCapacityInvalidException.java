@@ -8,7 +8,7 @@ package com.hsbc.meets.exception;
  *
  *
  */
-public class MeetingRoomSeatingCapacityInvalidException extends Exception {
+public class MeetingRoomSeatingCapacityInvalidException extends MeetingRoomInvalidException {
 	
 	public MeetingRoomSeatingCapacityInvalidException() {
 		super();
@@ -16,6 +16,11 @@ public class MeetingRoomSeatingCapacityInvalidException extends Exception {
 	
 	public MeetingRoomSeatingCapacityInvalidException(String message) {
 		super(message);
+	}
+	
+	@Override
+	public String toString() {
+		return "The seating capacity is invalid";
 	}
 
 

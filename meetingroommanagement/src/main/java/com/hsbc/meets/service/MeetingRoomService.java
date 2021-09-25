@@ -8,7 +8,7 @@ import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
-import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInalidException;
+import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInvalidException;
 
 public interface MeetingRoomService{
 	
@@ -35,6 +35,6 @@ public interface MeetingRoomService{
 	 * @throws MeetingRoomDoesNotExistsException
 	 * @throws MeetingRoomNameAlreadyExistException
 	 */
-	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException;
+	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInvalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException;
 
 }

@@ -8,8 +8,8 @@ package com.hsbc.meets.exception;
  *
  *
  */
-public class MeetingRoomNameInvalidException extends Exception{
-
+public class MeetingRoomNameInvalidException extends MeetingRoomInvalidException{
+	
 	public MeetingRoomNameInvalidException() {
 		super();
 	}
@@ -17,5 +17,10 @@ public class MeetingRoomNameInvalidException extends Exception{
 	public MeetingRoomNameInvalidException (String message) {
 		super(message);
 	}
+	
+	@Override
+		public String toString() {
+			return "The meeting room name is invalid";
+		}
 
 }

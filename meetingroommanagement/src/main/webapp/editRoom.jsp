@@ -8,9 +8,9 @@
 <h3>Edit the Meeting Room !</h3>
 <form action="meetingroom" method="POST">
    Meeting Room Name : 
-   <input type="text"> <%= request.getParameter("mname")%><p>
+   <input type="text" name="mname"> <%= request.getParameter("mname")%><p>
    Capacity of the Room : 
-   <input type="text"><%= request.getParameter("mcapacity")%><p>
+   <input type="text" name="mcapacity"><%= request.getParameter("mcapacity")%><p>
    
    Edit Amenities :<%= request.getParameterValues("amenities")%>  are already present in the room.<p>
    <input type="checkbox"  name="amenities" value="Projector"> Projector  

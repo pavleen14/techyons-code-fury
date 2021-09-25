@@ -10,7 +10,7 @@ import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
-import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInalidException;
+import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInvalidException;
 import com.hsbc.meets.factory.MeetingRoomDaoFactory;
 import com.hsbc.meets.service.MeetingRoomService;
 import com.hsbc.meets.validation.MeetingRoomValidation;
@@ -35,8 +35,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 			throws IOException, MeetingRoomAlreadyExistsException {
 
 		int roomCredits = 0; 
-		int creditsPerHour = 0; 
-		int sumOfAmenities =0; 
+		int creditsPerHour = 0;
  
 		if(roomCapacity <=5)
 			roomCredits = 0; 
@@ -45,24 +44,8 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		else 
 			roomCredits = 20; 
 				
-		for(String amenity : roomAmenities) {
-			if(amenity.equalsIgnoreCase("Projector"))
-					sumOfAmenities += 5; 
-			if(amenity.equalsIgnoreCase("Wifi-Connection"))
-					sumOfAmenities += 10; 
-			if(amenity.equalsIgnoreCase("Conference-Call-Facility"))
-				sumOfAmenities += 15;
-			if(amenity.equalsIgnoreCase("White-Board"))
-				sumOfAmenities += 5; 
-			if(amenity.equalsIgnoreCase("Water-Dispenser"))
-				sumOfAmenities += 5;
-			if(amenity.equalsIgnoreCase("TV"))
-				sumOfAmenities += 10;
-			if(amenity.equalsIgnoreCase("Coffee-Machine"))
-				sumOfAmenities += 10;
-		}
 		
-		creditsPerHour = roomCredits + sumOfAmenities; 
+		creditsPerHour = roomCredits; 
 		
 		MeetingRoom room = new MeetingRoom(roomName, roomCapacity, roomAmenities);
 		dao.addMeetingRoom(room);
@@ -70,7 +53,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 
 	@Override
 	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities)
-			throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException,
+			throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInvalidException,
 			MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException {
 		
 		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
@@ -79,8 +62,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		MeetingRoom room = validator.getRoom();
 		numberOfRowsUpdate += dao.updateMeetingRoomById(room);
 		dao.deleteAmenitiesByMeetingRoomById(meetingRoomId);
-		
-		
+		dao.insertAmenitiesInAmenityMeetingRoomById(meetingRoomId, amenities);
 		
 		return numberOfRowsUpdate;
 	}

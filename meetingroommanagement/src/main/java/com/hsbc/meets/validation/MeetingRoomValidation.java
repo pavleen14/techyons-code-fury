@@ -8,7 +8,7 @@ import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
-import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInalidException;
+import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInvalidException;
 import com.hsbc.meets.factory.MeetingRoomDaoFactory;
 
 /**
@@ -39,7 +39,7 @@ public class MeetingRoomValidation {
 	 * @throws MeetingRoomSeatingCapacityInalidException 
 	 * @throws MeetingRoomNameInvalidException 
 	 */
-	public MeetingRoomValidation(int meetingRoomId, String name, int capacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomAlreadyExistsException {
+	public MeetingRoomValidation(int meetingRoomId, String name, int capacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInvalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomAlreadyExistsException {
 		super();
 		this.meetingRoomId = meetingRoomId;
 		this.name = name;
@@ -58,7 +58,7 @@ public class MeetingRoomValidation {
 	 * @throws MeetingRoomSeatingCapacityInalidException 
 	 * @throws MeetingRoomNameInvalidException 
 	 */
-	public MeetingRoomValidation( String name, int capacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomAlreadyExistsException {
+	public MeetingRoomValidation( String name, int capacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInvalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomAlreadyExistsException {
 		super();
 		this.meetingRoomId = -1;
 		this.name = name;
@@ -107,11 +107,11 @@ public class MeetingRoomValidation {
 	 * @return if the meeting room seating capacity is valid
 	 * @throws MeetingRoomSeatingCapacityInalidException
 	 */
-	private boolean validateMeetingRoomSeatingCapacity() throws MeetingRoomSeatingCapacityInalidException {
+	private boolean validateMeetingRoomSeatingCapacity() throws MeetingRoomSeatingCapacityInvalidException {
 		if(capacity>=6 && capacity<=250) {
 			return true;
 		}
-		throw new MeetingRoomSeatingCapacityInalidException();
+		throw new MeetingRoomSeatingCapacityInvalidException();
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class MeetingRoomValidation {
 	 * @throws MeetingRoomAmenitiesInvalidException
 	 * @throws MeetingRoomNameAlreadyExistException
 	 */
-	public boolean validateMeetingRoom() throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomAlreadyExistsException{
+	public boolean validateMeetingRoom() throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInvalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomAlreadyExistsException{
 		if(validateMeetingRoomName() && validateMeetingRoomSeatingCapacity() && validateMeetingRoomAmenities()) {
 			return true;
 		}
