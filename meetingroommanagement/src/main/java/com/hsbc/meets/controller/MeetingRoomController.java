@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.hsbc.meets.dao.impl.MeetingRoomDbDaoImpl;
 import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
+import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
 import com.hsbc.meets.exception.MeetingRoomInvalidException;
 import com.hsbc.meets.factory.MeetingRoomServiceFactory;
@@ -67,15 +68,12 @@ public class MeetingRoomController extends HttpServlet {
 			for(String amenity : req.getParameterValues("amenities")) {
 				roomAmenities.add(amenity);
 			}
-			try {
-					
+			try {		
 				meetingRoomService.addMeetingRoom(roomName,roomCapacity,roomAmenities);
-				out.println(true);
-
 			} catch (MeetingRoomAlreadyExistsException r) {
-
-				context.log("Meeting room already exists");
-				out.print(false);
+				r.printStackTrace();
+			} catch (MeetingRoomAmenitiesInvalidException e) {
+				e.printStackTrace();
 			}
 		} else {
 			resp.setContentType("application/json;charset=UTF-8");
@@ -92,35 +90,9 @@ public class MeetingRoomController extends HttpServlet {
 				meetingRoomService.editMeetingRoom(roomId, roomName, roomCapacity, roomAmenities);
 			} catch (MeetingRoomInvalidException | MeetingRoomDoesNotExistsException
 					| MeetingRoomAlreadyExistsException e) {
-				context.log("Meeting room edit failed");
-				out.print(false);
+				e.printStackTrace();
+				
 			}
 		}
 	}
-	
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPut(req, resp);
-		resp.setContentType("application/json;charset=UTF-8");
-		PrintWriter out = resp.getWriter();
-		
-		MeetingRoomService meetingRoomService = MeetingRoomServiceFactory.getService();
-		int roomId = Integer.parseInt(req.getParameter("mid"));
-		String roomName = req.getParameter("mname");
-		int roomCapacity = Integer.parseInt(req.getParameter("mcapacity"));
-		List<String> roomAmenities = new ArrayList<String>();
-		
-		for(String amenity : req.getParameterValues("amenities")) {
-			roomAmenities.add(amenity);
-		}
-		
-		try {
-			meetingRoomService.editMeetingRoom(roomId, roomName, roomCapacity, roomAmenities);
-		} catch (MeetingRoomInvalidException | MeetingRoomDoesNotExistsException
-				| MeetingRoomAlreadyExistsException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
 }

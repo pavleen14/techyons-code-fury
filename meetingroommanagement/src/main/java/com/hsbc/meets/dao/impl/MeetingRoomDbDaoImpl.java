@@ -23,21 +23,22 @@ import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
  */
 public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 
+	private static final String SELECT_MEETING_ROOM_FROM_ID = "CALL sp_GetMeetingRoom(?)";
 	private static final String TO_GET_ALL_AMENITIES_SQL = "call sp_GetAmenityName()";
-	private static final String GET_AMENITY_ID_BY_AMENITY_NAME = "call sp_GetAmenityIdByAmenityName();";
+	private static final String GET_AMENITY_ID_BY_AMENITY_NAME = "call sp_GetAmenityIdByAmenityName(?);";
 	private static final String DELETE_AMENITIES_BY_MEETING_ROOM_ID_SQL = "call sp_DeleteAmenitiesByMeetingRoomId(?)";
 	private static final String SELECT_MEETINGROOM_ID_FROM_MEETINGROOM_BY_NAME_SQL = "call sp_SelectMeetingRoomIdFromMeetingRoomByName(?)";
 	private static final String INSERT_AMENITY_IN_MEETING_ROOM_AMENITIES_SQL = "call sp_InsertAmenityInMeetingRoomAmenities(?,?)";
 	private static final String UPDATE_MEETING_ROOM_BY_ID_SQL = "call sp_UpdateMeetingRoomById(?,?,?)";
 	private static final String INSERT_MEETING_ROOM_SQL = "call sp_AddMeetingRoom(?,?)";
-	private static final String SELECT_ALL_ROOMS_SQL = "call sp_DisplayMeetingRoomExceptId()";
+	private static final String SELECT_ALL_ROOMS_SQL = "CALL sp_ShowAllMeetingRooms();";
 	/**
 	 * Database credentials 
 	 */
 	private static final String USER_NAME = "root";
-	private static final String PASSWORD = "root123";	
+	private static final String PASSWORD = "pasword";	
 	private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/project";
+	private static final String URL = "jdbc:mysql://localhost:3306/meeting_room_booking_db";
 
 	private Connection con;
 	
@@ -70,21 +71,34 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 		}
 	}
 
-	public void addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException{
+	public int addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException{
+		ResultSet rs = null;
 		try (
-				CallableStatement stmt  = con.prepareCall(INSERT_MEETING_ROOM_SQL);			
+			CallableStatement stmt  = con.prepareCall(INSERT_MEETING_ROOM_SQL);	
 		)
 		{
 			stmt.setString(1, meetingRoom.getMeetingRoomName());
 			stmt.setInt(2, meetingRoom.getSeatingCapacity());
 			
-			stmt.execute();
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
 			
 		} catch (SQLIntegrityConstraintViolationException se) {
 			throw new MeetingRoomAlreadyExistsException();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return -1;
 	}
 	
 	/**
@@ -97,6 +111,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			stmt = con.prepareCall(UPDATE_MEETING_ROOM_BY_ID_SQL);
 			stmt.setString(1, newMeetingRoom.getMeetingRoomName());
 			stmt.setInt(2, newMeetingRoom.getSeatingCapacity());
+			stmt.setInt(3, newMeetingRoom.getMeetingRoomId());
 			numberOfRowsUpdate = stmt.executeUpdate();
 			if(numberOfRowsUpdate==0) {
 				throw new MeetingRoomDoesNotExistsException();
@@ -157,7 +172,9 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 		int amenityId = -1;
 		try {
 			stmt = con.prepareCall(GET_AMENITY_ID_BY_AMENITY_NAME);
+			
 			stmt.setString(1, amenityName.toLowerCase());
+			System.out.println(amenityName.toLowerCase());
 			resultSet = stmt.executeQuery();
 			if(resultSet.next()) {
 				amenityId = resultSet.getInt(1);
@@ -303,18 +320,30 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 		{
 			stmt=con.prepareCall(SELECT_ALL_ROOMS_SQL); 
 		    rs = stmt.executeQuery();
+		    MeetingRoom room = null;
 			while (rs.next()) {
 
-				/*Dummy value till we change dao 
-				 */
-				MeetingRoom meet = new MeetingRoom(
-						"name",
-						10,
-						new ArrayList<String>()
-						);
-
-				roomList.add(meet);		
+				int roomId = rs.getInt(1);
+				String roomName = rs.getString(2);
+				int roomSeatingCapacity = rs.getInt(3);
+				float roomRating = rs.getFloat(4);
+				float roomPerHourCost = rs.getFloat(5);
+				
+				if(room == null) {
+					
+					room = new MeetingRoom(roomId, roomName, roomSeatingCapacity, roomRating, roomPerHourCost);
+					room.addAmenity(rs.getString(6));
+				}else {
+					if(room.getMeetingRoomId() == roomId) {
+						room.addAmenity(rs.getString(6));
+					}else {
+						roomList.add(room);		
+						room = new MeetingRoom(roomId, roomName, roomSeatingCapacity, roomRating, roomPerHourCost);
+						room.addAmenity(rs.getString(6));
+					}
+				}
 			}
+			roomList.add(room);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -333,6 +362,49 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 		}
 		
 		return roomList;
+	}
+
+	@Override
+	public MeetingRoom getMeetingRoomWithoutAmenities(int meetingRoomId) throws MeetingRoomDoesNotExistsException{
+		
+		MeetingRoom room = null;
+		CallableStatement stmt = null;
+		ResultSet resultSet = null;
+		try {
+			stmt = con.prepareCall(SELECT_MEETING_ROOM_FROM_ID);
+			stmt.setInt(1, meetingRoomId);
+			resultSet = stmt.executeQuery();
+			if(resultSet.next()) {
+				int roomId = resultSet.getInt(1);
+				String roomName = resultSet.getString(2);
+				int roomSeatingCapacity = resultSet.getInt(3);
+				return new MeetingRoom(meetingRoomId,roomName, roomSeatingCapacity,new ArrayList<String>());
+			}else {
+				throw new MeetingRoomDoesNotExistsException();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{	
+				if(resultSet!=null)
+				{
+					resultSet.close();
+				}
+
+				if(stmt != null)
+				{
+					stmt.close();
+				}
+			}
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return room;
 	}
 
 }

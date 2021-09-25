@@ -1,6 +1,6 @@
 package com.hsbc.meets.entity;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ public class MeetingRoom {
 	private int seatingCapacity;
 	private float rating;
 	private List<String> amenities;
-	private int creditsPerHour;
+	private float creditsPerHour;
 	private int noOfFeedbacks;
 	
 	
@@ -49,20 +49,17 @@ public class MeetingRoom {
 	 * @param meetingRoomName
 	 * @param seatingCapacity
 	 * @param rating
-	 * @param amenities
 	 * @param creditsPerHour
 	 * @param noOfFeedbacks
 	 */
-	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, float rating,
-			List<String> amenities, int creditsPerHour, int noOfFeedbacks) {
+	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, float rating, float creditsPerHour) {
 		super();
 		this.meetingRoomId = meetingRoomId;
 		this.meetingRoomName = meetingRoomName;
 		this.seatingCapacity = seatingCapacity;
 		this.rating = rating;
-		this.amenities = amenities;
+		this.amenities = new ArrayList<String>();
 		this.creditsPerHour = creditsPerHour;
-		this.noOfFeedbacks = noOfFeedbacks;
 	}
 
 	/**
@@ -107,17 +104,21 @@ public class MeetingRoom {
 		this.amenities = amenities;
 	}
 
+	public void addAmenity(String amenity) {
+		this.amenities.add(amenity);
+	}
+	
 	/**
 	 * @return the creditsPerHour
 	 */
-	public int getCreditsPerHour() {
+	public float getCreditsPerHour() {
 		return creditsPerHour;
 	}
 
 	/**
 	 * @param creditsPerHour the creditsPerHour to set
 	 */
-	public void setCreditsPerHour(int creditsPerHour) {
+	public void setCreditsPerHour(float creditsPerHour) {
 		this.creditsPerHour = creditsPerHour;
 	}
 

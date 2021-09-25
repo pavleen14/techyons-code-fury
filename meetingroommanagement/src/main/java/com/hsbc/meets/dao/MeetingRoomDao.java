@@ -17,7 +17,7 @@ import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
  */
 public interface MeetingRoomDao {
 	
-	public void addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException;
+	public int addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException;
 		
 	public List<MeetingRoom> showAllMeetingRooms();
 	
@@ -80,4 +80,6 @@ public interface MeetingRoomDao {
 	 * @return list of all amenities
 	 */
 	public List<String> getAllAmenities();
+	
+	public MeetingRoom getMeetingRoomWithoutAmenities(int meetingRoomId) throws MeetingRoomDoesNotExistsException;
 }

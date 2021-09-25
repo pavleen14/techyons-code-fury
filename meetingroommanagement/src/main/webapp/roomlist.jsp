@@ -7,7 +7,6 @@
     pageContext.setAttribute("room", room);
     
 %>
-
 <h2>All Available Rooms</h2>
     <table border="1">
         <tr>
@@ -27,7 +26,7 @@
                 <td>${room.creditsPerHour}</td>
                 <td>${room.noOfFeedbacks}</td>                
 
-                <td><a href="/admin?option=edit" >${room.meetingRoomName}Edit Room Details</a></td>
+                <td><a href="/meetingroommanagement/admin?option=edit&&room=${room.meetingRoomId}" >Edit Room Details</a></td>
 
             </tr>
         </e:forEach>

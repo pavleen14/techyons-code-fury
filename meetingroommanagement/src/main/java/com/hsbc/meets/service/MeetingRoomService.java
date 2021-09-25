@@ -15,8 +15,10 @@ public interface MeetingRoomService{
 	public List<MeetingRoom> showAllMeetingRooms()
 			throws IOException;
 	
+	public List<String> getAllAmenities();
+	
 	public void addMeetingRoom(String roomName , int capacity , List<String> amenities)
-			throws IOException, MeetingRoomAlreadyExistsException;
+			throws IOException, MeetingRoomAlreadyExistsException, MeetingRoomAmenitiesInvalidException;
 
 	/**
 	 * This method gets instance of {@link com.hsbc.meets.validation.MeetingRoomValidation#validateMeetingRoom(com.hsbc.meets.dao.MeetingRoomDao, int, String, int, List) validateMeetingRoom}. 
@@ -37,4 +39,5 @@ public interface MeetingRoomService{
 	 */
 	public int editMeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities) throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInvalidException, MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException;
 
+	public MeetingRoom getMeetingRoom(int meetingRoomId) throws MeetingRoomDoesNotExistsException;
 }

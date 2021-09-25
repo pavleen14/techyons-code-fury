@@ -32,7 +32,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 
 	@Override
 	public void addMeetingRoom(String roomName , int roomCapacity , List<String> roomAmenities)
-			throws IOException, MeetingRoomAlreadyExistsException {
+			throws IOException, MeetingRoomAlreadyExistsException, MeetingRoomAmenitiesInvalidException {
 
 		int roomCredits = 0; 
 		int creditsPerHour = 0;
@@ -48,7 +48,8 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		creditsPerHour = roomCredits; 
 		
 		MeetingRoom room = new MeetingRoom(roomName, roomCapacity, roomAmenities);
-		dao.addMeetingRoom(room);
+		int roomId = dao.addMeetingRoom(room);
+		dao.insertAmenitiesInAmenityMeetingRoomById(roomId, roomAmenities);
 	}
 
 	@Override
@@ -65,6 +66,18 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 		dao.insertAmenitiesInAmenityMeetingRoomById(meetingRoomId, amenities);
 		
 		return numberOfRowsUpdate;
+	}
+
+	@Override
+	public MeetingRoom getMeetingRoom(int meetingRoomId) throws MeetingRoomDoesNotExistsException {
+		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		return dao.getMeetingRoomWithoutAmenities(meetingRoomId);
+	}
+
+	@Override
+	public List<String> getAllAmenities() {
+		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		return dao.getAllAmenities();
 	}
 
 }
