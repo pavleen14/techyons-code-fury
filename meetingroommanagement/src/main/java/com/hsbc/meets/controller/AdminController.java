@@ -4,8 +4,9 @@
 package com.hsbc.meets.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hsbc.meets.entity.MeetingRoom;
+import com.hsbc.meets.entity.User;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
-import com.hsbc.meets.factory.MeetingRoomServiceFactory;
+import com.hsbc.meets.factory.LoggerFactory;
+import com.hsbc.meets.factory.MeetingRoomFactory;
 import com.hsbc.meets.service.MeetingRoomService;
+import com.hsbc.meets.util.Role;
 
 /**
  * Handles admin page and redirects to other pages
@@ -27,11 +31,18 @@ import com.hsbc.meets.service.MeetingRoomService;
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {
 	
+	private Logger logger = LoggerFactory.getLogger();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		User currentUser = (User) req.getSession().getAttribute("user");
+		if(currentUser == null || currentUser.getRole() != Role.ADMIN) {
+			resp.sendRedirect("/login");
+		}
+		
 		resp.setContentType("application/json;charset=UTF-8");
-		MeetingRoomService meetingRoomService= MeetingRoomServiceFactory.getService();
+		MeetingRoomService meetingRoomService= MeetingRoomFactory.getService();
 		String option = req.getParameter("option");
 		
 		if (option == null) {
@@ -52,6 +63,7 @@ public class AdminController extends HttpServlet {
 				
 				req.getRequestDispatcher("editRoom.jsp").forward(req, resp);
 			} catch (MeetingRoomDoesNotExistsException e) {
+				logger.log(Level.SEVERE,"Meeting does not exists",e);
 				resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			}
 		} else {

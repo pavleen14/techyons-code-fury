@@ -11,7 +11,7 @@ import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
 import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInvalidException;
-import com.hsbc.meets.factory.MeetingRoomDaoFactory;
+import com.hsbc.meets.factory.MeetingRoomFactory;
 import com.hsbc.meets.service.MeetingRoomService;
 import com.hsbc.meets.validation.MeetingRoomValidation;
 
@@ -57,7 +57,7 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 			throws MeetingRoomNameInvalidException, MeetingRoomSeatingCapacityInvalidException,
 			MeetingRoomAmenitiesInvalidException, MeetingRoomDoesNotExistsException, MeetingRoomAlreadyExistsException {
 		
-		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		MeetingRoomDao dao = MeetingRoomFactory.getMeetingRoomDaoObject();
 		int numberOfRowsUpdate = 0;
 		MeetingRoomValidation validator = new MeetingRoomValidation(meetingRoomId,meetingRoomName,seatingCapacity,amenities); 
 		MeetingRoom room = validator.getRoom();
@@ -70,13 +70,13 @@ public class MeetingRoomServiceImpl implements MeetingRoomService{
 
 	@Override
 	public MeetingRoom getMeetingRoom(int meetingRoomId) throws MeetingRoomDoesNotExistsException {
-		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		MeetingRoomDao dao = MeetingRoomFactory.getMeetingRoomDaoObject();
 		return dao.getMeetingRoomWithoutAmenities(meetingRoomId);
 	}
 
 	@Override
 	public List<String> getAllAmenities() {
-		MeetingRoomDao dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		MeetingRoomDao dao = MeetingRoomFactory.getMeetingRoomDaoObject();
 		return dao.getAllAmenities();
 	}
 

@@ -2,19 +2,21 @@ package com.hsbc.meets.dao.impl;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.hsbc.meets.dao.MeetingRoomDao;
 import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
+import com.hsbc.meets.factory.LoggerFactory;
+import com.hsbc.meets.util.Connectivity;
 
 /**
  *This class implements all the methods declared in {@link MeetingRoomDao}
@@ -32,30 +34,15 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	private static final String UPDATE_MEETING_ROOM_BY_ID_SQL = "call sp_UpdateMeetingRoomById(?,?,?)";
 	private static final String INSERT_MEETING_ROOM_SQL = "call sp_AddMeetingRoom(?,?)";
 	private static final String SELECT_ALL_ROOMS_SQL = "CALL sp_ShowAllMeetingRooms();";
-	/**
-	 * Database credentials 
-	 */
-	private static final String USER_NAME = "root";
-	private static final String PASSWORD = "pasword";	
-	private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/meeting_room_booking_db";
-
-	private Connection con;
 	
+	private Connection con;
+	private Logger logger;
 	/**
 	 * @author ShubhraBhuniaGhosh
 	 */
 	public MeetingRoomDbDaoImpl(){
-		con = null;
-		try
-		{
-			Class.forName(DRIVER_CLASS_NAME);
-			con = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-		}
-		catch (SQLException | ClassNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
+		logger = LoggerFactory.getLogger();
+		con = Connectivity.getConnection();
 	}
 	
 	/**
@@ -67,7 +54,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 				con.close();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,"Connection close failed",e);
 		}
 	}
 
@@ -87,15 +74,15 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			}
 			
 		} catch (SQLIntegrityConstraintViolationException se) {
+			logger.log(Level.SEVERE,se.getMessage(),se);
 			throw new MeetingRoomAlreadyExistsException();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage(),e);
 		} finally {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE,e.getMessage(),e);
 			}
 		}
 		return -1;
@@ -117,7 +104,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 				throw new MeetingRoomDoesNotExistsException();
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage(),e);
 		}finally
 		{
 			try
@@ -129,7 +116,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			}
 			catch (SQLException e) 
 			{
-				e.printStackTrace();
+				logger.log(Level.SEVERE,e.getMessage(),e);
 			}
 		}
 		return numberOfRowsUpdate;
@@ -146,7 +133,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			stmt.setInt(1,meetingRoomId);
 			numberOfRowsUpdate = stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage(),e);
 		}finally
 		{
 			try
@@ -158,7 +145,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			}
 			catch (SQLException e) 
 			{
-				e.printStackTrace();
+				logger.log(Level.SEVERE,e.getMessage(),e);
 			}
 		}
 		return numberOfRowsUpdate;
@@ -174,7 +161,6 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			stmt = con.prepareCall(GET_AMENITY_ID_BY_AMENITY_NAME);
 			
 			stmt.setString(1, amenityName.toLowerCase());
-			System.out.println(amenityName.toLowerCase());
 			resultSet = stmt.executeQuery();
 			if(resultSet.next()) {
 				amenityId = resultSet.getInt(1);
@@ -182,7 +168,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 				throw new MeetingRoomAmenitiesInvalidException();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage(),e);
 		}
 		finally
 		{
@@ -200,7 +186,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			}
 			catch (SQLException e) 
 			{
-				e.printStackTrace();
+				logger.log(Level.SEVERE,e.getMessage(),e);
 			}
 		}
 		return amenityId;
@@ -226,6 +212,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 				numberOfRowsUpdate += x;
 			}
 		} catch (SQLException e) {
+			logger.log(Level.SEVERE,e.getMessage(),e);
 			throw new MeetingRoomAmenitiesInvalidException();
 		}
 		return numberOfRowsUpdate;
@@ -248,7 +235,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage(),e);
 		}
 		finally
 		{
@@ -266,7 +253,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			}
 			catch (SQLException e) 
 			{
-				e.printStackTrace();
+				logger.log(Level.SEVERE,e.getMessage(),e);
 			}
 		}
 		return false;
@@ -287,7 +274,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 				amenities.add(resultSet.getString(1));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage(),e);
 		}
 		finally
 		{
@@ -305,7 +292,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			}
 			catch (SQLException e) 
 			{
-				e.printStackTrace();
+				logger.log(Level.SEVERE,e.getMessage(),e);
 			}
 		}
 		return amenities;
@@ -345,19 +332,19 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			}
 			roomList.add(room);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage(),e);
 		} finally {
 			if(stmt != null)
 				try {
 					stmt.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log(Level.SEVERE,e.getMessage(),e);
 				}
             if(rs != null)
 				try {
 					rs.close();
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.log(Level.SEVERE,e.getMessage(),e);
 				}
 		}
 		
@@ -383,7 +370,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 				throw new MeetingRoomDoesNotExistsException();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage(),e);
 		}
 		finally
 		{
@@ -401,7 +388,7 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 			}
 			catch (SQLException e) 
 			{
-				e.printStackTrace();
+				logger.log(Level.SEVERE,e.getMessage(),e);
 			}
 		}
 		return room;

@@ -9,7 +9,7 @@ import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
 import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInvalidException;
-import com.hsbc.meets.factory.MeetingRoomDaoFactory;
+import com.hsbc.meets.factory.MeetingRoomFactory;
 
 /**
  * The class contains the different validations which have
@@ -45,7 +45,7 @@ public class MeetingRoomValidation {
 		this.name = name;
 		this.capacity = capacity;
 		this.amenities = amenities;
-		this.dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		this.dao = MeetingRoomFactory.getMeetingRoomDaoObject();
 		this.validateMeetingRoom();
 	}
 	
@@ -64,7 +64,7 @@ public class MeetingRoomValidation {
 		this.name = name;
 		this.capacity = capacity;
 		this.amenities = amenities;
-		this.dao = MeetingRoomDaoFactory.getMeetingRoomDaoObject();
+		this.dao = MeetingRoomFactory.getMeetingRoomDaoObject();
 		this.validateMeetingRoom();
 	}
 	

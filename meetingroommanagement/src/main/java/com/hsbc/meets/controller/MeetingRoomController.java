@@ -4,22 +4,25 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.hsbc.meets.dao.impl.MeetingRoomDbDaoImpl;
 import com.hsbc.meets.entity.MeetingRoom;
+import com.hsbc.meets.entity.User;
 import com.hsbc.meets.exception.MeetingRoomAlreadyExistsException;
 import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
 import com.hsbc.meets.exception.MeetingRoomDoesNotExistsException;
 import com.hsbc.meets.exception.MeetingRoomInvalidException;
-import com.hsbc.meets.factory.MeetingRoomServiceFactory;
+import com.hsbc.meets.factory.LoggerFactory;
+import com.hsbc.meets.factory.MeetingRoomFactory;
 import com.hsbc.meets.service.MeetingRoomService;
+import com.hsbc.meets.util.Role;
 
 /**
  * The class is the Controller class
@@ -32,20 +35,23 @@ import com.hsbc.meets.service.MeetingRoomService;
 
 @WebServlet("/meetingroom")
 public class MeetingRoomController extends HttpServlet {
-
-	MeetingRoomDbDaoImpl dao;
-	ServletContext context;
-
+	
+	private Logger logger = null;
+	
 	public void init() throws ServletException {
-		dao = new MeetingRoomDbDaoImpl();
-		context = this.getServletContext();
+		logger = LoggerFactory.getLogger();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("application/json;charset=UTF-8");
 		
-		MeetingRoomService meetingRoomService = MeetingRoomServiceFactory.getService();
+		User currentUser = (User) req.getSession().getAttribute("user");
+		if(currentUser == null || currentUser.getRole() != Role.ADMIN) {
+			resp.sendRedirect("/login");
+		}
+		
+		MeetingRoomService meetingRoomService = MeetingRoomFactory.getService();
 		
 		List<MeetingRoom> allMeetingRooms = meetingRoomService.showAllMeetingRooms();
 		req.setAttribute("elist", allMeetingRooms);
@@ -54,9 +60,15 @@ public class MeetingRoomController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		User currentUser = (User) req.getSession().getAttribute("user");
+		if(currentUser == null || currentUser.getRole() != Role.ADMIN) {
+			resp.sendRedirect("/login");
+		}
+		
 		resp.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
-		MeetingRoomService meetingRoomService = MeetingRoomServiceFactory.getService();
+		MeetingRoomService meetingRoomService = MeetingRoomFactory.getService();
 
 		String editflag = req.getParameter("editflag");
 
@@ -71,9 +83,10 @@ public class MeetingRoomController extends HttpServlet {
 			try {		
 				meetingRoomService.addMeetingRoom(roomName,roomCapacity,roomAmenities);
 			} catch (MeetingRoomAlreadyExistsException r) {
-				r.printStackTrace();
+				logger.log(Level.SEVERE,"Meeting Room already exists",r);
 			} catch (MeetingRoomAmenitiesInvalidException e) {
 				e.printStackTrace();
+				logger.log(Level.SEVERE,"Meeting amenities invalid",e);
 			}
 		} else {
 			resp.setContentType("application/json;charset=UTF-8");
@@ -90,7 +103,7 @@ public class MeetingRoomController extends HttpServlet {
 				meetingRoomService.editMeetingRoom(roomId, roomName, roomCapacity, roomAmenities);
 			} catch (MeetingRoomInvalidException | MeetingRoomDoesNotExistsException
 					| MeetingRoomAlreadyExistsException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE,"Meeting room edit failed",e);
 				
 			}
 		}
