@@ -38,7 +38,8 @@ public class AdminController extends HttpServlet {
 		
 		User currentUser = (User) req.getSession().getAttribute("user");
 		if(currentUser == null || currentUser.getRole() != Role.ADMIN) {
-			resp.sendRedirect("/login");
+			resp.sendRedirect("/meetingroommanagement/login");
+			return;
 		}
 		
 		resp.setContentType("application/json;charset=UTF-8");
