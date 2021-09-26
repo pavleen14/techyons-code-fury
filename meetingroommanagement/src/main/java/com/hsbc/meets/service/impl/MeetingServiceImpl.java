@@ -19,7 +19,7 @@ import com.hsbc.meets.exception.NotEnoughCreditsException;
 import com.hsbc.meets.exception.NotEnoughSeatsException;
 import com.hsbc.meets.exception.SlotNotAvailableException;
 import com.hsbc.meets.exception.SomethingWentWrongException;
-import com.hsbc.meets.factory.MeetingServiceFactory;
+import com.hsbc.meets.factory.MeetingFactory;
 import com.hsbc.meets.service.MeetingService;
 import com.hsbc.meets.validation.MeetingValidation;
 
@@ -38,7 +38,7 @@ public class MeetingServiceImpl implements MeetingService{
 	 */
 	public  MeetingServiceImpl(User Manager){
 		this.manager = Manager;
-		dao = new MeetingDbDaoImpl();
+		dao = MeetingFactory.getMeetingDaoObject();
 	}
 	/**
 	 * @author ShubhraBhuniaGhosh
@@ -104,28 +104,7 @@ public class MeetingServiceImpl implements MeetingService{
 		int meetingId = dao.insertValueOfMeeting(bookedMeeting, manager.getUserId(), bookedMeeting.getMeetingRoom().getMeetingRoomId());
 		totalRowsUpdated+=1;
 		totalRowsUpdated+=dao.addAttendees(bookedMeeting.getAttendees(),meetingId);
-		totalRowsUpdated+=dao.deductManagerCreditByMeetingRoomName(bookedMeeting.getMeetingRoom().getMeetingRoomName(),this.manager.getUserId());
 		return totalRowsUpdated;
 	}
-//	public static void main(String[] args) throws MeetingTitleInvalidException, MeetingStartDateTimeInvalidException, MeetingDurationInvalidException, MeetingTypeInvalidException, MeetingRoomAmenitiesInvalidByMeetingTypeException, NotEnoughSeatsException, SlotNotAvailableException, NotEnoughCreditsException, SomethingWentWrongException {
-//		User manager = new User();
-//		manager.setUserId(1);
-//		manager.setCredits(200);
-//		manager.setEmail("hbghjhjgbh");
-//		manager.setName("hjjbhbh");
-//		Calendar c = Calendar.getInstance();
-//		c.add(Calendar.DATE, 2);
-//		MeetingService serv = MeetingServiceFactory.getMeetingServiceObject(manager);
-//		System.out.println(	serv.setMeetingBookingInformation("holookakach", c, Calendar.getInstance(), 120, "CLASSROOM_TRAINING"));
-//		List<String> users = serv.getAllUsers();
-//		System.out.println(users);
-//		System.out.println(serv.setAttendeesList(users));
-//		List<MeetingRoom> room = serv.getAllAvailableMeetingRooms();
-//		System.out.println(room);
-//		System.out.println(serv.setBookedMeetingRoom(room.get(1)));
-//		System.out.println(serv.bookMeeting());
-//		
-//		//System.out.println(MeetingValidation.validateMeetingType("CLASSROOM_TRAINING"));
-//	}
 	
 }

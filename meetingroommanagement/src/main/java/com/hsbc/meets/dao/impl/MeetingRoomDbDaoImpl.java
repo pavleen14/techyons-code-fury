@@ -48,15 +48,6 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 	/**
 	 * @author ShubhraBhuniaGhosh
 	 */
-	protected void finalize()  {
-		try {
-			if(con!=null) {
-				con.close();
-			}
-		} catch (SQLException e) {
-			logger.log(Level.SEVERE,"Connection close failed",e);
-		}
-	}
 
 	public int addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException{
 		ResultSet rs = null;

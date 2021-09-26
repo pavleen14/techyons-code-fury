@@ -84,6 +84,7 @@ public class MeetingRoomController extends HttpServlet {
 			}
 			try {		
 				meetingRoomService.addMeetingRoom(roomName,roomCapacity,roomAmenities);
+				resp.sendRedirect("/meetingroommanagement/admin");
 			} catch (MeetingRoomAlreadyExistsException r) {
 				logger.log(Level.SEVERE,"Meeting Room already exists",r);
 			} catch (MeetingRoomAmenitiesInvalidException e) {
@@ -103,6 +104,7 @@ public class MeetingRoomController extends HttpServlet {
 			
 			try {
 				meetingRoomService.editMeetingRoom(roomId, roomName, roomCapacity, roomAmenities);
+				resp.sendRedirect("/meetingroommanagement/admin");
 			} catch (MeetingRoomInvalidException | MeetingRoomDoesNotExistsException
 					| MeetingRoomAlreadyExistsException e) {
 				logger.log(Level.SEVERE,"Meeting room edit failed",e);

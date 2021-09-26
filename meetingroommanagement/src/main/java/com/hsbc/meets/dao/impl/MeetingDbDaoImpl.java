@@ -20,6 +20,7 @@ import com.hsbc.meets.exception.MeetingTitleInvalidException;
 import com.hsbc.meets.exception.NotEnoughSeatsException;
 import com.hsbc.meets.exception.SlotNotAvailableException;
 import com.hsbc.meets.exception.SomethingWentWrongException;
+import com.hsbc.meets.util.Connectivity;
 
 /**
  * This class implements {@link MeetingDao}
@@ -27,44 +28,15 @@ import com.hsbc.meets.exception.SomethingWentWrongException;
  *
  */
 public class MeetingDbDaoImpl implements MeetingDao{
-	/**
-	 * Database credentials 
-	 */
-	private static final String USER_NAME = "root";
-	private static final String PASSWORD = "root";	
-	private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost:3306/meeting_room_booking_db";
-
+	
 	private Connection con;
 	/**
 	 * @author ShubhraBhuniaGhosh
 	 */
 	public MeetingDbDaoImpl(){
-		con = null;
-		try
-		{
-			Class.forName(DRIVER_CLASS_NAME);
-			con = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-		}
-		catch (SQLException | ClassNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
+		con = Connectivity.getConnection();
 	}
-	/**
-	 * @author ShubhraBhuniaGhosh
-	 */
-	protected void finalize()  {
-		//System.out.println("in distructor");
-		try {
-			if(con!=null) {
-				con.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	public List<User> getAllUsers(){
 		List<User> attendees = null;
 		CallableStatement stmt = null;
@@ -126,7 +98,15 @@ public class MeetingDbDaoImpl implements MeetingDao{
 			resultSet = stmt.executeQuery();
 			meetingRooms = new ArrayList<MeetingRoom>();
 			while(resultSet.next()) {
-				meetingRooms.add(new MeetingRoom(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3), getMeetingRoomAmenityByMeetingRoomId(resultSet.getInt(1)), resultSet.getInt(4), resultSet.getFloat(5), resultSet.getInt(6)));
+				meetingRooms.add(
+						new MeetingRoom(
+								resultSet.getInt(1),
+								resultSet.getString(2),
+								resultSet.getInt(3),
+								getMeetingRoomAmenityByMeetingRoomId(resultSet.getInt(1)),
+								resultSet.getInt(4),
+								resultSet.getFloat(5),
+								resultSet.getInt(6)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -250,10 +230,11 @@ public class MeetingDbDaoImpl implements MeetingDao{
 	 */
 	public int insertValueOfMeeting(Meeting bookedMeeting, int managerId, int meetingRoomId) throws MeetingTitleInvalidException{
 		CallableStatement stmt  = null;
+		ResultSet rs = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String strStartDateTime = sdf.format(Calendar.getInstance().getTime());
 		String strEndDateTime = sdf.format(Calendar.getInstance().getTime());
-		int noOfRowsUpdated = -1;
+		int meetingId = -1;
 		try {
 			stmt  = con.prepareCall("call sp_InsertIntoMeeting(?,?,?,?,?,?)");	
 			stmt.setString(1, bookedMeeting.getMeetingTitle());
@@ -263,7 +244,12 @@ public class MeetingDbDaoImpl implements MeetingDao{
 			stmt.setString(5, bookedMeeting.getMeetingType());
 			stmt.setInt(6, meetingRoomId);
 
-			noOfRowsUpdated = stmt.executeUpdate();
+			rs = stmt.executeQuery();
+			
+			if(rs.next()){
+				meetingId = rs.getInt(1);
+			}
+			
 		}catch (SQLIntegrityConstraintViolationException e) {
 			throw new MeetingTitleInvalidException();
 		} catch (SQLException e) {
@@ -281,7 +267,7 @@ public class MeetingDbDaoImpl implements MeetingDao{
 				e.printStackTrace();
 			}
 		}
-		return noOfRowsUpdated;	
+		return meetingId;	
 	}
 	/**
 	 * @author ShubhraBhuniaGhosh
@@ -329,13 +315,6 @@ public class MeetingDbDaoImpl implements MeetingDao{
 		}
 		return noOfRowsUpdated;		
 	}
-	/**
-	 * @author ShubhraBhuniaGhosh
-	 */
-	public int deductManagerCreditByMeetingRoomName(String MeetingRoomName,int ManagerId) {
-		int numberOfRowsUpdated = 0;
-		return 1;
-	}
 
 
 	public List<String> getMeetingRoomAmenityByMeetingRoomId(int meetingRoomId) {
@@ -380,13 +359,12 @@ public class MeetingDbDaoImpl implements MeetingDao{
 
 	public static void main(String[] args) throws MeetingTitleInvalidException, SomethingWentWrongException, SQLException {
 
-		//System.out.println(new MeetingDbDaoImpl().getMeetingRooms(Calendar.getInstance(), Calendar.getInstance(), "BUSINESS", 2));
+		List<MeetingRoom> rooms = new MeetingDbDaoImpl().getMeetingRooms(Calendar.getInstance(), Calendar.getInstance(), "BUSINESS", 2);
 
-		Meeting bookedMeeting = new Meeting("hihiaabccba", Calendar.getInstance(), 120, "CLASSROOM_TRAINING");
+		Meeting bookedMeeting = new Meeting("TestMain2", Calendar.getInstance(), 120, "BUSINESS");
 		bookedMeeting.setEndDateTime(Calendar.getInstance());
-		System.out.println(new MeetingDbDaoImpl().addAttendeeByUserIdAndMeetingId("ghvcfvh", 1));
-
-
+		int meetingId = new MeetingDbDaoImpl().insertValueOfMeeting(bookedMeeting, 3, rooms.get(0).getMeetingRoomId());
+		System.out.println(new MeetingDbDaoImpl().addAttendeeByUserIdAndMeetingId("sakshi.kumar@hscc.co.in", meetingId));
 
 	}
 }
