@@ -9,6 +9,12 @@ import com.hsbc.meets.factory.FeedBackFactory;
 import com.hsbc.meets.factory.LoggerFactory;
 import com.hsbc.meets.service.FeedBackService;
 
+/**
+ * 
+ * @author Muskan
+ *
+ */
+
 public class FeedBackServiceImpl implements FeedBackService{
 	static Logger logger = LoggerFactory.getLogger();
 

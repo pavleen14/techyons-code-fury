@@ -5,7 +5,11 @@ import com.hsbc.meets.dao.impl.FeedbackJDBCDaoImpl;
 import com.hsbc.meets.service.FeedBackService;
 import com.hsbc.meets.service.impl.FeedBackServiceImpl;
 
-
+/**
+ * Factory to get the service and the dao for feedback
+ * @author Muskan
+ *
+ */
 
 public class FeedBackFactory {
 	
