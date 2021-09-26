@@ -13,7 +13,6 @@ public class InvalidPropFileException extends Exception {
 
 	private boolean fileRead;
 	private String brokenProperty;
-
 	/**
 	 * Creates instance of {@link InvalidPropFileException}
 	 * caused due to missing file
@@ -37,7 +36,6 @@ public class InvalidPropFileException extends Exception {
 		this.fileRead = true;
 		this.brokenProperty = brokenProperty;
 	}
-
 	@Override
 	public String toString() {
 		if (fileRead) {

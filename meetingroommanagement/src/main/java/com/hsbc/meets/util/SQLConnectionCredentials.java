@@ -28,7 +28,6 @@ public class SQLConnectionCredentials {
 	private String url;
 	private String username;
 	private String password;
-
 	/**
 	 * Generates {@link SQLConnectionCredentials} object based
 	 * on props file found at constant FILEPATH. 
@@ -49,22 +48,18 @@ public class SQLConnectionCredentials {
 			if(driverName == null) {
 				throw new InvalidPropFileException("dname");
 			}
-
 			String url = properties.getProperty("url");
 			if(url == null) {
 				throw new InvalidPropFileException("url");
 			}
-
 			String username = properties.getProperty("username");
 			if(username == null) {
 				throw new InvalidPropFileException("username");
 			}
-
 			String password = properties.getProperty("password");
 			if(password == null) {
 				throw new InvalidPropFileException("password");
 			}
-
 			return new SQLConnectionCredentials(
 				driverName,
 				url,
