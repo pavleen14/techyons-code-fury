@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="all.css"> -->
+    <title>HSCC Meettings</title>
+</head>
+
+<body id="page-container">
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
+            <div class="container">
+                <!-- Logo -->
+                <img src="images/logo.png" height="30" alt="" />
+                <h4 class="text-white ms-4 my-auto">HMeets</h4>
+                <!-- Logo -->
+
+                <!-- Menu button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="true" aria-label="Toggle navigation">
+                    <img src="images/icon_menu.png" height="22" alt="" class="me-1" />
+                </button>
+                <!-- Menu button -->
+
+                <!-- Nav Items -->
+                <div class="collapse navbar-collapse" id="navbarButtons">
+                    <div class="me-auto"></div>
+                    <!-- <small class="text-info me-4">Link</small> -->
+                    <ul class="align-nav-item">
+                        <img src="images/icon_user.png" height="16" alt="" class="me-1" />
+                        <small class="text-white me-4">Hi! Current User</small>
+                    </ul>
+                    <ul class="align-nav-item">
+                        <a href="login">
+                            <button type="button" class="btn btn-outline-info" data-mdb-ripple-color="dark">
+                                Login
+                            </button>
+                        </a>
+                    </ul>
+                    <!-- </div> -->
+                </div>
+                <!-- Nav Items -->
+            </div>
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <main id="content-wrap">
+        <div class="row m-3" id="roomdetails"></div>
+    </main>
+
+    <!--Footer-->
+    <footer id="footer">
+        <div>
+            <hr class="my-2">
+        </div>
+        <div class="footer-copyright d-flex align-items-center justify-content-center">
+            © 2021 Copyright: HSCC Meettings
+        </div>
+    </footer>
+    <!--/.Footer-->
+
+    <!--scripts-->
+    <script src="scripts.js"></script>
+    <script>
+        window.onload = function() {
+            getMeetings();
+        }
+
+        // this list of json is only for testing purpose
+        let allRooms = [{
+            "Name": "Conference call wala room new hai",
+            "SeatingCapacity": 23,
+            "NumberOfMeetings": 12,
+            "Ratings": 3
+        }, {
+            "Name": "Online wala room",
+            "SeatingCapacity": 32,
+            "NumberOfMeetings": 2,
+            "Ratings": 5
+        }, {
+            "Name": "Presentation wala room",
+            "SeatingCapacity": 45,
+            "NumberOfMeetings": 53,
+            "Ratings": 4
+        }, {
+            "Name": "Training wala room",
+            "SeatingCapacity": 65,
+            "NumberOfMeetings": 90,
+            "Ratings": 4
+        }];
+
+        function getMeetings() {
+            // var roomsLoaded = false;
+            var roomDiv = document.getElementById("roomdetails");
+            let xhttp = new XMLHttpRequest();
+            let method = "GET";
+            let url = "http://localhost:8080/meetingroommanagement/room"
+            xhttp.open(method, url, true);
+            // xhttp.send();
+
+            xhttp.onload = function() {
+                let htmlStr = ""
+                let allRooms = JSON.parse(xhttp.responseText);
+                if (allRooms.length > 0) {
+                    htmlStr = renderRoomsHtml(allRooms);
+                    roomDiv.insertAdjacentHTML('beforeend', htmlStr);
+                } else {
+                    renderNoRoomsHtml();
+                }
+            };
+
+            // /* this list of json is only for testing purpose
+            if (allRooms.length > 0) {
+                htmlStr = renderRoomsHtml(allRooms);
+                roomDiv.insertAdjacentHTML('beforeend', htmlStr);
+            } else {
+                renderNoRoomsHtml();
+            }
+            // */
+
+            function renderRoomsHtml(allRooms) {
+                let allRoomsHtml = "";
+                allRooms.forEach(room => {
+                    allRoomsHtml += `<div class="card-container col-xl-2 col-lg-3 col-md-3 col-sm-4">
+                                        <div class="card-body rounded-4">
+                                            <h5 class="card-title mb-4">${room.Name}</h5>
+                                            <h6 class="card-subtitle text-black">Seating Capacity</h6>
+                                            <p class="text-muted">${room.SeatingCapacity} participants</p>
+                                            <h6 class="card-subtitle text-black">Per hour cost</h6>
+                                            <p>${room.perHourCost} Credits</p>
+                                            <h6 class="card-subtitle text-black">Rating: </h6>
+                                            <p>${room.Ratings}</p>
+                                            <a href="/meetingroommanagement/admin?option=edit&&room=${room.meetingRoomId}">
+                                                <div class="text-end">
+                                                    <span style="border-radius: 20px;" class="text-center px-4 pt-1 pb-2 bg-info">
+                                                        <img src=" images/icon_edit.png" height="16" alt="">
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>`;
+                });
+                return allRoomsHtml;
+            }
+
+            function renderNoRoomsHtml() {
+                let noRoomHtml = `<div class="col-xl-6 col-lg-6 col-md-6 col-sm-4 d-flex align-items-center justify-content-center text-muted mt-4">
+                    <h5>No meeting rooms available.</h5>
+                </div>`;
+                roomDiv.insertAdjacentHTML('beforeend', noRoomHtml);
+            }
+        }
+    </script>
+    <!--scripts-->
+</body>
+
+</html>
