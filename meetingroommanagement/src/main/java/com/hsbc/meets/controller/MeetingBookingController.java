@@ -106,6 +106,8 @@ public class MeetingBookingController extends HttpServlet {
 				List<MeetingRoom> rooms = ms.getAllAvailableMeetingRooms();
 				req.setAttribute("rooms" , rooms);
 				req.setAttribute("meeting", meeting);
+				
+				req.getRequestDispatcher("/views/selectMeetingRoom.jsp").forward(req, resp);
 			}
 
 			else if(path.equals("submit")) {

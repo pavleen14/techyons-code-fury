@@ -7,17 +7,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/meetingroommanagement/css/style.css">
     <title>Login | HMeets</title>
 </head>
-<body>
-<form action="login" method="post">
-<span>Email:<input type="text" name="email" value="${email}" required></span>
-<br/>
-<span>Password<input type="password" name="password" required></span>
-<br/>
-<span>${message}</span>
-<input type="submit" value="Submit">
 
 <body id="page-container">
     <header>

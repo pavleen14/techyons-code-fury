@@ -35,6 +35,8 @@ public class FeedBackController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("views/feedback.jsp");
+		String roomId = req.getParameter("room");
+		req.setAttribute("roomId", roomId);
 		dispatcher.forward(req, resp);
 	}
 

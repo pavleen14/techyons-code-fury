@@ -23,7 +23,7 @@ public class FeedBackServiceImpl implements FeedBackService{
 	@Override
 	public String addFeedBack(int roomname,int id,int rating,String comment) 
 	{
-		String feedBackStatus = null;
+		String feedBackStatus = "";
         try
 		{
 			FeedbackDao feedBackDao = FeedBackFactory.getFeedBackDao();

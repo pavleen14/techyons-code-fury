@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="com.hsbc.meets.entity.User"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <!DOCTYPE html>
 
     
@@ -10,13 +10,16 @@
 </head>
 <body>
 <h2>FEEDBACK FORM</h2>
-<%String room = request.getParameter("roomId");%>
-<h3>Fill the feedback form for room id: <%=room %></h3>
+<%
+	String room = (String) request.getAttribute("roomId");
+	pageContext.setAttribute("room", room); 
+%>
+<h3>Fill the feedback form for room id: ${ room }</h3>
 <form action="feedback" method="post" >
 
 <input type="hidden" name="roomId" value="${room}" />
 </br>
-<span>Rating:<input type="text" name="rating" value="${rating}" required></span>
+<span>Rating:<input type="number" name="rating" required></span>
 </br>
 <span>Comments:<input type="text" name="comment" required></span>
 </br>

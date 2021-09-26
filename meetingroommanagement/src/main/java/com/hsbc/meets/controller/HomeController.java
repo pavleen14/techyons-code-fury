@@ -22,7 +22,7 @@ import com.hsbc.meets.util.Connectivity;
  *
  */
 
-@WebServlet("/")
+@WebServlet("/home")
 public class HomeController extends HttpServlet {
 	/**
 	 * <ol>

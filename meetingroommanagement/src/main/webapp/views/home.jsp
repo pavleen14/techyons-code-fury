@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/meetingroommanagement/css/style.css">
     <!-- <link rel="stylesheet" href="all.css"> -->
     <title>HSCC Meettings</title>
 </head>
@@ -103,7 +103,7 @@
             <hr class="my-2">
         </div>
         <div class="footer-copyright d-flex align-items-center justify-content-center">
-            © 2021 Copyright: HSCC Meettings
+            © 20meetingroom21 Copyright: HSCC Meettings
         </div>
     </footer>
     <!--/.Footer-->
@@ -176,11 +176,11 @@ setTimeout(function() {
             let method = "GET";
             let url = "http://localhost:8080/meetingroommanagement/room"
             xhttp.open(method, url, true);
-            // xhttp.send();
+            xhttp.send();
 
-            // if (!roomsLoaded) {
-            //     showLoader();
-            // }
+            if (!roomsLoaded) {
+                 showLoader();
+            }
 
             xhttp.onload = function() {
                 let htmlStr = ""
@@ -194,12 +194,12 @@ setTimeout(function() {
             };
 
             // /* this list of json is only for testing purpose
-            if (allRooms.length > 0) {
-                htmlStr = renderRoomsHtml(allRooms);
-                roomDiv.insertAdjacentHTML('beforeend', htmlStr);
-            } else {
-                renderNoRoomsHtml();
-            }
+            //if (allRooms.length > 0) {
+            //    htmlStr = renderRoomsHtml(allRooms);
+            //    roomDiv.insertAdjacentHTML('beforeend', htmlStr);
+            //} else {
+            //    renderNoRoomsHtml();
+            //}
             // */
 
             function renderRoomsHtml(allRooms) {

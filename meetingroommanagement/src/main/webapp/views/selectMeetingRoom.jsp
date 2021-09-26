@@ -1,14 +1,10 @@
+<%@page import="com.hsbc.meets.entity.User"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <%-- @author shalaka --%>
 
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@page import="com.hsbc.meets.entity.MeetingRoom" %>
-
-<%
-	List<MeetingRoom> rooms = (List<MeetingRoom>)request.getAttribute("elist");
-	pageContext.setAttribute("rooms", rooms);
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +18,13 @@
 </head>
 
 <body id="page-container">
+<%
+	List<MeetingRoom> rooms = (List<MeetingRoom>)request.getAttribute("rooms");
+	pageContext.setAttribute("rooms", rooms);
+    User user = (User)request.getSession().getAttribute("user");
+    pageContext.setAttribute("user", user); 
+   
+%>
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
@@ -43,7 +46,7 @@
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
                         <img src="images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! Amit Kumar</small>
+                        <small class="text-white me-4">Hi! ${ user.Name }</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="">
@@ -95,7 +98,7 @@
                                         <p>${room.perHourCost} Credits</p>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="button" class="btn btn btn-primary">
+                                        <button type="button" onclick="formSubmit('${room.meetingRoomId}')" class="btn btn btn-primary">
                                             Select Room
                                         </button>
                                     </div>
@@ -121,7 +124,17 @@
     <!--/.Footer-->
 
     <!--scripts-->
-    <script src="scripts.js"></script>
+    <script>
+    
+    	func formSubmit(roomId){
+    		let xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+    		let theUrl = "http://localhost:8080/meetingroommanagement/meetingroom/members";
+    		xmlhttp.open("POST", theUrl);
+    		xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    		xmlhttp.send(JSON.stringify({"mid" : roomId}));	
+    	}
+	    
+    </script>
     <!--scripts-->
 </body>
 
