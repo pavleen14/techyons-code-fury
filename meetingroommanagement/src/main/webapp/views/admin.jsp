@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/meetingroommanagement/css/style.css">
     <title>Admin | HMeets</title>
 </head>
 
@@ -17,13 +17,13 @@
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
             <div class="container">
                 <!-- Logo -->
-                <img src="images/logo.png" height="30" alt="" />
+                <img src="/meetingroommanagement/resources/images/logo.png" height="30" alt="" />
                 <h4 class="text-white ms-4 my-auto">HMeets</h4>
                 <!-- Logo -->
 
                 <!-- Menu button -->
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="true" aria-label="Toggle navigation">
-                    <img src="images/icon_menu.png" height="22" alt="" class="me-1" />
+                    <img src="/meetingroommanagement/resources/images/icon_menu.png" height="22" alt="" class="me-1" />
                 </button>
                 <!-- Menu button -->
 
@@ -32,7 +32,7 @@
                     <div class="me-auto"></div>
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
-                        <img src="images/icon_user.png" height="16" alt="" class="me-1" />
+                        <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
                         <small class="text-white me-4">Hi! Amit Kumar</small>
                     </ul>
                     <ul class="align-nav-item">
@@ -68,7 +68,7 @@
                     <div class="card mt-5 mb-3" style="border-radius: .5rem;">
                         <div class="row g-0">
                             <div class="col-md-4 gradient-custom d-flex flex-row align-items-center justify-content-center" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                                <img src="images/img_user_card.png" alt="avatar" class="rounded-circle img-fluid py-4 p-3" style="width: 150px;">
+                                <img src="/meetingroommanagement/resources/images/img_user_card.png" alt="avatar" class="rounded-circle img-fluid py-4 p-3" style="width: 150px;">
                             </div>
                             <div class="col-md-8">
                                 <div class="user-card-body px-4 py-2">
@@ -105,7 +105,7 @@
                 </div>
                 <!--Background picture-->
                 <div class="col-9 col-sm-6 col-md-6 col-lg-6 col-xl-5">
-                    <img src="images/bg_admin.png" class="img-fluid" alt="Login">
+                    <img src="/meetingroommanagement/resources/images/bg_admin.png" class="img-fluid" alt="Login">
                 </div>
                 <!--Background picture-->
             </div>
@@ -124,7 +124,7 @@
     <!--/.Footer-->
 
     <!--scripts-->
-    <script src="scripts.js"></script>
+    <script src="/meetingroommanagement/scripts/scripts.js"></script>
     <!--scripts-->
 </body>
 

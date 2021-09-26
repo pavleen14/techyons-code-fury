@@ -18,13 +18,13 @@
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
             <div class="container">
                 <!-- Logo -->
-                <img src="images/logo.png" height="30" alt="" />
+                <img src="/meetingroommanagement/resources/images/logo.png" height="30" alt="" />
                 <h4 class="text-white ms-4 my-auto">HMeets</h4>
                 <!-- Logo -->
 
                 <!-- Menu button -->
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="true" aria-label="Toggle navigation">
-                    <img src="images/icon_menu.png" height="22" alt="" class="me-1" />
+                    <img src="/meetingroommanagement/resources/images/icon_menu.png" height="22" alt="" class="me-1" />
                 </button>
                 <!-- Menu button -->
 
@@ -33,8 +33,8 @@
                     <div class="me-auto"></div>
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
-                        <img src="images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! Current User</small>
+                        <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
+                        <small class="text-white me-4">Hi! User</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="login">
@@ -54,7 +54,7 @@
         <!-- Application Info -->
         <div class="row bg-dark">
             <div class="col-md-5 text-center" id="imgDiv">
-                <img src="images/bg_home.png" alt="" id="homeImage" />
+                <img src="/meetingroommanagement/resources/images/bg_home.png" alt="" id="homeImage" />
             </div>
             <div class="col-md-6 d-flex align-items-center justify-content-center px-3 text-white mb-5">
                 <h5 class="text-justify">
@@ -67,7 +67,7 @@
         <div class="row m-3" id="roomdetails">
             <div class="card-container col-xl-4 col-lg-6 col-md-6 col-sm-8">
                 <div class="import-user-card-body rounded-4 text-center">
-                    <img src="images/icon_users.png" height="40" alt="" class="mb-2" />
+                    <img src="/meetingroommanagement/resources/images/icon_users.png" height="40" alt="" class="mb-2" />
                     <h5 class="import-card-title text-white space-around mb-2">HSCC Users</h5>
                     <p class="card-text text-white space-around">
                         Import all the users of your organization(if not already imported) before you proceed further.
@@ -109,14 +109,14 @@
     <!--/.Footer-->
 
     <!--scripts-->
-    <script src="scripts.js"></script>
+    <script src="/meetingroommanagement/scripts/scripts.js"></script>
     <script>
         function importUsers() {
             let xhttp = new XMLHttpRequest();
             let method = "POST";
             let url = "http://localhost:8080/meetingroommanagement/";
             xhttp.open(method, url);
-            // xhttp.send();
+            xhttp.send();
 
             xhttp.onload = function() {
                     let importStatus = xhttp.responseText;
@@ -143,33 +143,33 @@ setTimeout(function() {
         }
 
         window.onload = function() {
-            getMeetings();
+            getMeetingRooms();
         }
 
         // this list of json is only for testing purpose
-        let allRooms = [{
-            "Name": "Conference call wala room new hai",
-            "SeatingCapacity": 23,
-            "NumberOfMeetings": 12,
-            "Ratings": 3
-        }, {
-            "Name": "Online wala room",
-            "SeatingCapacity": 32,
-            "NumberOfMeetings": 2,
-            "Ratings": 5
-        }, {
-            "Name": "Presentation wala room",
-            "SeatingCapacity": 45,
-            "NumberOfMeetings": 53,
-            "Ratings": 4
-        }, {
-            "Name": "Training wala room",
-            "SeatingCapacity": 65,
-            "NumberOfMeetings": 90,
-            "Ratings": 4
-        }];
+        //let allRooms = [{
+          //  "Name": "Conference call wala room new hai",
+            //"SeatingCapacity": 23,
+            //"NumberOfMeetings": 12,
+            //"Ratings": 3
+    //    }, {
+      //      "Name": "Online wala room",
+        //    "SeatingCapacity": 32,
+          //  "NumberOfMeetings": 2,
+   //         "Ratings": 5
+     //   }, {
+       //     "Name": "Presentation wala room",
+   //         "SeatingCapacity": 45,
+     //       "NumberOfMeetings": 53,
+       //     "Ratings": 4
+   //     }, {
+     //       "Name": "Training wala room",
+       //     "SeatingCapacity": 65,
+   //         "NumberOfMeetings": 90,
+     //       "Ratings": 4
+       // }];
 
-        function getMeetings() {
+        function getMeetingRooms() {
             // var roomsLoaded = false;
             var roomDiv = document.getElementById("roomdetails");
             let xhttp = new XMLHttpRequest();
@@ -178,9 +178,9 @@ setTimeout(function() {
             xhttp.open(method, url, true);
             xhttp.send();
 
-            if (!roomsLoaded) {
-                 showLoader();
-            }
+         //   if (!roomsLoaded) {
+         //         showLoader();
+         //   }
 
             xhttp.onload = function() {
                 let htmlStr = ""

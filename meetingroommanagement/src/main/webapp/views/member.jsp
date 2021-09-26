@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/meetingroommanagement/css/style.css">
     <title>Member | HMeets</title>
 </head>
 
@@ -30,13 +30,13 @@
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
             <div class="container">
                 <!-- Logo -->
-                <img src="images/logo.png" height="30" alt="" />
+                <img src="/meetingroommanagement/resources/images/logo.png" height="30" alt="" />
                 <h4 class="text-white ms-4 my-auto">HMeets</h4>
                 <!-- Logo -->
 
                 <!-- Menu button -->
                 <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="true" aria-label="Toggle navigation">
-                    <img src="images/icon_menu.png" height="22" alt="" class="me-1" />
+                    <img src="/meetingroommanagement/resources/images/icon_menu.png" height="22" alt="" class="me-1" />
                 </button>
                 <!-- Menu button -->
 
@@ -45,7 +45,7 @@
                     <div class="me-auto"></div>
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
-                        <img src="images/icon_user.png" height="16" alt="" class="me-1" />
+                        <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
                         <small class="text-white me-4">Hi! ${user.name}</small>
                     </ul>
                     <ul class="align-nav-item">
@@ -146,7 +146,7 @@
     <!--/.Footer-->
 
     <!--scripts-->
-    <script src="scripts.js"></script>
+    <script src="/meetingroommanagement/scripts/scripts.js"></script>
     <!--scripts-->
 </body>
 

@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
             <div class="container">
                 <!-- Logo -->
-                <img src="images/logo.png" height="30" alt="" />
+                <img src="/meetingroommanagement/resources/images/logo.png" height="30" alt="" />
                 <h4 class="text-white ms-4 my-auto">HMeets</h4>
                 <!-- Logo -->
 
@@ -32,8 +32,8 @@
                     <div class="me-auto"></div>
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
-                        <img src="images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! Current User</small>
+                        <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
+                        <small class="text-white me-4">Hi! User</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="login">
@@ -54,7 +54,7 @@
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class=" col-6 col-sm-4 col-md-4 col-lg-6 col-xl-5">
-                        <img src="images/bg_login.png" class="img-fluid" alt="Login">
+                        <img src="/meetingroommanagement/resources/images/bg_login.png" class="img-fluid" alt="Login">
                     </div>
                     <div class="col-9 col-sm-9 col-md-9 col-lg-6 col-xl-4 offset-xl-1">
                         <form action="login" method="POST">
@@ -80,9 +80,10 @@
                             </div>
 
                             <!--Message-->
-                            <div class="d-flex align-items-center justify-content-center my-3 error-info">
+                            <!--  <div class="d-flex align-items-center justify-content-center my-3 error-info">
                                 Invalid Credentials
                             </div>
+                            -->
                         </form>
                     </div>
                 </div>
@@ -103,7 +104,7 @@
     <!--/.Footer-->
 
     <!--scripts-->
-    <script src="scripts.js"></script>
+    <script src="/meetingroommanagement/scripts/scripts.js"></script>
     <!--scripts-->
 </body>
 
