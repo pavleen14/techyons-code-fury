@@ -24,7 +24,17 @@ TypeOfMeetingInput,
 RoomIdInput,
 OrganizedByInput);
 
+UPDATE tbl_users SET credits = credits - (select  ceil((TIMESTAMPDIFF(SECOND, StartTimeInput, EndTimeInput))/3600)*a.PerHourCost as meeting_cost
+from 
+ tbl_meetingroom  a
+where a.MeetingRoomId = RoomIdInput) WHERE ID = OrganizedByInput; 
+
+
+SELECT MeetingId
+FROM tbl_meeting
+WHERE MeetingRoomId = RoomIdInput
+AND Starttme = StartTimeInput;
+
 END$$
 
 DELIMITER ;
-
