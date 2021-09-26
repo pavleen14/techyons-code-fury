@@ -1,2 +1,4 @@
 /.metadata/
 Project planning/
+*/**/*.prop
+meetingroommanagement/src/main/webapp/WEB-INF/connection.prop
