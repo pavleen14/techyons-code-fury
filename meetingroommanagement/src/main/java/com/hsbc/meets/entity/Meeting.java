@@ -16,6 +16,9 @@ public class Meeting {
 	private String meetingType;
 	private List<User> attendees;
 	private MeetingRoom meetingRoom;
+	private String timeAsString;
+	private String organizedBy;
+	
 	
 	public Meeting(int meetingId){
 	}
@@ -29,6 +32,18 @@ public class Meeting {
 		this.meetingType = meetingType;
 	}
 	
+	
+	
+	public Meeting(String title, String typeOfMeeting, String name, int meetingRoomId, String organizedBy,String time) {
+		this.meetingTitle = title;
+		this.meetingType = typeOfMeeting;
+		this.meetingRoom = new MeetingRoom(name,meetingRoomId);
+		this.organizedBy = organizedBy;
+		this.timeAsString = time;
+		
+	 
+	}
+
 	public String getMeetingTitle() {
 		return meetingTitle;
 	}

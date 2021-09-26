@@ -33,6 +33,12 @@ public class MeetingRoom {
 		this.noOfFeedbacks = 0;
 	}
 	
+	public MeetingRoom(String name,int meetingRoomID)
+	{
+		this.meetingRoomName = name;
+		this.meetingRoomId = meetingRoomID;
+	}
+	
 	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities) {
 		this(meetingRoomName, seatingCapacity, amenities);
 		this.meetingRoomId = meetingRoomId;
