@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.Session;
+
 import com.hsbc.meets.entity.User;
 import com.hsbc.meets.exception.InvalidCredentialsException;
 import com.hsbc.meets.factory.LoggerFactory;
@@ -35,6 +37,10 @@ public class LoginController extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String operation = req.getParameter("op");
+		if(operation == "logout") {
+			req.getSession().invalidate();
+		}
 		RequestDispatcher dispatcher = req.getRequestDispatcher("views/login.jsp");
 		dispatcher.forward(req, resp);
 	}
