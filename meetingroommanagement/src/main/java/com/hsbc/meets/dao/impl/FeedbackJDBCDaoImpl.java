@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 
 import com.hsbc.meets.dao.FeedbackDao;
 import com.hsbc.meets.entity.Meeting;
+import com.hsbc.meets.factory.LoggerFactory;
 import com.hsbc.meets.util.Connectivity;
 import com.hsbc.meets.util.Query;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Implements Dao class to Add feedback.
@@ -20,6 +22,7 @@ import java.util.logging.Level;
  *
  */
 public class FeedbackJDBCDaoImpl implements FeedbackDao {
+	static Logger logger = LoggerFactory.getLogger();
 	
 	private static final String ADD_FEEDBACK_BY_USERID_SQL = "call sp_InsertFeedback(?,?,?,?)";
 	private static final String GET_UPCOMING_MEETINGS_BY_EMAIL_SQL="call sp_GetUpcomingMeetings(?)"; 
