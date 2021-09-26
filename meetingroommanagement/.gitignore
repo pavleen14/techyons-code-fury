@@ -1,3 +1,4 @@
 /build/
 meetsapplication.log
-*/**/connection.prop
+meetsapplication.log.*
+*/**/*.prop

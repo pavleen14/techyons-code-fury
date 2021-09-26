@@ -14,6 +14,7 @@
 </head>
 
 <body id="page-container">
+
 <%
     User user = (User)request.getSession().getAttribute("user");
     pageContext.setAttribute("user", user); 

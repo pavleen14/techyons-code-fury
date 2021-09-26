@@ -63,7 +63,7 @@ public class LoginJdbcDaoImpl implements LoginDao {
 		statement.setInt(1, id);
 		
 		int rowsUpdated = statement.executeUpdate();
-		
+		System.out.println("sometimes not updating timestamp in db");
 		if(rowsUpdated == 1)
 		{
 			logger.log(Level.INFO, "Logged in userId: " + id);
