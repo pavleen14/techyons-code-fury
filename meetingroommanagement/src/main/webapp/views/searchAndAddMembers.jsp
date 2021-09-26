@@ -90,6 +90,7 @@
                     <!--Added Members-->
                     <div class="col-md-8" id="membersAdded"></div>
                     <!--Added Members-->
+                    <button onclick="submitToBack()"></button>
                 </div>
                 <!--Added members-->
             </div>
@@ -188,9 +189,9 @@
             resultsDiv.innerHTML = "";
 
             if (capacity > addedMembers.length) {
-                let canAdd = addedMembers.find(member => member.ID == id);
+                let canAdd = addedMembers.find(member => member.userId == id);
                 if (canAdd == undefined) {
-                    let addThisMember = searchedMembers.find(member => member.ID == id);
+                    let addThisMember = searchedMembers.find(member => member.userId == id);
                     addedMembers.push(addThisMember);
                     addToMeeting(addThisMember);
                 } else {
@@ -209,6 +210,14 @@
                         </div>
                         <hr>`;
             document.getElementById("membersAdded").insertAdjacentHTML('beforeend', addedMemberHtml);
+        }
+        
+        function submitToBack(){
+        	let xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+        	let theUrl = "http://localhost:8080/meetingroommanagement/meetingroom/submit";
+        	xmlhttp.open("POST", theUrl);
+        	xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        	xmlhttp.send(JSON.stringify(addedMembers));
         }
     </script>
     <!--scripts-->

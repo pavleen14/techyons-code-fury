@@ -31,8 +31,8 @@ public abstract class MeetingValidation {
 	 * @throws MeetingDurationInvalidException
 	 * @throws MeetingTypeInvalidException
 	 */
-	public static boolean validateMeetingInformation(MeetingDao dao, String meetingTitle,Calendar startDateTime, int durationInMinuts,String meetingType) throws MeetingTitleInvalidException, MeetingStartDateTimeInvalidException, MeetingDurationInvalidException, MeetingTypeInvalidException{
-		if(validateMeetingTitle(dao, meetingTitle) && validateMeetingStartDateTime(startDateTime) && validateMeetingDurationInMinuts(durationInMinuts) && validateMeetingType(meetingType)){
+	public static boolean validateMeetingInformation(MeetingDao dao, String meetingTitle,Calendar startDateTime,String meetingType) throws MeetingTitleInvalidException, MeetingStartDateTimeInvalidException, MeetingDurationInvalidException, MeetingTypeInvalidException{
+		if(validateMeetingTitle(dao, meetingTitle) && validateMeetingStartDateTime(startDateTime)  && validateMeetingType(meetingType)){
 			return true;
 		}
 		return false;

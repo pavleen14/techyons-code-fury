@@ -43,10 +43,9 @@ public class MeetingServiceImpl implements MeetingService{
 	/**
 	 * @author ShubhraBhuniaGhosh
 	 */
-	public boolean setMeetingBookingInformation(String meetingTitle,Calendar startDateTime,Calendar endDateTime, int durationInMinuts,String meetingType) throws MeetingTitleInvalidException, MeetingStartDateTimeInvalidException, MeetingDurationInvalidException, MeetingTypeInvalidException {
-		if(MeetingValidation.validateMeetingInformation(this.dao, meetingTitle, startDateTime, durationInMinuts, meetingType)) {
-			this.bookedMeeting = new Meeting(meetingTitle, startDateTime, durationInMinuts, meetingType);
-			endDateTime.add(Calendar.MINUTE, durationInMinuts);
+	public boolean setMeetingBookingInformation(String meetingTitle,Calendar startDateTime,Calendar endDateTime,String meetingType) throws MeetingTitleInvalidException, MeetingStartDateTimeInvalidException, MeetingDurationInvalidException, MeetingTypeInvalidException {
+		if(MeetingValidation.validateMeetingInformation(this.dao, meetingTitle, startDateTime, meetingType)) {
+			this.bookedMeeting = new Meeting(meetingTitle, startDateTime, endDateTime, meetingType);
 			bookedMeeting.setEndDateTime(endDateTime);
 			System.out.println(bookedMeeting.getEndDateTime());
 			return true;
@@ -81,7 +80,7 @@ public class MeetingServiceImpl implements MeetingService{
 	 * @author ShubhraBhuniaGhosh
 	 */
 	public List<MeetingRoom> getAllAvailableMeetingRooms() {
-		return dao.getMeetingRooms(bookedMeeting.getStartDateTime(), bookedMeeting.getEndDateTime(), bookedMeeting.getMeetingType(),bookedMeeting.getAttendees().size());
+		return dao.getMeetingRooms(bookedMeeting.getStartDateTime(), bookedMeeting.getEndDateTime(), bookedMeeting.getMeetingType(),0);
 	}
 	/**
 	 * @author ShubhraBhuniaGhosh

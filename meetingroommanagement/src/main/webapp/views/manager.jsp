@@ -66,7 +66,7 @@
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center mb-4">
                 <div class="col-11 col-sm-9 col-md-9 col-lg-5 col-xl-5">
-                    <form action="http://localhost:8080/meetingroommanagement/meetingroom" method="POST">
+                    <form action="http://localhost:8080/meetingroommanagement/meetingroom/rooms" method="POST">
                         <!--Heading-->
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                             <p class="lead mb-0 me-3">Create new meeting</p>

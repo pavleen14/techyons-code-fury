@@ -23,12 +23,12 @@ public class Meeting {
 	public Meeting(int meetingId){
 	}
 	
-	public Meeting(String meetingTitle, Calendar startDateTime, int durationInMinuts,
+	public Meeting(String meetingTitle, Calendar startDateTime, Calendar dtime,
 			String meetingType) {
 		this.meetingId = -1;
 		this.meetingTitle = meetingTitle;
 		this.startDateTime = startDateTime;
-		this.durationInMinuts = durationInMinuts;
+		this.endDateTime = dtime;
 		this.meetingType = meetingType;
 	}
 	

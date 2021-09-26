@@ -33,7 +33,7 @@ public interface MeetingService {
 	 * @throws MeetingTypeInvalidException
 	 * @return returns true is runs successfully 
 	 */
-	public boolean setMeetingBookingInformation(String meetingTitle,Calendar startDateTime,Calendar endDateTime, int durationInMinuts,String meetingType) throws MeetingTitleInvalidException, MeetingStartDateTimeInvalidException, MeetingDurationInvalidException, MeetingTypeInvalidException;
+	public boolean setMeetingBookingInformation(String meetingTitle,Calendar startDateTime,Calendar endDateTime,String meetingType) throws MeetingTitleInvalidException, MeetingStartDateTimeInvalidException, MeetingDurationInvalidException, MeetingTypeInvalidException;
 	/**
 	 * This method get a list of All Users in the database.
 	 * @author ShubhraBhuniaGhosh

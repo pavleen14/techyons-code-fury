@@ -2,6 +2,10 @@ package com.hsbc.meets.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,11 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hsbc.meets.entity.Meeting;
+import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.entity.User;
 import com.hsbc.meets.factory.HomeFactory;
-import com.hsbc.meets.factory.LoginFactory;
+import com.hsbc.meets.factory.MeetingFactory;
 import com.hsbc.meets.service.HomeService;
-import com.hsbc.meets.service.LoginService;
+import com.hsbc.meets.service.MeetingService;
 import com.hsbc.meets.util.Role;
 
 /**
@@ -61,6 +67,11 @@ public class MeetingBookingController extends HttpServlet {
 		 * members list
 		 * service
 		 */
+		User currentUser = (User) req.getSession().getAttribute("user");
+		if(currentUser == null || currentUser.getRole() != Role.MANAGER) {
+			resp.sendRedirect("/meetingroommanagement/login");
+			return;
+		}
 		
 		resp.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = resp.getWriter();
@@ -75,6 +86,26 @@ public class MeetingBookingController extends HttpServlet {
 			
 			else if(path.equals("rooms")) {
 				
+				
+				String Title = req.getParameter("title");
+				String MeetingType = req.getParameter("meettype");
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
+				Calendar stime = Calendar.getInstance();
+				Calendar dtime = Calendar.getInstance();
+				dtime.add(Calendar.HOUR, 1);
+				try {
+					stime.setTime(formatter.parse(req.getParameter("stime")));
+					dtime.setTime(formatter.parse(req.getParameter("stime")));
+					
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				Meeting meeting = new Meeting(MeetingType, stime,dtime, MeetingType);
+				MeetingService ms = MeetingFactory.getMeetingServiceObject(currentUser);
+				List<MeetingRoom> rooms = ms.getAllAvailableMeetingRooms();
+				req.setAttribute("rooms" , rooms);
+				req.setAttribute("meeting", meeting);
 			}
 
 			else if(path.equals("submit")) {
@@ -82,7 +113,7 @@ public class MeetingBookingController extends HttpServlet {
 			}
 			
 			else {	
-				//members list	
+				resp.sendRedirect("/meetingroommanagement/manager");
 			}
 		super.doPost(req, resp);
 	}

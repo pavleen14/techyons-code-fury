@@ -232,8 +232,8 @@ public class MeetingDbDaoImpl implements MeetingDao{
 		CallableStatement stmt  = null;
 		ResultSet rs = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String strStartDateTime = sdf.format(Calendar.getInstance().getTime());
-		String strEndDateTime = sdf.format(Calendar.getInstance().getTime());
+		String strStartDateTime = sdf.format(bookedMeeting.getStartDateTime().getTime());
+		String strEndDateTime = sdf.format(bookedMeeting.getStartDateTime().getTime());
 		int meetingId = -1;
 		try {
 			stmt  = con.prepareCall("call sp_InsertIntoMeeting(?,?,?,?,?,?)");	
@@ -359,12 +359,12 @@ public class MeetingDbDaoImpl implements MeetingDao{
 
 	public static void main(String[] args) throws MeetingTitleInvalidException, SomethingWentWrongException, SQLException {
 
-		List<MeetingRoom> rooms = new MeetingDbDaoImpl().getMeetingRooms(Calendar.getInstance(), Calendar.getInstance(), "BUSINESS", 2);
-
-		Meeting bookedMeeting = new Meeting("TestMain2", Calendar.getInstance(), 120, "BUSINESS");
-		bookedMeeting.setEndDateTime(Calendar.getInstance());
-		int meetingId = new MeetingDbDaoImpl().insertValueOfMeeting(bookedMeeting, 3, rooms.get(0).getMeetingRoomId());
-		System.out.println(new MeetingDbDaoImpl().addAttendeeByUserIdAndMeetingId("sakshi.kumar@hscc.co.in", meetingId));
+//		List<MeetingRoom> rooms = new MeetingDbDaoImpl().getMeetingRooms(Calendar.getInstance(), Calendar.getInstance(), "BUSINESS", 2);
+//
+//		Meeting bookedMeeting = new Meeting("TestMain2", Calendar.getInstance(), Calendar.getInstance().add(Calendar.HOUR, 3), "BUSINESS");
+//		bookedMeeting.setEndDateTime(Calendar.getInstance());
+//		int meetingId = new MeetingDbDaoImpl().insertValueOfMeeting(bookedMeeting, 3, rooms.get(0).getMeetingRoomId());
+//		System.out.println(new MeetingDbDaoImpl().addAttendeeByUserIdAndMeetingId("sakshi.kumar@hscc.co.in", meetingId));
 
 	}
 }
