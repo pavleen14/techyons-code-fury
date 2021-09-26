@@ -6,16 +6,19 @@ USE `meeting_room_booking_db`$$
 CREATE PROCEDURE `sp_GetRecent_FeedbackPendingMeetings` (IN EmailInput varchar(45))
 BEGIN
 SELECT ID INTO @userid FROM tbl_users WHERE Email = EmailInput;
-	SELECT x.meetingroomid FROM(
-SELECT DISTINCT m.meetingroomid
-FROM
-tbl_meeting m 
+
+SELECT m.Title , m.TypeOfMeeting , mr.Name , mr.MeetingRoomId , m.OrganizedBy , a.UserId
+FROM tbl_meetingroom mr
+JOIN tbl_meeting m
 JOIN tbl_attendee a
-ON m.meetingId=a.meetingId 
-WHERE a.userId=@userid
-)x
-WHERE x.meetingroomid NOT IN (SELECT DISTINCT meetingroomid FROM tbl_feedback WHERE userid=@userid);
+ON mr.MeetingRoomId = m.MeetingRoomId
+AND m.MeetingId = a.MeetingId
+WHERE m.StartTme > NOW() - Interval 7 Day AND
+mr.MeetingRoomId NOT IN (
+SELECT f.MeetingRoomId 
+From tbl_feedback f WHERE f.UserId = @userid
+) AND a.userID = @userId;
+
 END$$
 
 DELIMITER ;
-
