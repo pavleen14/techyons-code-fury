@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,11 +32,11 @@
                 <div class="collapse navbar-collapse" id="navbarButtons">
                     <div class="me-auto"></div>
                     <!-- <small class="text-info me-4">Link</small> -->
-                    <ul>
+                    <ul class="align-nav-item">
                         <img src="images/icon_user.png" height="16" alt="" class="me-1" />
                         <small class="text-white me-4">Hi! Current User</small>
                     </ul>
-                    <ul>
+                    <ul class="align-nav-item">
                         <a href="login">
                             <button type="button" class="btn btn-outline-info" data-mdb-ripple-color="dark">
                                 Login
@@ -127,17 +129,17 @@
                     statusElement.innerHTML = importStatus;
                 }
                 /*
-        setTimeout(function() {
-            let importStatus = "Successfully imported 11 users"
-            let statusElement = document.getElementById('importStatus');
-            if (importStatus.includes("Successfully imported")) {
-                statusElement.style.color = "green";
-            } else {
-                statusElement.style.color = "red";
-            }
-            statusElement.innerHTML = importStatus;
-        }, 3000);
-        */
+setTimeout(function() {
+    let importStatus = "Successfully imported 11 users"
+    let statusElement = document.getElementById('importStatus');
+    if (importStatus.includes("Successfully imported")) {
+        statusElement.style.color = "green";
+    } else {
+        statusElement.style.color = "red";
+    }
+    statusElement.innerHTML = importStatus;
+}, 3000);
+*/
         }
 
         window.onload = function() {
@@ -165,16 +167,6 @@
             "SeatingCapacity": 65,
             "NumberOfMeetings": 90,
             "Ratings": 4
-        }, {
-            "Name": "Costly wala room",
-            "SeatingCapacity": 30,
-            "NumberOfMeetings": 10,
-            "Ratings": 5
-        }, {
-            "Name": "AC wala room",
-            "SeatingCapacity": 20,
-            "NumberOfMeetings": 15,
-            "Ratings": 5
         }];
 
         function getMeetings() {

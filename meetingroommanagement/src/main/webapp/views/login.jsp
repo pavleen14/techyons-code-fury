@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Login</title>
+    <title>Login | HMeets</title>
 </head>
 
 <body id="page-container">
@@ -31,11 +31,11 @@
                 <div class="collapse navbar-collapse" id="navbarButtons">
                     <div class="me-auto"></div>
                     <!-- <small class="text-info me-4">Link</small> -->
-                    <ul>
+                    <ul class="align-nav-item">
                         <img src="images/icon_user.png" height="16" alt="" class="me-1" />
                         <small class="text-white me-4">Hi! Current User</small>
                     </ul>
-                    <ul>
+                    <ul class="align-nav-item">
                         <a href="login">
                             <button type="button" class="btn btn-outline-info" data-mdb-ripple-color="dark">
                                 Login
@@ -77,6 +77,11 @@
 
                             <div class="text-center text-lg-start mt-4 pt-2">
                                 <input class="btn btn-primary btn-lg" type="submit" value="Login" />
+                            </div>
+
+                            <!--Message-->
+                            <div class="d-flex align-items-center justify-content-center my-3 error-info">
+                                Invalid Credentials
                             </div>
                         </form>
                     </div>

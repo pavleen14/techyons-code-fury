@@ -165,7 +165,7 @@ dl,
 ol,
 ul {
     margin-top: 0;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
 }
 
 ol ol,
@@ -483,8 +483,8 @@ progress {
 }
 
 .lead {
-    font-size: 1.25rem;
-    font-weight: 300;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .display-1 {
@@ -2539,7 +2539,7 @@ textarea.form-control-lg {
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: contain;
-    border: 1px solid rgba(0, 0, 0, .25);
+    border: 1px solid #D35F4E;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -2557,14 +2557,14 @@ textarea.form-control-lg {
 }
 
 .form-check-input:focus {
-    border-color: #1266f1;
+    border-color: #D35F4E;
     outline: 0;
     -webkit-box-shadow: 0 0 0 .25rem rgba(18, 102, 241, .25);
-    box-shadow: 0 0 0 .25rem rgba(18, 102, 241, .25);
+    box-shadow: 0 0 0 .25rem #D35F4E;
 }
 
 .form-check-input:checked {
-    background-color: #1266f1;
+    background-color: #D35F4E;
 }
 
 .form-check-input:disabled {
@@ -2924,8 +2924,8 @@ textarea.form-control.is-valid {
 
 .form-check-input.is-valid:focus,
 .was-validated .form-check-input:valid:focus {
-    -webkit-box-shadow: 0 0 0 .25rem rgba(0, 183, 74, .25);
-    box-shadow: 0 0 0 .25rem rgba(0, 183, 74, .25);
+    -webkit-box-shadow: 0 0 0 .25rem #D35F4E;
+    box-shadow: 0 0 0 .25rem #D35F4E;
 }
 
 .input-group .form-control.is-valid,
@@ -12795,7 +12795,7 @@ button:focus {
 }
 
 .bg-info {
-    background-color: #39c0ed!important;
+    background-color: #39C0ED!important;
 }
 
 .bg-warning {
@@ -14535,7 +14535,7 @@ i.flag-zw:before {
 }
 
 .form-check-input:checked {
-    border-color: #1266f1;
+    border-color: #D35F4E;
 }
 
 .form-check-input:checked:before {
@@ -14548,12 +14548,12 @@ i.flag-zw:before {
 }
 
 .form-check-input:checked:focus {
-    border-color: #1266f1;
+    border-color: #D35F4E;
 }
 
 .form-check-input:checked:focus:before {
-    -webkit-box-shadow: 0 0 0 13px #1266f1;
-    box-shadow: 0 0 0 13px #1266f1;
+    -webkit-box-shadow: 0 0 0 13px #D35F4E;
+    box-shadow: 0 0 0 13px #D35F4E;
     -webkit-transform: scale(1);
     transform: scale(1);
     -webkit-transition: -webkit-box-shadow .2s, -webkit-transform .2s;
@@ -14586,7 +14586,7 @@ i.flag-zw:before {
 
 .form-check-input[type=checkbox]:checked {
     background-image: none;
-    background-color: #1266f1;
+    background-color: #D35F4E;
 }
 
 .form-check-input[type=checkbox]:checked:after {
@@ -14607,13 +14607,13 @@ i.flag-zw:before {
 }
 
 .form-check-input[type=checkbox]:checked:focus {
-    background-color: #1266f1;
+    background-color: #D35F4E;
 }
 
 .form-check-input[type=checkbox]:indeterminate {
     background-image: none;
     background-color: transparent;
-    border-color: #757575;
+    border-color: #D35F4E;
 }
 
 .form-check-input[type=checkbox]:indeterminate:after {
@@ -16255,7 +16255,7 @@ fieldset:disabled .btn-link {
 .fixed-action-btn ul li {
     z-index: 0;
     margin-right: auto;
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
     margin-left: auto;
 }
 
@@ -18503,4 +18503,70 @@ fieldset:disabled .btn-group-vertical {
 
 .footer-copyright {
     height: 3.8rem;
+}
+
+@media(max-width:576px) {
+    .bg-image {
+        display: none;
+    }
+}
+
+.align-nav-item {
+    margin: 0;
+    padding: 0;
+}
+
+.diagonal-box {
+    background-image: linear-gradient(45deg, #6303B1, #ff0099);
+}
+
+.content {
+    max-width: 50em;
+    margin: 0 auto;
+}
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, #B35042, #FF725E);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, #B35042, #FF725E)
+}
+
+.user-card-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.5rem;
+    background-color: rgb(255, 253, 253);
+    -webkit-box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -2px rgba(0, 0, 0, .1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .08), 0 4px 6px -2px rgba(0, 0, 0, .08);
+}
+
+#btnadmin {
+    background-color: #D35F4E;
+    color: #FFF;
+    border-color: #D35F4E;
+    width: 99%;
+    margin-left: 5px;
+}
+
+#btnadminoutline {
+    color: #D35F4E;
+    border-color: #D35F4E;
+    width: 99%;
+    font-weight: 600;
+    margin-bottom: .7rem;
+    margin-right: 5px;
+}
+
+.pl-0 {
+    margin: auto !important;
+}
+
+.error-info {
+    background-color: rgba(255, 106, 106, 0.322);
+    height: 3rem;
+    border-radius: 4px;
 }
