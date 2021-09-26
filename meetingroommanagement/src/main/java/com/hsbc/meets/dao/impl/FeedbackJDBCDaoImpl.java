@@ -3,20 +3,22 @@ package com.hsbc.meets.dao.impl;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-
-import com.hsbc.meets.dao.FeedbackDao;
-import com.hsbc.meets.entity.Meeting;
-import com.hsbc.meets.util.Connectivity;
-import com.hsbc.meets.util.Query;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.hsbc.meets.dao.FeedbackDao;
+import com.hsbc.meets.entity.Meeting;
+import com.hsbc.meets.factory.LoggerFactory;
+import com.hsbc.meets.util.Connectivity;
 
 /**
  * Implements Dao class to Add feedback.
  * 
  * @author Ajay
+ * @author Muskan
  *
  */
 public class FeedbackJDBCDaoImpl implements FeedbackDao {
@@ -24,6 +26,13 @@ public class FeedbackJDBCDaoImpl implements FeedbackDao {
 	private static final String ADD_FEEDBACK_BY_USERID_SQL = "call sp_InsertFeedback(?,?,?,?)";
 	private static final String GET_UPCOMING_MEETINGS_BY_EMAIL_SQL="call sp_GetUpcomingMeetings(?)"; 
 	private static final String GET_RECENT_FEEDBACKPENDING_MEETINGS="call sp_GetRecent_FeedbackPendingMeetings(?)";
+	
+	private Logger logger;
+	
+	public FeedbackJDBCDaoImpl() {
+		logger = LoggerFactory.getLogger();
+	}
+	
 	@Override
 	public void addFeedback(int rating,String comments,int userId,int meetingRoomId) throws SQLException{
 		Connection connection = Connectivity.getConnection();

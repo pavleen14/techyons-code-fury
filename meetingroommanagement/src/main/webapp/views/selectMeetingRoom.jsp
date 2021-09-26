@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <%-- @author shalaka --%>
 
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@page import="com.hsbc.meets.entity.MeetingRoom" %>
 
-<%ArrayList<MeetingRoom> li = new ArrayList<MeetingRoom>();
-li=(ArrayList)request.getAttribute("MeetingRoomList");
+<%
+	List<MeetingRoom> rooms = (List<MeetingRoom>)request.getAttribute("elist");
+	pageContext.setAttribute("rooms", rooms);
 %>
 
 
@@ -36,37 +36,18 @@ li=(ArrayList)request.getAttribute("MeetingRoomList");
 	<td><b>Amenities</b></td>
 	</tr>
 	
-	 
-	
-	
-	<%	int row=1;
-		for(int i=0;i<li.size();i++){
-			MeetingRoom m=li.get(i);
-			String name=m.getMeetingRoomName(); %>
-			<tr>
-			<td><input type="radio" id="html" name="fav_language" value=name></td>
-			<label for=name>
-			<td style="text-align:center"><% out.println(name); %></td></label>
-			<td style="text-align:center"><% out.println(m.getSeatingCapacity()); %></td>
-			<td style="text-align:center"><% out.println(m.getCreditsPerHour()); %></td>
-			<td style="text-align:center"><% out.println(m.getRating()); %></td>
-			<td style="text-align:center"><% out.println(m.getNoOfFeedbacks()); %></td>
-			<td>
-			<ul>
-			<% List<String> amenities=m.getAmenities();
-			for(int j=0;j<amenities.size();j++)
-			{ %>
-				<li><% out.println(amenities.get(j)); %></li>
-			<% } %>
-			</ul>
-			</td>
+	<e:forEach items="${rooms}" var="room">
+            <e:set var="eid" value="${room.meetingRoomId}" />
+        		<tr>
+			<td><input type="radio" id="html" name="roomid" value="${room.meetingRoomId}"></td>
+			<td >${room.meetingRoomName}</td>
+			<td >${room.seatingCapacity}</td>
+			<td >${room.rating}</td>
+			<td >${room.noOfFeedbacks }</td>
+			<td >${room.amenities}</td>
 			
 			</tr>
-		<% }
-	
-	%>
-	
-
+	</e:forEach>
 	
 	</table>
 	<br><br>

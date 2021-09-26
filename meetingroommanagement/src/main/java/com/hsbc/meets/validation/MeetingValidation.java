@@ -10,9 +10,11 @@ import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidByMeetingTypeExceptio
 import com.hsbc.meets.exception.MeetingStartDateTimeInvalidException;
 import com.hsbc.meets.exception.MeetingTitleInvalidException;
 import com.hsbc.meets.exception.MeetingTypeInvalidException;
+import com.hsbc.meets.factory.MeetingFactory;
 
 
 public abstract class MeetingValidation {
+	
 	/**
 	 * This method validates meetingType using {@link #validateMeetingMeetingType() validateMeetingMeetingType} 
 	 * durationInMinuts using {@link #validateMeetingDurationInMinuts() validateMeetingDurationInMinuts} 
@@ -161,16 +163,4 @@ public abstract class MeetingValidation {
 			throw new MeetingRoomAmenitiesInvalidByMeetingTypeException();
 		}
 	}
-public static void main(String[] args) {
-	
-}
-//	public static void main(String[] args) {
-//		Calendar someday =  Calendar.getInstance();
-//		//someday.set(2021, 8, 25, 12, 55);
-//		//someday.set(2021, 1, 26, 23, 55);
-//		//someday.add(Calendar.DATE, 1);
-//		//someday.add(field, amount);
-//
-//		//new MeetingBookingValidation().validateMeetingStartDateTime(someday);
-//	}
 }

@@ -25,14 +25,14 @@ import com.hsbc.meets.util.Role;
  *
  */
 
-@WebServlet("/manager")
-public class ManagerController extends HttpServlet {
+@WebServlet("/member")
+public class MemberController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		User currentUser = (User) req.getSession().getAttribute("user");
-		if(currentUser == null || currentUser.getRole() != Role.MANAGER) {
+		if(currentUser == null) {
 			resp.sendRedirect("/meetingroommanagement/login");
 			return;
 		}
@@ -51,7 +51,7 @@ public class ManagerController extends HttpServlet {
 		req.setAttribute("upcoming", upcoming);
 		req.setAttribute("recent", recent);
 		
-		req.getRequestDispatcher("/views/manager.jsp").forward(req, resp);
+		req.getRequestDispatcher("/views/member.jsp").forward(req, resp);
 		
 	}
 }
