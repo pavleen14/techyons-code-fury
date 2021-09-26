@@ -11,45 +11,49 @@ CREATE PROCEDURE `sp_getAvailableMeetingRooms` (
 )
 BEGIN
 IF typeOfMeetingIn = 'CLASSROOM_TRAINING' THEN
-    SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost
+    SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost , mr.Rating, mr.NumberOfFeedbacks
     FROM tbl_meetingroom mr
-    JOIN tbl_meeting m
+    LEFT JOIN tbl_meeting m
     ON m.MeetingRoomId = mr.MeetingRoomId
     WHERE mr.MeetingRoomId 
     IN (SELECT MeetingRoomId FROM vw_classroom)
     AND mr.SeatingCapacity >= capacityIn
-    AND (m.StartTme >= endTimeIn
-    OR m.EndTime <= startTmeIn );
+    AND ( m.StartTme IS NULL
+    OR (m.StartTme >= endTimeIn
+    OR m.EndTime <= startTmeIn ));
 ELSEIF typeOfMeetingIn = 'ONLINE_TRAINING' THEN
-    SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost
+    SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost , mr.Rating, mr.NumberOfFeedbacks
     FROM tbl_meetingroom mr
-    JOIN tbl_meeting m
+    LEFT JOIN tbl_meeting m
     ON m.MeetingRoomId = mr.MeetingRoomId
     WHERE mr.MeetingRoomId 
     IN (SELECT MeetingRoomId FROM vw_online)
     AND mr.SeatingCapacity >= capacityIn
-    AND (m.StartTme >= endTimeIn
-    OR m.EndTime <= startTmeIn );
+    AND ( m.StartTme IS NULL
+    OR (m.StartTme >= endTimeIn
+    OR m.EndTime <= startTmeIn ));
 ELSEIF typeOfMeetingIn = 'CONFERENCE_CALL' THEN
-    SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost
+    SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost , mr.Rating, mr.NumberOfFeedbacks
     FROM tbl_meetingroom mr
-    JOIN tbl_meeting m
+    LEFT JOIN tbl_meeting m
     ON m.MeetingRoomId = mr.MeetingRoomId
     WHERE mr.MeetingRoomId 
     IN (SELECT MeetingRoomId FROM vw_conference)
     AND mr.SeatingCapacity >= capacityIn
-    AND (m.StartTme >= endTimeIn
-    OR m.EndTime <= startTmeIn );
+    AND ( m.StartTme IS NULL
+    OR (m.StartTme >= endTimeIn
+    OR m.EndTime <= startTmeIn ));
 ELSE
-    SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost
+    SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost , mr.Rating, mr.NumberOfFeedbacks
     FROM tbl_meetingroom mr
-    JOIN tbl_meeting m
+    LEFT JOIN tbl_meeting m
     ON m.MeetingRoomId = mr.MeetingRoomId
     WHERE mr.MeetingRoomId 
     IN (SELECT MeetingRoomId FROM vw_business)
     AND mr.SeatingCapacity >= capacityIn
-    AND (m.StartTme >= endTimeIn
-    OR m.EndTime <= startTmeIn );
+    AND ( m.StartTme IS NULL
+    OR (m.StartTme >= endTimeIn
+    OR m.EndTime <= startTmeIn ));
     END IF;
 END $$
 
