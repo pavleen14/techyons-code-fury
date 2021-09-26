@@ -9,9 +9,9 @@
 <body>
 <form action="login" method="post">
 <span>Email:<input type="text" name="email" value="${email}" required></span>
-</br>
+<br/>
 <span>Password<input type="password" name="password" required></span>
-</br>
+<br/>
 <span>${message}</span>
 <input type="submit" value="Submit">
 

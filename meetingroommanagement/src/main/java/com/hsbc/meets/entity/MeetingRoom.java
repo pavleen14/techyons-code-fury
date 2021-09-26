@@ -34,32 +34,24 @@ public class MeetingRoom {
 	}
 	
 	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities) {
-		super();
+		this(meetingRoomName, seatingCapacity, amenities);
 		this.meetingRoomId = meetingRoomId;
-		this.meetingRoomName = meetingRoomName;
-		this.seatingCapacity = seatingCapacity;
 		this.rating = 0f;
-		this.amenities = amenities;
 		this.creditsPerHour = 0;
 		this.noOfFeedbacks = 0;
 	}
 	
-	/**
-	 * @param meetingRoomId
-	 * @param meetingRoomName
-	 * @param seatingCapacity
-	 * @param rating
-	 * @param creditsPerHour
-	 * @param noOfFeedbacks
-	 */
 	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, float rating, float creditsPerHour) {
-		super();
-		this.meetingRoomId = meetingRoomId;
-		this.meetingRoomName = meetingRoomName;
-		this.seatingCapacity = seatingCapacity;
+		this(meetingRoomId, meetingRoomName, seatingCapacity, new ArrayList<String>());
 		this.rating = rating;
-		this.amenities = new ArrayList<String>();
 		this.creditsPerHour = creditsPerHour;
+	}
+	
+	public MeetingRoom(int meetingRoomId, String meetingRoomName, int seatingCapacity, List<String> amenities, float creditsPerHour, float rating, int noOfFeedbacks) {
+		this(meetingRoomId, meetingRoomName, seatingCapacity, amenities);
+		this.rating = rating;
+		this.creditsPerHour = creditsPerHour;
+		this.noOfFeedbacks = noOfFeedbacks;
 	}
 
 	/**
