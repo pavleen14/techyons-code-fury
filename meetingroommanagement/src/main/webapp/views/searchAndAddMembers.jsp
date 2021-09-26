@@ -41,7 +41,7 @@
                         <small class="text-white me-4">Hi! ${user.name})</small>
                     </ul>
                     <ul class="align-nav-item">
-                        <a href="">
+                        <a href="login?op=logout">
                             <button type="button" class="btn btn-outline-info" data-mdb-ripple-color="dark">
                                 Logout
                             </button>
