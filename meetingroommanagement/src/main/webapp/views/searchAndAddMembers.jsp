@@ -1,233 +1,212 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Admin | HMeets</title>
+</head>
 
-  <style>
-* {
-  box-sizing: border-box;
-}
+<body id="page-container">
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
+            <div class="container">
+                <!-- Logo -->
+                <img src="images/logo.png" height="30" alt="" />
+                <h4 class="text-white ms-4 my-auto">HMeets</h4>
+                <!-- Logo -->
 
-body {
-  font: 16px Arial;  
-}
+                <!-- Menu button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="true" aria-label="Toggle navigation">
+                    <img src="images/icon_menu.png" height="22" alt="" class="me-1" />
+                </button>
+                <!-- Menu button -->
 
-/*the container must be positioned relative:*/
-.autocomplete {
-  position: relative;
-  display: inline-block;
-}
+                <!-- Nav Items -->
+                <div class="collapse navbar-collapse align-items-center" id="navbarButtons">
+                    <div class="me-auto"></div>
+                    <!-- <small class="text-info me-4">Link</small> -->
+                    <ul class="align-nav-item">
+                        <img src="images/icon_user.png" height="16" alt="" class="me-1" />
+                        <small class="text-white me-4">Hi! Amit Kumar</small>
+                    </ul>
+                    <ul class="align-nav-item">
+                        <a href="">
+                            <button type="button" class="btn btn-outline-info" data-mdb-ripple-color="dark">
+                                Logout
+                            </button>
+                        </a>
+                    </ul>
+                    <!-- </div> -->
+                </div>
+                <!-- Nav Items -->
+            </div>
+        </nav>
+        <!-- Navbar -->
+    </header>
 
-input {
-  border: 1px solid transparent;
-  background-color: #f1f1f1;
-  padding: 10px;
-  font-size: 16px;
-}
+    <main id="content-wrap">
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-10 col-sm-8 col-md-9 col-lg-6 col-xl-5 offset-xl-1">
+                    <!--Welcome Text-->
+                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start my-4">
+                        <h4 class="text-muted">Add Members to your meeting</h4><br>
+                    </div>
+                    <!--/ Welcome Text-->
 
-input[type=text] {
-  background-color: #f1f1f1;
-  width: 100%;
-}
+                    <!--Search-->
+                    <div class="input-group">
+                        <div class="form-outline">
+                            <input type="search" id="searchBar" placeholder="Member name" class="form-control" />
+                            <label class="form-label" for="searchBar">Search</label>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="search()">
+                            <img src="images/icon_search.png" alt="search" style="width: 15px;">
+                        </button>
+                    </div>
+                    <!--Search-->
 
-input[type=submit] {
-  background-color: DodgerBlue;
-  color: #fff;
-  cursor: pointer;
-}
+                    <!--Search Result-->
+                    <div class="col-md-6" id="searchResults"></div>
+                    <!--Search Result-->
 
-.autocomplete-items {
-  position: absolute;
-  border: 1px solid #d4d4d4;
-  border-bottom: none;
-  border-top: none;
-  z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
-  left: 0;
-  right: 0;
-}
+                </div>
+                <!--Added members-->
+                <div class="col-10 col-sm-8 col-md-9 col-lg-6 col-xl-5">
+                    <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start my-4 mt-5">
+                        <h4 class="text-muted">Added Members</h4><br>
+                    </div>
+                    <!--Added Members-->
+                    <div class="col-md-8" id="membersAdded"></div>
+                    <!--Added Members-->
+                </div>
+                <!--Added members-->
+            </div>
+        </div>
+    </main>
 
-.autocomplete-items div {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
-}
+    <!--Footer-->
+    <footer id="footer">
+        <div>
+            <hr class="my-2">
+        </div>
+        <div class="footer-copyright d-flex align-items-center justify-content-center">
+            © 2021 Copyright: HSCC Meettings
+        </div>
+    </footer>
+    <!--/.Footer-->
 
-/*when hovering an item:*/
-.autocomplete-items div:hover {
-  background-color: #e9e9e9; 
-}
+    <!--scripts-->
+    <script src="scripts.js"></script>
+    <script>
+        let capacity = 2;
+        let searchedMembers = [];
+        let addedMembers = [];
 
-/*when navigating through the items using the arrow keys:*/
-.autocomplete-active {
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
-}
-</style>
-</head>     
-<body>
+        function search() {
+            // temp JSON array
+            let resultSet = [{
+                "ID": 1,
+                "Name": "Amit",
+                "Email": "amit.kumar@hscc.co.in"
+            }, {
+                "ID": 2,
+                "Name": "Raj",
+                "Email": "raj.kumar@hscc.co.in"
+            }, {
+                "ID": 3,
+                "Name": "Sachin",
+                "Email": "sachin.kumar@hscc.co.in"
+            }, {
+                "ID": 4,
+                "Name": "Rahul",
+                "Email": "rahul.kumar@hscc.co.in"
+            }];
+            // temp JSON array
 
-<h2>Search And Add Members for the Meeting</h2>
+            let resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = `<h6>searching...</h6>`;
 
-<!--Make sure the form has the autocomplete function switched off:-->
-<form autocomplete="off" method="post" action="meetingroom">
-  <div class="autocomplete" style="width:300px;">
-    <input id="myInput" type="text" name="myCountry" placeholder="enter the name">
-  </div>
-  <button type="button" id="add" onclick="addRecord();">Add </button>
-   <button type="button" id="save" onclick="saveRecord();">Save</button>
-   
-</form>
+            let searchString = document.getElementById('searchBar').value;
 
-<script>
-function autocomplete(inp, arr) {
-  /*the autocomplete function takes two arguments,
-  the text field element and an array of possible autocompleted values:*/
-  var currentFocus;
-  /*execute a function when someone writes in the text field:*/
-  inp.addEventListener("input", function(e) {
-      var a, b, i, val = this.value;
-      /*close any already open lists of autocompleted values*/
-      closeAllLists();
-      if (!val) { return false;}
-      currentFocus = -1;
-      /*create a DIV element that will contain the items (values):*/
-      a = document.createElement("DIV");
-      a.setAttribute("id", this.id + "autocomplete-list");
-      a.setAttribute("class", "autocomplete-items");
-      /*append the DIV element as a child of the autocomplete container:*/
-      this.parentNode.appendChild(a);
-      /*for each item in the array...*/
-      for (i = 0; i < arr.length; i++) {
-        /*check if the item starts with the same letters as the text field value:*/
-        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-          /*create a DIV element for each matching element:*/
-          b = document.createElement("DIV");
-          /*make the matching letters bold:*/
-          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-          b.innerHTML += arr[i].substr(val.length);
-          /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-          /*execute a function when someone clicks on the item value (DIV element):*/
-          b.addEventListener("click", function(e) {
-              /*insert the value for the autocomplete text field:*/
-              inp.value = this.getElementsByTagName("input")[0].value;
-              /*close the list of autocompleted values,
-              (or any other open lists of autocompleted values:*/
-              closeAllLists();
-          });
-          a.appendChild(b);
+            let xhttp = new XMLHttpRequest();
+            let method = "GET";
+            let url = "http://localhost:8080/meetingroommanagement/?search=" + searchString;
+            xhttp.open(method, url);
+            // xhttp.send();
+
+            xhttp.onload = function() {
+                let resultSet = JSON.parse(xhttp.responseText);
+                if (resultSet.length > 0) {
+                    searchedMembers = resultSet;
+                    let htmlString = "";
+                    searchedMembers.forEach(user => {
+                        htmlString += `<a href="" style="text-decoration: none;">
+                                            <div id=${user.ID} onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
+                                                <h6 class="user-name-searched text-bold pt-1">${user.Name}</h6>
+                                                <p class="user-name-searched pb-1">${user.Email}</p>
+                                            </div>
+                                        </a>`;
+                    });
+                    resultsDiv.innerHTML = htmlString;
+                } else {
+                    resultsDiv.innerHTML = `<h6>0 results</h6>`;
+                }
+            }
+
+            if (resultSet.length > 0) {
+                searchedMembers = resultSet;
+                let htmlString = "";
+                resultSet.forEach(user => {
+                    htmlString += `<a href="" style="text-decoration: none;">
+                                        <div id=${user.ID} onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
+                                            <h6 class="user-name-searched text-bold pt-1">${user.Name}</h6>
+                                            <p class="user-name-searched pb-1">${user.Email}</p>
+                                        </div>
+                                    </a>`;
+                });
+                resultsDiv.innerHTML = htmlString;
+            } else {
+                resultsDiv.innerHTML = `<h6>0 results</h6>`;
+            }
         }
-      }
-  });
-  /*execute a function presses a key on the keyboard:*/
-  inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "autocomplete-list");
-      if (x) x = x.getElementsByTagName("div");
-      if (e.keyCode == 40) {
-        /*If the arrow DOWN key is pressed,
-        increase the currentFocus variable:*/
-        currentFocus++;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 38) { //up
-        /*If the arrow UP key is pressed,
-        decrease the currentFocus variable:*/
-        currentFocus--;
-        /*and and make the current item more visible:*/
-        addActive(x);
-      } else if (e.keyCode == 13) {
-        /*If the ENTER key is pressed, prevent the form from being submitted,*/
-        e.preventDefault();
-        if (currentFocus > -1) {
-          /*and simulate a click on the "active" item:*/
-          if (x) x[currentFocus].click();
+
+        function validateSelectedUser(event, id) {
+            event.preventDefault();
+            let resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = "";
+
+            if (capacity > addedMembers.length) {
+                let canAdd = addedMembers.find(member => member.ID == id);
+                if (canAdd == undefined) {
+                    let addThisMember = searchedMembers.find(member => member.ID == id);
+                    addedMembers.push(addThisMember);
+                    addToMeeting(addThisMember);
+                } else {
+                    resultsDiv.innerHTML = `<h6 style="color:red;">Member already added</h6>`;
+                }
+            } else {
+                resultsDiv.innerHTML = `<h6 style="color:red;">Meeting room capacity is full</h6>`;
+            }
         }
-      }
-  });
-  function addActive(x) {
-    /*a function to classify an item as "active":*/
-    if (!x) return false;
-    /*start by removing the "active" class on all items:*/
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = (x.length - 1);
-    /*add class "autocomplete-active":*/
-    x[currentFocus].classList.add("autocomplete-active");
-  }
-  function removeActive(x) {
-    /*a function to remove the "active" class from all autocomplete items:*/
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("autocomplete-active");
-    }
-  }
-  function closeAllLists(elmnt) {
-    /*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != inp) {
-        x[i].parentNode.removeChild(x[i]);
-      }
-    }
-  }
-  /*execute a function when someone clicks in the document:*/
-  document.addEventListener("click", function (e) {
-      closeAllLists(e.target);
-  });
-}
 
-/*GET REQUEST FOR MEMBER NAMES*/  
-
-
-/*An array containing all the names of members for testing*/
-
-
-var members = ["Aaron Hank (Aaron.Hank@email.com)", "Abagnale Frank (Abagnale.Frank@email.com)", "Abbey Edward (Abbey.Edward@email.com)", "Abelson Hal (Abelson.Hal@email.com)", "Aaron Hank (Aaron1.Hank@email.com)", "Abourezk James (Abourezk.James@email.com)", "Abrams Creighton (Abrams.Creighton@email.com)", "Ace Jane (Ace.Jane@email.com)", "Adams Douglas (Adams.Douglas@email.com)", "Adams John Quincy (Adams.John.Quincy@email.com)", "Addams Jane (Addams.Jane@email.com)", "Adorno Theodor (Adorno.Theodor@email.com)", "Adler Alfred (Adler.Alfred@email.com)", "Adams Scott (Adams.Scott@email.com)", "Abbey Edward (Abbey1.Edward@email.com)", "Abelson Hal (Abelson1.Hal@email.com)", "Abourezk James (Abourezk1.James@email.com)", "Abrams Creighton (Abrams1.Creighton@email.com)"];
-
-/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), members);
-
-
-"use strict";
-
-let addButton = document.querySelector('#add');
-let displayButton = document.querySelector('#save');
-let records = [];
-
-addButton.addEventListener('click', addRecord);
-displayButton.addEventListener('click', saveRecord);
-
-/*function to add member names*/
-function addRecord() {
-    let record = document.querySelector('#myInput').value;
-
-    if (!record) {
-        return;
-    }
-
-    records.push(record);
-    document.querySelector('#myInput').value = '';
-}
-
-/*sending data of members attending the meeting to controller*/
-function saveRecord() {
-  var myJSON = JSON.stringify(records);
-    alert(myJSON);
-    var xhr = new XMLHttpRequest();
-    Url="";
-xhr.open("POST", Url, true);
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.send(myJSON);
-
-
-}
-
-</script>
-
+        function addToMeeting(member) {
+            let addedMemberHtml = "";
+            addedMemberHtml = `<div class="user-card-body px-4 py-2">
+                            <h6 class="user-name-searched text-bold pt-1">${member.Name}</h6>
+                            <p class="user-name-searched pb-1">${member.Email}</p>
+                        </div>
+                        <hr>`;
+            document.getElementById("membersAdded").insertAdjacentHTML('beforeend', addedMemberHtml);
+        }
+    </script>
+    <!--scripts-->
 </body>
+
 </html>
