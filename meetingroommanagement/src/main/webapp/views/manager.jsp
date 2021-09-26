@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
+<%@ page import="com.hsbc.meets.entity.User"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +12,10 @@
 </head>
 
 <body id="page-container">
+<%
+    User user = (User)request.getSession().getAttribute("user");
+    pageContext.setAttribute("user", user); 
+%>
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
@@ -33,7 +37,7 @@
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
                         <img src="images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! Amit Kumar</small>
+                        <small class="text-white me-4">Hi! ${user.name}</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="">

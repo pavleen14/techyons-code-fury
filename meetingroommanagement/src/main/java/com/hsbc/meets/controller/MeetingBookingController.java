@@ -12,17 +12,36 @@ import javax.servlet.http.HttpServletResponse;
  * @author alan
  *
  */
-@WebServlet("/meeting/*")
+@WebServlet("/meeting")
 public class MeetingBookingController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doGet(req, resp);
+		/**
+		 * meeting/name=?
+		 * UserService.searchUser
+		 */
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		/**
+		 * meeting name, meeting type, starttime, endtime 
+		 * get the available rooms from the service and return 
+		 * to selectMeetingRoom
+		 */
+		
+		/**
+		 * meeting room 
+		 * dispatch selectAndAddMembers
+		 * 
+		 */
+		
+		/**
+		 * members list
+		 * service
+		 */
 		super.doPost(req, resp);
 	}
 }
