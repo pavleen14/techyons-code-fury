@@ -1,0 +1,21 @@
+package com.hsbc.meets.util.logging;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * @author alan
+ *
+ */
+public abstract class ApplicationLogger {
+
+	private final static Logger LOGGER = Logger.getLogger("meetings");
+	
+	public static void log(Level level, String message) {
+		
+	}
+	
+	public static void logError(Exception e) {
+		
+	}
+}

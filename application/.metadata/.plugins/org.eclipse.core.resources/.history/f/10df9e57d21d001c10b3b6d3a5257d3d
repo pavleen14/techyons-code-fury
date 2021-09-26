@@ -1,0 +1,16 @@
+/**
+ * 
+ */
+package com.hsbc.meets.exception;
+
+/**
+ * @author alan
+ *
+ */
+public class MeetingRoomInvalidException extends Exception {
+
+	public MeetingRoomInvalidException(String message) {
+		// TODO Auto-generated constructor stub
+		super(message);
+	}
+}

@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+package com.hsbc.meets.controller;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+/**
+ * @author alan
+ *
+ */
+
+@WebServlet("/manager")
+public class ManagerController extends HttpServlet {
+
+	
+}

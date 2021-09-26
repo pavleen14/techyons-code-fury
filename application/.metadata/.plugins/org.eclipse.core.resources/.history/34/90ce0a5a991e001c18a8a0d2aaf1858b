@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package com.hsbc.meets.controller;
+
+import javax.servlet.http.HttpServlet;
+
+/**
+ * @author alan
+ *
+ */
+public class MeetingBookingController extends HttpServlet {
+
+}

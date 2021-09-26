@@ -1,0 +1,5 @@
+package com.hsbc.meets.validation;
+
+public class MeetingRoomValidationV2 {
+
+}

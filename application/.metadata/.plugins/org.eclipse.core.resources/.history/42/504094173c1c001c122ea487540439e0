@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package com.hsbc.meets.util.logging;
+
+import java.util.logging.FileHandler;
+
+/**
+ * @author alan
+ *
+ */
+public class CustomFileHandler extends FileHandler {
+
+}

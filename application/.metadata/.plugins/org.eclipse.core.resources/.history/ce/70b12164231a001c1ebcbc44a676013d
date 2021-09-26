@@ -1,0 +1,42 @@
+/**
+ * 
+ */
+package com.hsbc.meets.exception;
+
+/**
+ * @author alan
+ *
+ */
+public class InvalidPropFileException extends Exception {
+
+	private boolean fileRead;
+	private String brokenProperty;
+	
+	
+	
+	/**
+	 * @param arg0
+	 */
+	public InvalidPropFileException(Throwable throwable) {
+		super(throwable);
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param brokenProperty
+	 */
+	public InvalidPropFileException( String brokenProperty) {
+		super();
+		this.fileRead = true;
+		this.brokenProperty = brokenProperty;
+	}
+	
+	@Override
+	public String toString() {
+		if (fileRead) {
+			return "prop file not found"
+		} else {
+
+		}
+	}
+}

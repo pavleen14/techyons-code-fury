@@ -1,0 +1,8 @@
+/**
+ * The logging package contains utility classes
+ * to handle server logging
+ * 
+ * @author alan
+ *
+ */
+package com.hsbc.meets.util.logging;

@@ -1,0 +1,34 @@
+package com.hsbc.meets.util.logging;
+
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * @author alan
+ *
+ */
+public class ApplicationLogger {
+	
+	public static Logger getLogger(String context) {
+		Logger logger = Logger.getLogger("meetings - "+context);
+		logger.setLevel(Level.INFO);
+		Handler handler = null;
+		try {
+			handler = new FileHandler("meetsapplication.log");
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(handler == null) {
+				handler = new ConsoleHandler();
+				logger.warning("");
+			}
+		}
+		return logger;
+	}
+}

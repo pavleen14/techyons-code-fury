@@ -1,0 +1,49 @@
+/**
+ * 
+ */
+package com.hsbc.meets.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.hsbc.meets.entity.MeetingRoom;
+import com.hsbc.meets.factory.MeetingRoomServiceFactory;
+import com.hsbc.meets.service.MeetingRoomService;
+
+/**
+ * Handles admin page and redirects to other pages
+ * 
+ * @author alan
+ *
+ */
+public class AdminController extends HttpServlet {
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		resp.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = resp.getWriter();
+
+		MeetingRoomService meetingRoomService = MeetingRoomServiceFactory.getService();
+
+		String option = req.getParameter("option");
+		
+		if (option == null) {
+			List<MeetingRoom> allMeetingRooms = meetingRoomService.showAllMeetingRooms();
+			req.setAttribute("elist", allMeetingRooms);
+			req.getRequestDispatcher("/roomlist.jsp").forward(req, resp);
+		} else if( option == "create") {
+			req.getRequestDispatcher("/addNewRoom.jsp").forward(req, resp);
+		} else if( option == "edit") {
+			req.getRequestDispatcher("/editroom.jsp").forward(req, resp);
+		} 
+		
+	}
+	
+}

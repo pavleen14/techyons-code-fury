@@ -1,0 +1,28 @@
+package com.hsbc.meets.util.logging;
+
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
+
+/**
+ * @author alan
+ *
+ */
+public class ApplicationLogger {
+	
+	public static Logger getLogger(String context) {
+		Logger logger = Logger.getLogger("meetings - "+context);
+		Handler handler = null;
+		try {
+			handler = new FileHandler("meetsapplication.log");
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return logger;
+	}
+}

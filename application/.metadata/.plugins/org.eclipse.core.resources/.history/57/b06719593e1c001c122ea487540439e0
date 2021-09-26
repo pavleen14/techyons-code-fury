@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.hsbc.meets.factory;
+
+/**
+ * @author alan
+ *
+ */
+public class LoggerFactory {
+
+}

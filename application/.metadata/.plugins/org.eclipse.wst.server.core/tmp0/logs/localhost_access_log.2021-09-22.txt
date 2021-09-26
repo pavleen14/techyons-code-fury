@@ -1,0 +1,10 @@
+127.0.0.1 - - [22/Sep/2021:22:58:52 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [22/Sep/2021:22:58:53 +0530] "GET /meetingroommanagement/WEB-INF/classes/com/hsbc/meets/service/HomeService.java HTTP/1.1" 404 682
+0:0:0:0:0:0:0:1 - - [22/Sep/2021:22:59:10 +0530] "GET /meetingroommanagement/ HTTP/1.1" 404 777
+0:0:0:0:0:0:0:1 - - [22/Sep/2021:22:59:32 +0530] "GET /meetingroommanagement/login HTTP/1.1" 404 782
+0:0:0:0:0:0:0:1 - - [22/Sep/2021:22:59:50 +0530] "GET /meetingroommanagement/login HTTP/1.1" 404 782
+0:0:0:0:0:0:0:1 - - [22/Sep/2021:22:59:51 +0530] "GET /meetingroommanagement/login HTTP/1.1" 404 782
+127.0.0.1 - - [22/Sep/2021:23:13:10 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [22/Sep/2021:23:13:12 +0530] "GET /meetingroommanagement/ HTTP/1.1" 200 1329
+0:0:0:0:0:0:0:1 - - [22/Sep/2021:23:13:13 +0530] "GET /meetingroommanagement/login HTTP/1.1" 200 387
+0:0:0:0:0:0:0:1 - - [22/Sep/2021:23:13:18 +0530] "POST /meetingroommanagement/login HTTP/1.1" 200 414

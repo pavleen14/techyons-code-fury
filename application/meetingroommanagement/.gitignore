@@ -1,0 +1,4 @@
+/build/
+meetsapplication.log
+meetsapplication.log.*
+*/**/*.prop

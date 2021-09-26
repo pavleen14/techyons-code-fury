@@ -1,0 +1,17 @@
+1632150764178	Rename local variable 'databaseName'
+1632380496093	Delete element
+1632381431638	Delete element
+1632409058319	Rename method 'serviceFactory'
+1632494505952	Delete element
+1632494540608	Rename type 'MeetingRoomValidationV2'
+1632555431668	Delete element
+1632563415993	Extract constant 'SELECT_MEETING_ROOM_FROM_ID'
+1632565349217	Move 'style.css' to 'css'
+1632572283001	Delete element
+1632582440961	Delete element
+1632582531060	Rename type 'MeetingRoomDaoFactory'
+1632582559932	Delete element
+1632586356001	Delete element
+1632587002328	Move 'connection.prop' to 'src'
+1632587062793	Move 'connection.prop' to 'WEB-INF'
+1632589308351	Move 'connection.prop' to 'util'

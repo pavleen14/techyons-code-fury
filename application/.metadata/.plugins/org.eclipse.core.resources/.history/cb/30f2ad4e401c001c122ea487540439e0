@@ -1,0 +1,43 @@
+package com.hsbc.meets.factory;
+
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+/**
+ * @author alan
+ *
+ */
+public class LoggerFactory {
+
+	public static Logger getLogger(String context) {
+		Logger logger = Logger.getLogger("meetings - "+context);
+		logger.setLevel(Level.INFO);
+		Handler handler = null;
+		try {
+			handler = new FileHandler("meetsapplication.log");
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(handler == null) {
+				handler = new ConsoleHandler();
+				logger.warning("Log file couldnt be created, logging to console");
+			}
+			handler.setFormatter(new SimpleFormatter());
+		}
+		logger.addHandler(handler);
+		return logger;
+	}
+	
+	public static void main(String[] args) {
+		Logger logger = getLogger("test");
+		logger.info("Test the logs");
+		logger.severe("Its all broken");
+	}
+}

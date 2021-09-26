@@ -1,0 +1,5 @@
+package com.hsbc.meets.factory;
+
+public class MeetingRoomDaoFactory {
+
+}

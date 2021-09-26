@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.hsbc.meets.util.logging;
+
+/**
+ * @author alan
+ *
+ */
+public class ApplicationLogger {
+
+}

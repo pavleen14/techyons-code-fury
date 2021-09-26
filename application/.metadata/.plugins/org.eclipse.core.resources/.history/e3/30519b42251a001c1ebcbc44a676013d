@@ -1,0 +1,117 @@
+/**
+ * 
+ */
+package com.hsbc.meets.util;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+import com.hsbc.meets.exception.InvalidPropFileException;
+
+/**
+ * @author alan
+ *
+ */
+public class SQLConnectionCredentials {
+
+	private final static String FILEPATH = "connection.prop";
+	
+	private String driverName;
+	private String url;
+	private String username;
+	private String password;
+	
+	public static void main(String[] args) {
+		SQLConnectionCredentials cred = readCredentials();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws IOException 
+	 */
+	public static SQLConnectionCredentials readCredentials() throws InvalidPropFileException {
+		
+		try {
+			FileInputStream fis = new FileInputStream(FILEPATH); 
+			Properties properties = new Properties();
+			
+			properties.load(fis);
+			
+			String driverName =  properties.getProperty("dname");
+			if(driverName == null) {
+				throw new InvalidPropFileException("dname");
+			}
+			
+			String url = properties.getProperty("url");
+			if(url == null) {
+				throw new InvalidPropFileException("url");
+			}
+			
+			String username = properties.getProperty("username");
+			if(username == null) {
+				throw new InvalidPropFileException("username");
+			}
+			
+			String password = properties.getProperty("password");
+			if(password == null) {
+				throw new InvalidPropFileException("password");
+			}
+			
+			return new SQLConnectionCredentials(
+				driverName,
+				url,
+				username,
+				password
+			);
+			
+		}catch(IOException e) {
+			throw new InvalidPropFileException(e);
+		}
+		
+	}
+	
+	/**
+	 * @param driverName
+	 * @param url
+	 * @param username
+	 * @param password
+	 */
+	public SQLConnectionCredentials(String driverName, String url, String username, String password) {
+		super();
+		this.driverName = driverName;
+		this.url = url;
+		this.username = username;
+		this.password = password;
+	}
+
+	/**
+	 * @return the databaseName
+	 */
+	public String getDatabaseName() {
+		return driverName;
+	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+}

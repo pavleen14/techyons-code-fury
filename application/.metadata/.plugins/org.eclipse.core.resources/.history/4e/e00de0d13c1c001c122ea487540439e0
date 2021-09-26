@@ -1,0 +1,18 @@
+package com.hsbc.meets.util.logging;
+
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
+
+/**
+ * @author alan
+ *
+ */
+public class ApplicationLogger {
+	
+	public static Logger getLogger(String context) {
+		Logger logger = Logger.getLogger("meetings - "+context);
+		Handler filehandler = new FileHandler("meetsapplication.log")
+		return logger;
+	}
+}

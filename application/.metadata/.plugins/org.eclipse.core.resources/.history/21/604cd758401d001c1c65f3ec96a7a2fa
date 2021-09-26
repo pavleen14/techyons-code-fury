@@ -1,0 +1,54 @@
+package com.hsbc.meets.validation;
+
+import com.hsbc.meets.dao.MeetingRoomDao;
+import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidException;
+import com.hsbc.meets.exception.MeetingRoomNameInvalidException;
+import com.hsbc.meets.exception.MeetingRoomSeatingCapacityInvalidException;
+
+/**
+ * The class contains the different validations which have
+ * been applied while creating and editing meeting rooms.   
+ * 
+ * @author ShubraBhuniaGhosh
+ * @author PavleenKaur
+ * @author alan
+ *
+ */
+public class MeetingRoomValidationV2 {
+
+	private int meetingRoomId;
+	private String name;
+	private int capacity;
+	private String[] amenities;
+	
+	private MeetingRoomDao dao;
+	
+	/**
+	 * This method validates meeting room name according to following rules.
+	 * Meeting room name should be at least 4 letters long and at max 20 letters long.
+	 * It can only contain letters.
+	 * Numbers and special characters in the name are not allowed.
+	 * The name should not be duplicate.
+	 * @author ShubhraBhuniaGhosh
+	 
+	 * @param meetigRoomName
+	 * @return if the meeting room name is valid
+	 * @throws MeetingRoomNameInvalidException
+	 * @throws MeetingRoomAlreadyExistsException
+	 */
+	private static boolean validateMeetingRoomName(String meetigRoomName) throws MeetingRoomNameInvalidException, MeetingRoomAlreadyExistsException {
+
+		if(meetigRoomName.length()<4 || meetigRoomName.length()>20) {
+			throw new MeetingRoomNameInvalidException();
+		}
+		meetigRoomName = meetigRoomName.toLowerCase();
+		char[] nameCharacterArray = meetigRoomName.toCharArray();
+		for (int i = 0; i < nameCharacterArray.length; i++) {
+			char ch = nameCharacterArray[i];
+			if (!(ch >= 'a' && ch <= 'z') && (ch!=' ')) {
+				throw new MeetingRoomNameInvalidException();
+			}
+		}
+		return !dao.checkMeetingRoomNameAlreadyExists(meetigRoomName, meetingRoomId);
+	}
+}

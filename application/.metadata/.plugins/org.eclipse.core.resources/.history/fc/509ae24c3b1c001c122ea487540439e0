@@ -1,0 +1,14 @@
+package com.hsbc.meets.util.logging;
+
+import java.util.logging.Logger;
+
+/**
+ * @author alan
+ *
+ */
+public final class ApplicationLogger {
+
+	private final static Logger LOGGER = Logger.getLogger("meetings");
+	
+	
+}

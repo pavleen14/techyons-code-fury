@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+package com.hsbc.meets.controller;
+
+import javax.servlet.http.HttpServlet;
+
+/**
+ * Handles admin page and redirects to other pages
+ * 
+ * @author alan
+ *
+ */
+public class AdminController extends HttpServlet {
+	
+	
+	
+}

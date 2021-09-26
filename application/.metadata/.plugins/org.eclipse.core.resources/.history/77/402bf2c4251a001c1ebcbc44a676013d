@@ -1,0 +1,4 @@
+Dname=com.mysql.cj.jdbc.Driver
+URL=jdbc:mysql://localhost:3306/learners 
+Uname=root
+password=pasword
