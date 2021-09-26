@@ -35,13 +35,7 @@
                         <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
                         <small class="text-white me-4">Hi! User</small>
                     </ul>
-                    <ul class="align-nav-item">
-                        <a href="login">
-                            <button type="button" class="btn btn-outline-info" data-mdb-ripple-color="dark">
-                                Login
-                            </button>
-                        </a>
-                    </ul>
+                 
                     <!-- </div> -->
                 </div>
                 <!-- Nav Items -->
