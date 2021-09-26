@@ -18579,3 +18579,7 @@ fieldset:disabled .btn-group-vertical {
     border-radius: 25px;
     background-color: #ff6b6b49;
 }
+
+.user-name-searched {
+    margin-bottom: 0;
+}
