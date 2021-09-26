@@ -17,20 +17,14 @@ public class FeedbackJDBCDaoImpl implements FeedbackDao {
 	
 	private static final String ADD_FEEDBACK_BY_USERID_SQL = "call sp_InsertFeedback(?,?,?,?)";
 	@Override
-	public void addFeedback(int rating,String comments,int userId,int meetingRoomId) throws SQLException {
+	public void addFeedback(int rating,String comments,int userId,int meetingRoomId) throws SQLException{
 		Connection connection = Connectivity.getConnection();
-		CallableStatement statement = connection.prepareCall(Query.ADD_FEEDBACK_BY_USERID_SQL.getQuery());
+		CallableStatement statement = connection.prepareCall(ADD_FEEDBACK_BY_USERID_SQL);
 		statement.setInt(1,rating);
 		statement.setString(2,comments);
 		statement.setInt(3,userId);
 		statement.setInt(4,meetingRoomId);
 		statement.execute();
-
 	}
-	catch(SQLException e) {
-		e.printStackTrace();
-	} 
-	finally {
-		closeConnection();
-	}
+	
 }
