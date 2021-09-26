@@ -73,10 +73,9 @@ public class MeetingRoomDbDaoImpl implements MeetingRoomDao{
 
 	public int addMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAlreadyExistsException{
 		ResultSet rs = null;
-		try (
-			CallableStatement stmt  = con.prepareCall(INSERT_MEETING_ROOM_SQL);	
-		)
+		try	
 		{
+			CallableStatement stmt  = con.prepareCall(INSERT_MEETING_ROOM_SQL);	
 			stmt.setString(1, meetingRoom.getMeetingRoomName());
 			stmt.setInt(2, meetingRoom.getSeatingCapacity());
 			
