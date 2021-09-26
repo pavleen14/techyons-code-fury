@@ -87,6 +87,34 @@ public class Meeting {
 	public void setMeetingRoom(MeetingRoom meetingRoom) {
 		this.meetingRoom = meetingRoom;
 	}
+	/**
+	 * @return the timeAsString
+	 */
+	public String getTimeAsString() {
+		return timeAsString;
+	}
+
+	/**
+	 * @param timeAsString the timeAsString to set
+	 */
+	public void setTimeAsString(String timeAsString) {
+		this.timeAsString = timeAsString;
+	}
+
+	/**
+	 * @return the organizedBy
+	 */
+	public String getOrganizedBy() {
+		return organizedBy;
+	}
+
+	/**
+	 * @param organizedBy the organizedBy to set
+	 */
+	public void setOrganizedBy(String organizedBy) {
+		this.organizedBy = organizedBy;
+	}
+
 	public int getMeetingId() {
 		return meetingId;
 	}

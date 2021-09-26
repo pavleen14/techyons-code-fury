@@ -52,6 +52,7 @@ public class FeedbackJDBCDaoImpl implements FeedbackDao {
 		CallableStatement stmt = null;
 		try {
 			stmt = connection.prepareCall(GET_UPCOMING_MEETINGS_BY_EMAIL_SQL);
+			stmt.setString(1, emailInput);
 			resultSet = stmt.executeQuery();
 			upComingMeetings = new ArrayList<Meeting>();
 			while(resultSet.next()) {
@@ -100,6 +101,7 @@ public class FeedbackJDBCDaoImpl implements FeedbackDao {
 		CallableStatement stmt = null;
 		try {
 			stmt = connection.prepareCall(GET_RECENT_FEEDBACKPENDING_MEETINGS);
+			stmt.setString(1, emailInput);
 			resultSet = stmt.executeQuery();
 			recentMeetings = new ArrayList<Meeting>();
 			while(resultSet.next()) {

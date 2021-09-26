@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="com.hsbc.meets.entity.User"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +12,11 @@
 </head>
 
 <body id="page-container">
+<%
+    User user = (User)request.getSession().getAttribute("user");
+    pageContext.setAttribute("user", user); 
+   
+%>
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
@@ -33,7 +38,7 @@
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
                         <img src="images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! Amit Kumar</small>
+                        <small class="text-white me-4">Hi! ${user.name})</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="">
@@ -97,7 +102,7 @@
             <hr class="my-2">
         </div>
         <div class="footer-copyright d-flex align-items-center justify-content-center">
-            Â© 2021 Copyright: HSCC Meettings
+            © 2021 Copyright: HSCC Meettings
         </div>
     </footer>
     <!--/.Footer-->
@@ -112,21 +117,21 @@
         function search() {
             // temp JSON array
             let resultSet = [{
-                "ID": 1,
-                "Name": "Amit",
-                "Email": "amit.kumar@hscc.co.in"
+                "userId": 1,
+                "name": "Amit",
+                "email": "amit.kumar@hscc.co.in"
             }, {
-                "ID": 2,
-                "Name": "Raj",
-                "Email": "raj.kumar@hscc.co.in"
+                "userId": 2,
+                "name": "Raj",
+                "email": "raj.kumar@hscc.co.in"
             }, {
-                "ID": 3,
-                "Name": "Sachin",
-                "Email": "sachin.kumar@hscc.co.in"
+                "userId": 3,
+                "name": "Sachin",
+                "email": "sachin.kumar@hscc.co.in"
             }, {
-                "ID": 4,
-                "Name": "Rahul",
-                "Email": "rahul.kumar@hscc.co.in"
+                "userId": 4,
+                "name": "Rahul",
+                "email": "rahul.kumar@hscc.co.in"
             }];
             // temp JSON array
 
@@ -137,7 +142,7 @@
 
             let xhttp = new XMLHttpRequest();
             let method = "GET";
-            let url = "http://localhost:8080/meetingroommanagement/?search=" + searchString;
+            let url = "http://localhost:8080/meetingroommanagement/meetingroom?search=" + searchString;
             xhttp.open(method, url);
             // xhttp.send();
 
@@ -148,9 +153,9 @@
                     let htmlString = "";
                     searchedMembers.forEach(user => {
                         htmlString += `<a href="" style="text-decoration: none;">
-                                            <div id=${user.ID} onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
-                                                <h6 class="user-name-searched text-bold pt-1">${user.Name}</h6>
-                                                <p class="user-name-searched pb-1">${user.Email}</p>
+                                            <div id=${user.userId} onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
+                                                <h6 class="user-name-searched text-bold pt-1">${user.name}</h6>
+                                                <p class="user-name-searched pb-1">${user.email}</p>
                                             </div>
                                         </a>`;
                     });
@@ -165,9 +170,9 @@
                 let htmlString = "";
                 resultSet.forEach(user => {
                     htmlString += `<a href="" style="text-decoration: none;">
-                                        <div id=${user.ID} onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
-                                            <h6 class="user-name-searched text-bold pt-1">${user.Name}</h6>
-                                            <p class="user-name-searched pb-1">${user.Email}</p>
+                                        <div id=${user.userId} onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
+                                            <h6 class="user-name-searched text-bold pt-1">${user.name}</h6>
+                                            <p class="user-name-searched pb-1">${user.email}</p>
                                         </div>
                                     </a>`;
                 });
