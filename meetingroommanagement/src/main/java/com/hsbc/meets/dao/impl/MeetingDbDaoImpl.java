@@ -64,48 +64,6 @@ public class MeetingDbDaoImpl implements MeetingDao{
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Database credentials 
-	 */
-	//	private static final String USER_NAME = "root";
-	//	private static final String PASSWORD = "pasword";	
-	//	private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-	//	private static final String URL = "jdbc:mysql://localhost:3306/meeting_room_booking_db";
-	//
-	//	private Connection con;
-
-	/**
-	 * @author ShubhraBhuniaGhosh
-	 */
-	//	public MeetingDbDaoImpl(){
-	//		con = null;
-	//		try
-	//		{
-	//			Class.forName(DRIVER_CLASS_NAME);
-	//			con = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-	//		}
-	//		catch (SQLException | ClassNotFoundException e) 
-	//		{
-	//			e.printStackTrace();
-	//		}
-	//	}
-
-	/**
-	 * @author ShubhraBhuniaGhosh
-	 */
-	//	protected void finalize()  {
-	//		try {
-	//			if(con!=null) {
-	//				con.close();
-	//			}
-	//		} catch (SQLException e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
-
-	/**
-	 * @author ShubhraBhuniaGhosh
-	 */
 
 	public List<User> getAllUsers(){
 		List<User> attendees = null;
