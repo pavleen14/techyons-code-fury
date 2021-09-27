@@ -123,7 +123,7 @@
 	                                </div>
 	                                <div class="col-md-5">
 	                                    <h6 class="card-subtitle text-black">Meeting Type</h6>
-	                                    <p>${room.type}</p>
+	                                    <p>${meeting.meetingType}</p>
 	                                </div>
 	                            </div>
 	                        </div>

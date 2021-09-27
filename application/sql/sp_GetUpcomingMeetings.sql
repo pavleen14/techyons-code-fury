@@ -6,8 +6,8 @@ USE `meeting_room_booking_db`$$
 CREATE PROCEDURE `sp_GetUpcomingMeetings` (IN EmailInput varchar(45))
 BEGIN
 select ID into @userid from tbl_users where Email = EmailInput;
-select m.Title, m.TypeOfMeeting , mr.Name , mr.MeetingRoomId , m.OrganizedBy , m.StartTme
-from tbl_meeting m
+select m.Title, m.TypeOfMeeting , mr.Name , mr.MeetingRoomId , m.Name , m.StartTme
+from ( SELECT u.Name,m.* FROM tbl_meeting m JOIN tbl_users u ON u.ID = m.OrganizedBy) m
 join tbl_attendee a
 join tbl_meetingroom mr
 on m.meetingId=a.meetingId

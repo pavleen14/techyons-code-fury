@@ -1,5 +1,6 @@
 package com.hsbc.meets.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
@@ -14,9 +15,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hsbc.meets.entity.Meeting;
 import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.entity.User;
+import com.hsbc.meets.exception.MeetingDurationInvalidException;
+import com.hsbc.meets.exception.MeetingRoomAmenitiesInvalidByMeetingTypeException;
+import com.hsbc.meets.exception.MeetingStartDateTimeInvalidException;
+import com.hsbc.meets.exception.MeetingTitleInvalidException;
+import com.hsbc.meets.exception.MeetingTypeInvalidException;
+import com.hsbc.meets.exception.NotEnoughCreditsException;
+import com.hsbc.meets.exception.NotEnoughSeatsException;
+import com.hsbc.meets.exception.SlotNotAvailableException;
+import com.hsbc.meets.exception.SomethingWentWrongException;
+import com.hsbc.meets.exception.UsersAlreadyExistException;
 import com.hsbc.meets.factory.HomeFactory;
 import com.hsbc.meets.factory.MeetingFactory;
 import com.hsbc.meets.service.HomeService;
@@ -69,7 +82,7 @@ public class MeetingBookingController extends HttpServlet {
 		 */
 		User currentUser = (User) req.getSession().getAttribute("user");
 		if(currentUser == null || currentUser.getRole() != Role.MANAGER) {
-			resp.sendRedirect("/meetingroommanagement/login");
+			resp.sendRedirect("http://localhost:8080/meetingroommanagement/login");
 			return;
 		}
 		
@@ -81,13 +94,62 @@ public class MeetingBookingController extends HttpServlet {
 			
 			if (path.equals("members")) {
 				
-		
+				int roomId = Integer.parseInt(req.getParameter("roomId"));
+				String roomName = req.getParameter("roomName");
+				int capacity = Integer.parseInt(req.getParameter("roomCapacity"));
+				
+				MeetingRoom room = new MeetingRoom(roomName, roomId);
+				Meeting meeting = (Meeting) req.getSession().getAttribute("meeting");
+				
+				if(meeting == null) {
+					resp.sendRedirect("http://localhost:8080/meetingroommanagement/manager");
+					return;
+				}
+				
+				MeetingService ms = MeetingFactory.getMeetingServiceObject(currentUser);
+				try {
+					ms.setMeetingBookingInformation(
+							meeting.getMeetingTitle(),
+							meeting.getStartDateTime(),
+							meeting.getEndDateTime(),
+							meeting.getMeetingType());
+					meeting.setMeetingRoom(room);
+					ms.setBookedMeetingRoom(room);
+					req.setAttribute("capacity", capacity);
+					req.getSession().setAttribute("meeting", meeting);
+					
+					req.getRequestDispatcher("/views/searchAndAddMembers.jsp").forward(req, resp);
+					
+				} catch (MeetingTitleInvalidException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MeetingStartDateTimeInvalidException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MeetingDurationInvalidException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MeetingTypeInvalidException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MeetingRoomAmenitiesInvalidByMeetingTypeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NotEnoughSeatsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SlotNotAvailableException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 			}
 			
 			else if(path.equals("rooms")) {
 				
 				
-				String Title = req.getParameter("title");
+				String title = req.getParameter("title");
 				String MeetingType = req.getParameter("meettype");
 				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
 				Calendar stime = Calendar.getInstance();
@@ -100,25 +162,96 @@ public class MeetingBookingController extends HttpServlet {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				
-				Meeting meeting = new Meeting(MeetingType, stime,dtime, MeetingType);
+				System.out.println(title);
+				System.out.print(MeetingType);
+				Meeting meeting = new Meeting(title, stime,dtime, MeetingType);
 				MeetingService ms = MeetingFactory.getMeetingServiceObject(currentUser);
-				List<MeetingRoom> rooms = ms.getAllAvailableMeetingRooms();
-				req.setAttribute("rooms" , rooms);
-				req.setAttribute("meeting", meeting);
+				try {
+					ms.setMeetingBookingInformation(title, stime, dtime, MeetingType);
+					List<MeetingRoom> rooms = ms.getAllAvailableMeetingRooms();
+					req.setAttribute("rooms" , rooms);
+					req.getSession().setAttribute("meeting", meeting);
+					
+					req.getRequestDispatcher("/views/selectMeetingRoom.jsp").forward(req, resp);
+				} catch (MeetingTitleInvalidException e) {
+					e.printStackTrace();
+				} catch (MeetingStartDateTimeInvalidException e) {
+					e.printStackTrace();
+				} catch (MeetingDurationInvalidException e) {
+					e.printStackTrace();
+				} catch (MeetingTypeInvalidException e) {
+					e.printStackTrace();
+				}
 				
-				req.getRequestDispatcher("/views/selectMeetingRoom.jsp").forward(req, resp);
 			}
 
 			else if(path.equals("submit")) {
 				
+				Meeting meeting = (Meeting) req.getSession().getAttribute("meeting");
+				
+				if(meeting == null) {
+					resp.sendRedirect("http://localhost:8080/meetingroommanagement/manager");
+					return;
+				}
+				
+				StringBuffer jb = new StringBuffer();
+				String line = null;
+				ObjectMapper mapper = new ObjectMapper();
+				MeetingService ms = MeetingFactory.getMeetingServiceObject(currentUser);
+				
+				try (
+					BufferedReader reader = req.getReader();	    
+				){
+				    while ((line = reader.readLine()) != null)
+				        jb.append(line);
+				    List<User> users = mapper.readValue(jb.toString(), new TypeReference<List<User>>(){});
+				    users.add(currentUser);
+				    ms.setMeetingBookingInformation(
+							meeting.getMeetingTitle(),
+							meeting.getStartDateTime(),
+							meeting.getEndDateTime(),
+							meeting.getMeetingType());
+				    ms.setBookedMeetingRoom(meeting.getMeetingRoom());
+				    ms.setAttendeesList(users);
+				    ms.bookMeeting();
+				    
+				    resp.sendRedirect("http://localhost:8080/meetingroommanagement/manager");
+				} catch (MeetingTitleInvalidException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MeetingStartDateTimeInvalidException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MeetingDurationInvalidException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MeetingTypeInvalidException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MeetingRoomAmenitiesInvalidByMeetingTypeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NotEnoughSeatsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SlotNotAvailableException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NotEnoughCreditsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SomethingWentWrongException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			else {	
 				resp.sendRedirect("/meetingroommanagement/manager");
+				return;
 			}
-		super.doPost(req, resp);
+		}
+		out.close();
 	}
-}
 	
 }

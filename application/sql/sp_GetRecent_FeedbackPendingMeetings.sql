@@ -7,14 +7,17 @@ CREATE PROCEDURE `sp_GetRecent_FeedbackPendingMeetings` (IN EmailInput varchar(4
 BEGIN
 SELECT ID INTO @userid FROM tbl_users WHERE Email = EmailInput;
 
-SELECT m.Title , m.TypeOfMeeting , mr.Name , mr.MeetingRoomId , m.OrganizedBy , a.UserId
+SELECT m.Title , m.TypeOfMeeting , mr.Name , mr.MeetingRoomId , u.Email , a.UserId
 FROM tbl_meetingroom mr
 JOIN tbl_meeting m
 JOIN tbl_attendee a
+JOIN tbl_users u
+ON u.ID = m.OrganizedBy 
 ON mr.MeetingRoomId = m.MeetingRoomId
 AND m.MeetingId = a.MeetingId
-WHERE m.StartTme > NOW() - Interval 7 Day AND
-mr.MeetingRoomId NOT IN (
+WHERE m.StartTme > NOW() - Interval 7 Day 
+AND m.endTme < NOW()
+AND mr.MeetingRoomId NOT IN (
 SELECT f.MeetingRoomId 
 From tbl_feedback f WHERE f.UserId = @userid
 ) AND a.userID = @userId;

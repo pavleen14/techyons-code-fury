@@ -14,7 +14,10 @@
 <body id="page-container">
 <%
     User user = (User)request.getSession().getAttribute("user");
-    pageContext.setAttribute("user", user); 
+    pageContext.setAttribute("user", user);
+    
+    int capacity = (int) request.getAttribute("capacity");
+    pageContext.setAttribute("capacity" , capacity);
    
 %>
     <header>
@@ -90,7 +93,7 @@
                     <!--Added Members-->
                     <div class="col-md-8" id="membersAdded"></div>
                     <!--Added Members-->
-                    <button onclick="submitToBack()"></button>
+                    <button onclick="submitToBack()" class="btn btn btn-primary">Create Meeting</button>
                 </div>
                 <!--Added members-->
             </div>
@@ -103,7 +106,7 @@
             <hr class="my-2">
         </div>
         <div class="footer-copyright d-flex align-items-center justify-content-center">
-            © 2021 Copyright: HSCC Meettings
+            ï¿½ 2021 Copyright: HSCC Meettings
         </div>
     </footer>
     <!--/.Footer-->
@@ -111,7 +114,7 @@
     <!--scripts-->
     <script src="/meetingroommanagement/scripts/scripts.js"></script>
     <script>
-        let capacity = 2;
+        let capacity = ${capacity};
         let searchedMembers = [];
         let addedMembers = [];
 
@@ -143,55 +146,58 @@
 
             let xhttp = new XMLHttpRequest();
             let method = "GET";
-            let url = "http://localhost:8080/meetingroommanagement/meetingroom?search=" + searchString;
-            xhttp.open(method, url);
-            // xhttp.send();
-
-            xhttp.onload = function() {
-                let resultSet = JSON.parse(xhttp.responseText);
+            let url = "http://localhost:8080/meetingroommanagement/meeting?search=" + searchString;
+            xhttp.open(method, url, true);
+            xhttp.send();
+			xhttp.onload = function(e) {
+            	let resultSet = JSON.parse(xhttp.responseText);
                 if (resultSet.length > 0) {
                     searchedMembers = resultSet;
                     let htmlString = "";
-                    searchedMembers.forEach(user => {
-                        htmlString += `<a href="" style="text-decoration: none;">
-                                            <div id=${user.userId} onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
-                                                <h6 class="user-name-searched text-bold pt-1">${user.name}</h6>
-                                                <p class="user-name-searched pb-1">${user.email}</p>
-                                            </div>
-                                        </a>`;
+                    searchedMembers.forEach(member => {
+                        htmlString += `<span style="text-decoration: none; cursor: pointer;">
+                                        <div id=`+member.userId+` onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
+                                            <h6 class="user-name-searched text-bold pt-1">`+member.name+`</h6>
+                                            <p class="user-name-searched pb-1">`+member.email+`</p>
+                                        </div>
+                                    </span>`;
                     });
                     resultsDiv.innerHTML = htmlString;
                 } else {
                     resultsDiv.innerHTML = `<h6>0 results</h6>`;
                 }
             }
-
+            
             if (resultSet.length > 0) {
                 searchedMembers = resultSet;
                 let htmlString = "";
-                resultSet.forEach(user => {
-                    htmlString += `<a href="" style="text-decoration: none;">
-                                        <div id=${user.userId} onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
-                                            <h6 class="user-name-searched text-bold pt-1">${user.name}</h6>
-                                            <p class="user-name-searched pb-1">${user.email}</p>
+                resultSet.forEach(member => {
+                    htmlString += `<span style="text-decoration: none; cursor: pointer;">
+                                        <div id=`+member.userId+` onclick="validateSelectedUser(event, this.id)" class="user-card-body px-4 p-0">
+                                            <h6 class="user-name-searched text-bold pt-1">`+member.name+`</h6>
+                                            <p class="user-name-searched pb-1">`+member.email+`</p>
                                         </div>
-                                    </a>`;
+                                    </span>`;
                 });
                 resultsDiv.innerHTML = htmlString;
             } else {
                 resultsDiv.innerHTML = `<h6>0 results</h6>`;
+            }
+            
+            xhttp.onerror = function(e){
+            	resultsDiv.innerHTML = `<h6>no Results</h6>`;
             }
         }
 
         function validateSelectedUser(event, id) {
             event.preventDefault();
             let resultsDiv = document.getElementById('searchResults');
-            resultsDiv.innerHTML = "";
 
             if (capacity > addedMembers.length) {
                 let canAdd = addedMembers.find(member => member.userId == id);
                 if (canAdd == undefined) {
                     let addThisMember = searchedMembers.find(member => member.userId == id);
+                    console.log(addThisMember);
                     addedMembers.push(addThisMember);
                     addToMeeting(addThisMember);
                 } else {
@@ -205,8 +211,8 @@
         function addToMeeting(member) {
             let addedMemberHtml = "";
             addedMemberHtml = `<div class="user-card-body px-4 py-2">
-                            <h6 class="user-name-searched text-bold pt-1">${member.Name}</h6>
-                            <p class="user-name-searched pb-1">${member.Email}</p>
+                            <h6 class="user-name-searched text-bold pt-1">`+member.name+`</h6>
+                            <p class="user-name-searched pb-1">`+member.email+`</p>
                         </div>
                         <hr>`;
             document.getElementById("membersAdded").insertAdjacentHTML('beforeend', addedMemberHtml);
@@ -214,10 +220,13 @@
         
         function submitToBack(){
         	let xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-        	let theUrl = "http://localhost:8080/meetingroommanagement/meetingroom/submit";
-        	xmlhttp.open("POST", theUrl);
+        	let theUrl = "http://localhost:8080/meetingroommanagement/meeting/submit";
+        	xmlhttp.open("POST", theUrl , true);
         	xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         	xmlhttp.send(JSON.stringify(addedMembers));
+        	xmlhttp.onload = function(e) {
+        		window.location.replace(xmlhttp.responseURL);
+        	}
         }
     </script>
     <!--scripts-->

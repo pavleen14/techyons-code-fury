@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +11,14 @@
 </head>
 
 <body id="page-container">
+<%@page import="java.util.*, com.hsbc.meets.entity.*" %>
+<%
+	User user = (User)request.getSession().getAttribute("user");
+	pageContext.setAttribute("user", user); 
+
+    List<String> amenities = (List<String>) request.getAttribute("amenities");
+    pageContext.setAttribute("amenities", amenities);
+%>
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
@@ -31,7 +40,7 @@
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
                         <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! Amit Kumar</small>
+                        <small class="text-white me-4">Hi! ${ user.name }</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="login?op=logout">
@@ -66,10 +75,7 @@
                                 <input type="text" name="mname" id="meetingName" class="form-control form-control-lg" placeholder="Enter unique room name" required />
                                 <label class="form-label" for="meetingName">Meeting Room Name</label>
                             </div>
-                            <!--Message-->
-                            <div class="d-flex align-items-center justify-content-center my-1 error-info">
-                                Name already exists
-                            </div>
+                            
                             <!-- Room Capacity -->
                             <div class="form-outline my-3">
                                 <input type="number" name="mcapacity" id="meetingCapacity" class="form-control form-control-lg" placeholder="Enter room capacity" required />
@@ -78,54 +84,17 @@
 
                             <!--Checkboxes-->
                             <!-- Default checkbox -->
+                            
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Internet Connectivity
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Amenity 2
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Amenity 1
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Internet Connectivity
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Amenity 2aaaaaaaaaaaaa
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Amenity 2aaaaaaaaaaaaa
-                                        </label>
-                                    </div>
+                                    <e:forEach items="${amenities}" var="amenity">
+		                                <div class="form-check">
+	                                        <input class="form-check-input" type="checkbox" value="${ amenity }" id="flexCheckDefault" name="amenities" />
+	                                        <label class="form-check-label" for="flexCheckDefault">
+	                                            ${ amenity }
+	                                        </label>
+	                                    </div>
+                                   	</e:forEach>
                                 </div>
                             </div>
 

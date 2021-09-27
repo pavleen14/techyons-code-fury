@@ -46,7 +46,7 @@ public interface MeetingService {
 	 * @param attendees
 	 * @return true
 	 */
-	public boolean setAttendeesList(List<String> attendees);
+	public boolean setAttendeesList(List<User> attendees);
 	/**
 	 * This method gets a list of All Available Meeting Rooms.
 	 * @author ShubhraBhuniaGhosh

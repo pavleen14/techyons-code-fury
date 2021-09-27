@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="com.hsbc.meets.entity.User"%>
+<%@page import="javax.servlet.descriptor.JspPropertyGroupDescriptor"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +12,10 @@
 </head>
 
 <body id="page-container">
+<%
+    User user = (User)request.getSession().getAttribute("user");
+    pageContext.setAttribute("user", user); 
+%>
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
@@ -33,7 +37,7 @@
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
                         <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! Amit Kumar</small>
+                        <small class="text-white me-4">Hi! ${user.name}</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="login?op=logout">
@@ -72,16 +76,16 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="user-card-body px-4 py-2">
-                                    <h5 class="my-3">Amit Kumar</h5>
+                                    <h5 class="my-3">${ user.name }</h5>
                                     <hr class="my-4">
                                     <div class="col-12 mb-1">
                                         <h6>Email</h6>
-                                        <p class="text-muted">amit.kumar@hscc.co.in</p>
+                                        <p class="text-muted">${ user.email }</p>
                                     </div>
                                     <hr class="mt-4">
                                     <div class="col-12 mb-1">
                                         <h6>Last Login</h6>
-                                        <p class="text-muted">24-October-2021, 9:00PM</p>
+                                        <p class="text-muted">${ user.lastLogin }</p>
                                     </div>
                                 </div>
                             </div>
@@ -92,12 +96,16 @@
                     <!--Action Buttons-->
                     <div class="row">
                         <div class="col-md-6">
+                        	<a href = "/meetingroommanagement/admin?option=create">
                             <button type="button" class="btn" id="btnadminoutline">
                                 Add New Room
                             </button>
+                            </a>
                         </div>
                         <div class="col-md-6">
-                            <button type=" button" class="btn" id="btnadmin">Edit Room</button>
+	                        <a href = "/meetingroommanagement/meetingroom">
+	                            <button type=" button" class="btn" id="btnadmin">Edit Room</button>
+	                        </a>
                         </div>
                     </div>
                     <!--/ Action Buttons-->

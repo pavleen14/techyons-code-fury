@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +11,15 @@
 </head>
 
 <body id="page-container">
+<%@page import="java.util.*, com.hsbc.meets.entity.*" %>
+<%
+	User user = (User)request.getSession().getAttribute("user");
+	pageContext.setAttribute("user", user); 
+    MeetingRoom room = (MeetingRoom) request.getAttribute("room");
+    pageContext.setAttribute("room", room);
+    List<String> amenities = (List<String>) request.getAttribute("amenities");
+    pageContext.setAttribute("amenities", amenities);
+%>
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
@@ -31,7 +41,7 @@
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
                         <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! Amit Kumar</small>
+                        <small class="text-white me-4">Hi! ${ user.name }</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="">
@@ -65,13 +75,13 @@
 
                             <!-- Meeting ID -->
                             <div class="form-outline mt-4 mb-1">
-                                <input type="number" name="mid" id="meetingId" class="form-control form-control-lg" value="1" readonly />
-                                <label class="form-label" for="meetingId">Meeting Room ID</label>
+                                <input type="number" name="mid" id="meetingId" class="form-control form-control-lg" value="${room.meetingRoomId}" readonly />
+                                <label class="form-label" for="meetingId">${room.meetingRoomId}</label>
                             </div>
                             <!-- Meeting Name -->
                             <div class="form-outline mt-4 mb-1">
-                                <input type="text" name="mname" id="meetingName" class="form-control form-control-lg" placeholder="Enter unique room name" required />
-                                <label class="form-label" for="meetingName">Meeting Room Name</label>
+                                <input type="text" name="mname" id="meetingName" class="form-control form-control-lg" value="${room.meetingRoomName}" placeholder="Enter unique room name" required />
+                                <label class="form-label" for="meetingName">Room name</label>
                             </div>
                             <!--Message-->
                             <!-- <div class="d-flex align-items-center justify-content-center my-1 error-info">
@@ -79,59 +89,21 @@
                             </div> -->
                             <!-- Room Capacity -->
                             <div class="form-outline my-3">
-                                <input type="number" name="mcapacity" id="meetingCapacity" class="form-control form-control-lg" placeholder="Enter room capacity" required />
-                                <label class="form-label" for="meetingCapacity">Meeting Room Capacity</label>
+                                <input type="number" name="mcapacity" id="meetingCapacity" class="form-control form-control-lg" value="${room.seatingCapacity} placeholder="Enter capacity" required />
+                                <label class="form-label" for="meetingCapacity">Room capacity</label>
                             </div>
 
                             <!--Checkboxes-->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Internet Connectivity
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Amenity 2
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Amenity 1
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Internet Connectivity
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Amenity 2aaaaaaaaaaaaa
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="amenities" />
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                            Amenity 2aaaaaaaaaaaaa
-                                        </label>
-                                    </div>
+                                    <e:forEach items="${amenities}" var="amenity">
+		                                <div class="form-check">
+	                                        <input class="form-check-input" type="checkbox" value="${ amenity }" id="flexCheckDefault" name="amenities" />
+	                                        <label class="form-check-label" for="flexCheckDefault">
+	                                            ${ amenity }
+	                                        </label>
+	                                    </div>
+                                   	</e:forEach>
                                 </div>
                             </div>
 

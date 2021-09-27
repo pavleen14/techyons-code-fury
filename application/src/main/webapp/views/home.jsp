@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +12,12 @@
 </head>
 
 <body id="page-container">
+<%@page import="java.util.*, com.hsbc.meets.entity.*" %>
+<%
+    List<MeetingRoom> room = (List<MeetingRoom>)request.getAttribute("elist");
+    pageContext.setAttribute("room", room);
+    
+%>
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg bg-dark" style="height: 8vh">
@@ -34,7 +39,7 @@
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
                         <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! User</small>
+                        <small class="text-white me-4"></small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="login">
@@ -58,8 +63,7 @@
             </div>
             <div class="col-md-6 d-flex align-items-center justify-content-center px-3 text-white mb-5">
                 <h5 class="text-justify">
-                    No demo without Lorem ipsum text. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident tenetur delectus fuga et, doloribus rerum! Aperiam voluptate mollitia rerum necessitatibus repudiandae asperiores doloremque deleniti praesentium, dolorem
-                    maxime, quia, libero. Maiores?
+                    The system automates the procedure of booking a meeting room in a company. Employees can import the users, search for the meeting rooms and book the meeting room based on their requirements.
                 </h5>
             </div>
         </div>
@@ -76,6 +80,20 @@
                     <!-- data-mdb-toggle="modal" data-mdb-target="#importStatusModal" -->
                 </div>
             </div>
+            <e:forEach items="${room}" var="room">
+	            <e:set var="eid" value="${room.meetingRoomId}" />
+	            <div class="card-container col-xl-2 col-lg-3 col-md-3 col-sm-4">
+	               <div class="card-body rounded-4">
+	                   <h5 class="card-title mb-4">${room.meetingRoomName}</h5>
+	                   <h6 class="card-subtitle text-black">Seating Capacity</h6>
+	                   <p class="text-muted">${room.seatingCapacity} participants</p>
+	                   <h6 class="card-subtitle text-black">Per hour cost</h6>
+	                   <p>${room.creditsPerHour} Credits</p>
+	                   <h6 class="card-subtitle text-black">Rating: </h6>
+	                   <p>${room.rating}</p>
+	               </div>
+	           </div>
+           </e:forEach>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="importStatusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
@@ -128,59 +146,16 @@
                     }
                     statusElement.innerHTML = importStatus;
                 }
-                /*
-setTimeout(function() {
-    let importStatus = "Successfully imported 11 users"
-    let statusElement = document.getElementById('importStatus');
-    if (importStatus.includes("Successfully imported")) {
-        statusElement.style.color = "green";
-    } else {
-        statusElement.style.color = "red";
-    }
-    statusElement.innerHTML = importStatus;
-}, 3000);
-*/
         }
 
-        window.onload = function() {
-            getMeetingRooms();
-        }
-
-        // this list of json is only for testing purpose
-        //let allRooms = [{
-          //  "Name": "Conference call wala room new hai",
-            //"SeatingCapacity": 23,
-            //"NumberOfMeetings": 12,
-            //"Ratings": 3
-    //    }, {
-      //      "Name": "Online wala room",
-        //    "SeatingCapacity": 32,
-          //  "NumberOfMeetings": 2,
-   //         "Ratings": 5
-     //   }, {
-       //     "Name": "Presentation wala room",
-   //         "SeatingCapacity": 45,
-     //       "NumberOfMeetings": 53,
-       //     "Ratings": 4
-   //     }, {
-     //       "Name": "Training wala room",
-       //     "SeatingCapacity": 65,
-   //         "NumberOfMeetings": 90,
-     //       "Ratings": 4
-       // }];
 
         function getMeetingRooms() {
-            // var roomsLoaded = false;
             var roomDiv = document.getElementById("roomdetails");
             let xhttp = new XMLHttpRequest();
             let method = "GET";
             let url = "http://localhost:8080/meetingroommanagement/room"
             xhttp.open(method, url, true);
             xhttp.send();
-
-         //   if (!roomsLoaded) {
-         //         showLoader();
-         //   }
 
             xhttp.onload = function() {
                 let htmlStr = ""
@@ -229,18 +204,7 @@ setTimeout(function() {
                 roomDiv.insertAdjacentHTML('beforeend', noRoomHtml);
             }
 
-            // function showLoader() {
-            //     let showLoaderHtml = `<div class="col-xl-6 col-lg-6 col-md-6 col-sm-4 d-flex align-items-center justify-content-center text-muted mt-4" id="loader">
-            //         <h5>Loading meeting rooms...</h5>
-            //     </div>`;
-            //     roomDiv.insertAdjacentHTML('beforeend', showLoaderHtml);
-            // }
-
-            // function hideLoader() {
-            //     roomsLoaded = true;
-            //     document.getElementById('loader').style.display = "none!important";
-            // }
-        }
+         }
     </script>
     <!--scripts-->
 </body>

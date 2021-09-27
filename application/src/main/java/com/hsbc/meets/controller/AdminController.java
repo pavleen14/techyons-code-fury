@@ -47,13 +47,13 @@ public class AdminController extends HttpServlet {
 		String option = req.getParameter("option");
 		
 		if (option == null) {
-			req.getRequestDispatcher("admin.jsp").forward(req, resp);
+			req.getRequestDispatcher("/views/admin.jsp").forward(req, resp);
 		} else if( option.equals("list")) {
 			req.getRequestDispatcher("/meetingroom").forward(req, resp);
 		} else if( option.equals("create") ) {
 			List<String> amenities = meetingRoomService.getAllAmenities();
 			req.setAttribute("amenities", amenities);
-			req.getRequestDispatcher("addNewRoom.jsp").forward(req, resp);
+			req.getRequestDispatcher("/views/addNewRoom.jsp").forward(req, resp);
 		} else if( option.equals("edit") ) {
 			int RoomId = Integer.parseInt(req.getParameter("room"));
 			try {
@@ -62,7 +62,7 @@ public class AdminController extends HttpServlet {
 				List<String> amenities = meetingRoomService.getAllAmenities();
 				req.setAttribute("amenities", amenities);
 				
-				req.getRequestDispatcher("editRoom.jsp").forward(req, resp);
+				req.getRequestDispatcher("/views/editRoom.jsp").forward(req, resp);
 			} catch (MeetingRoomDoesNotExistsException e) {
 				logger.log(Level.SEVERE,"Meeting does not exists",e);
 				resp.sendError(HttpServletResponse.SC_BAD_REQUEST);

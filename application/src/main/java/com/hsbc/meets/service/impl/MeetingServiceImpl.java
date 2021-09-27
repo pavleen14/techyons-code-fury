@@ -66,14 +66,9 @@ public class MeetingServiceImpl implements MeetingService{
 	/**
 	 * @author ShubhraBhuniaGhosh
 	 */
-	public boolean setAttendeesList(List<String> attendees){
-		List<User> users = new ArrayList<>();
-		for(String attende:attendees) {
-			User u = new User();
-			u.setEmail(attende.substring(attende.indexOf('(')+1, attende.length()-1));
-			users.add(u);
-		}
-		bookedMeeting.setAttendees(users);
+	public boolean setAttendeesList(List<User> attendees){
+		
+		bookedMeeting.setAttendees(attendees);
 		return true;
 	}
 	/**
@@ -89,7 +84,7 @@ public class MeetingServiceImpl implements MeetingService{
 	 * @throws MeetingRoomAmenitiesInvalidException 
 	 */
 	public boolean setBookedMeetingRoom(MeetingRoom meetingRoom) throws MeetingRoomAmenitiesInvalidByMeetingTypeException, NotEnoughSeatsException, SlotNotAvailableException{
-		if(MeetingValidation.validateAmenitiesPresentByMeetingType(dao,meetingRoom.getMeetingRoomId(),bookedMeeting.getMeetingType()) && dao.checkSeatCapacityByMeetingRoomId(meetingRoom.getMeetingRoomId(),bookedMeeting.getAttendees().size()) && dao.checkMeetingSlotIsFreeByMeetingRoomId(meetingRoom.getMeetingRoomId())) {
+		if(MeetingValidation.validateAmenitiesPresentByMeetingType(dao,meetingRoom.getMeetingRoomId(),bookedMeeting.getMeetingType())) {
 			bookedMeeting.setMeetingRoom(meetingRoom);
 			return true;
 		}

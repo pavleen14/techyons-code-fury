@@ -67,7 +67,7 @@
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center mb-4">
                 <div class="col-11 col-sm-9 col-md-9 col-lg-5 col-xl-5">
-                    <form action="http://localhost:8080/meetingroommanagement/meetingroom/rooms" method="POST">
+                    <form action="http://localhost:8080/meetingroommanagement/meeting/rooms" method="POST">
                         <!--Heading-->
                         <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                             <p class="lead mb-0 me-3">Create new meeting</p>
@@ -92,10 +92,10 @@
                         <div class="dropdown my-3">
                             <label class="pe-4">Meeting Type: </label>
                             <select class="btn btn-dark dropdown-toggle" name="meettype" id="meet">
-                                <option value="classroom">Classroom Training</option>
-                                <option value="online">Online Training</option>
-                                <option value="conference">Conference call</option>
-                                <option value="business">Business</option>
+                                <option value="CLASSROOM_TRAINING">Classroom Training</option>
+                                <option value="ONLINE_TRAINING">Online Training</option>
+                                <option value="CONFERENCE_CALL">Conference call</option>
+                                <option value="BUSINESS">Business</option>
                             </select>
                         </div>
 
@@ -147,7 +147,7 @@
 	                        <div class="card-body rounded-4">
 	                            <div class="row">
 	                                <div class="col-md-7">
-	                                    <h5 class="card-title mb-4">${meeting.meetingName}</h5>
+	                                    <h5 class="card-title mb-4">${meeting.meetingTitle}</h5>
 	                                </div>
 	                                <div class="col-md-5 text-end">
 	                                	<a href="http://localhost:8080/meetingroommanagement/feedback?room=${meeting.meetingRoom.meetingRoomId}">
@@ -164,7 +164,7 @@
 	                                </div>
 	                                <div class="col-md-5">
 	                                    <h6 class="card-subtitle text-black">Meeting Type</h6>
-	                                    <p>${room.type}</p>
+	                                    <p>${meeting.meetingType}</p>
 	                                </div>
 	                            </div>
 	                        </div>

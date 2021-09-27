@@ -20,7 +20,8 @@ IF typeOfMeetingIn = 'CLASSROOM_TRAINING' THEN
     AND mr.SeatingCapacity >= capacityIn
     AND ( m.StartTme IS NULL
     OR (m.StartTme >= endTimeIn
-    OR m.EndTime <= startTmeIn ));
+    OR m.EndTime <= startTmeIn ))
+    GROUP BY mr.MeetingRoomId;
 ELSEIF typeOfMeetingIn = 'ONLINE_TRAINING' THEN
     SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost , mr.Rating, mr.NumberOfFeedbacks
     FROM tbl_meetingroom mr
@@ -31,7 +32,8 @@ ELSEIF typeOfMeetingIn = 'ONLINE_TRAINING' THEN
     AND mr.SeatingCapacity >= capacityIn
     AND ( m.StartTme IS NULL
     OR (m.StartTme >= endTimeIn
-    OR m.EndTime <= startTmeIn ));
+    OR m.EndTime <= startTmeIn ))
+    GROUP BY mr.MeetingRoomId;
 ELSEIF typeOfMeetingIn = 'CONFERENCE_CALL' THEN
     SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost , mr.Rating, mr.NumberOfFeedbacks
     FROM tbl_meetingroom mr
@@ -42,7 +44,8 @@ ELSEIF typeOfMeetingIn = 'CONFERENCE_CALL' THEN
     AND mr.SeatingCapacity >= capacityIn
     AND ( m.StartTme IS NULL
     OR (m.StartTme >= endTimeIn
-    OR m.EndTime <= startTmeIn ));
+    OR m.EndTime <= startTmeIn ))
+    GROUP BY mr.MeetingRoomId;
 ELSE
     SELECT mr.MeetingRoomId , mr.Name , mr.SeatingCapacity , mr.PerHourCost , mr.Rating, mr.NumberOfFeedbacks
     FROM tbl_meetingroom mr
@@ -53,8 +56,10 @@ ELSE
     AND mr.SeatingCapacity >= capacityIn
     AND ( m.StartTme IS NULL
     OR (m.StartTme >= endTimeIn
-    OR m.EndTime <= startTmeIn ));
+    OR m.EndTime <= startTmeIn ))
+    GROUP BY mr.MeetingRoomId;
     END IF;
 END $$
 
 DELIMITER ;
+

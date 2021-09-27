@@ -46,7 +46,7 @@
                     <!-- <small class="text-info me-4">Link</small> -->
                     <ul class="align-nav-item">
                         <img src="/meetingroommanagement/resources/images/icon_user.png" height="16" alt="" class="me-1" />
-                        <small class="text-white me-4">Hi! ${ user.Name }</small>
+                        <small class="text-white me-4">Hi! ${ user.name }</small>
                     </ul>
                     <ul class="align-nav-item">
                         <a href="login?op=logout">
@@ -77,7 +77,7 @@
                             <div class="card-body rounded-4">
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
-                                        <h5 class="card-title">${meeting.meetingRoomName}</h5>
+                                        <h5 class="card-title">${room.meetingRoomName}</h5>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="card-subtitle text-black">Capacity</h6>
@@ -95,12 +95,18 @@
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="card-subtitle text-black">Per Hour Cost</h6>
-                                        <p>${room.perHourCost} Credits</p>
+                                        <p>${room.creditsPerHour} Credits</p>
                                     </div>
                                     <div class="col-md-3">
-                                        <button type="button" onclick="formSubmit('${room.meetingRoomId}')" class="btn btn btn-primary">
-                                            Select Room
-                                        </button>
+                                    	<form action="http://localhost:8080/meetingroommanagement/meeting/members" method="POST">
+                                    		<input type="hidden" name="roomId" value="${room.meetingRoomId}">
+                                    		<input type="hidden" name="roomName" value="${room.meetingRoomName}">
+                                    		<input type="hidden" name="roomCapacity" value="${room.seatingCapacity}">
+	                                    	<button type="submit" class="btn btn btn-primary">
+	                                            Select Room
+	                                        </button>
+                                    	</form>
+                                        
                                     </div>
                                 </div>
                             </div>

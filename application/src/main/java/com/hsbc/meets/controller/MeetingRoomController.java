@@ -56,7 +56,7 @@ public class MeetingRoomController extends HttpServlet {
 		
 		List<MeetingRoom> allMeetingRooms = meetingRoomService.showAllMeetingRooms();
 		req.setAttribute("elist", allMeetingRooms);
-		req.getRequestDispatcher("/roomlist.jsp").forward(req, resp);
+		req.getRequestDispatcher("/views/roomlist.jsp").forward(req, resp);
 	}
 	
 	@Override

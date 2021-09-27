@@ -1,6 +1,7 @@
 package com.hsbc.meets.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hsbc.meets.entity.MeetingRoom;
 import com.hsbc.meets.factory.HomeFactory;
+import com.hsbc.meets.factory.MeetingRoomFactory;
 import com.hsbc.meets.service.HomeService;
+import com.hsbc.meets.service.MeetingRoomService;
 import com.hsbc.meets.util.Connectivity;
 
 /**
@@ -40,6 +44,9 @@ public class HomeController extends HttpServlet {
 			String matchedUsersJsonString = service.searchUsersByName(searchString);
 			resp.getWriter().write(matchedUsersJsonString);
 		} else {
+			MeetingRoomService meetingRoomService = MeetingRoomFactory.getService();
+			List<MeetingRoom> allMeetingRooms = meetingRoomService.showAllMeetingRooms();
+			req.setAttribute("elist", allMeetingRooms);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("views/home.jsp");
 			dispatcher.forward(req, resp);
 		}

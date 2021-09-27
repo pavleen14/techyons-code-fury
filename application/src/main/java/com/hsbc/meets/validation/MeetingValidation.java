@@ -44,7 +44,8 @@ public abstract class MeetingValidation {
 	 * @throws MeetingTypeInvalidException
 	 */
 	public static boolean validateMeetingType(String meetingType) throws MeetingTypeInvalidException {
-		if(meetingType == "CLASSROOM_TRAINING" || meetingType == "ONLINE_TRAINING" || meetingType == "CONFERENCE_CALL" || meetingType == "BUSINESS") {
+		System.out.println(meetingType);
+		if(meetingType.equals("CLASSROOM_TRAINING") || meetingType.equals("ONLINE_TRAINING") || meetingType.equals("CONFERENCE_CALL") || meetingType.equals("BUSINESS")) {
 			return true;
 		}
 		throw new MeetingTypeInvalidException();

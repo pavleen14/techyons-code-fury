@@ -1,8 +1,6 @@
 # techyons-code-fury
 Submission for Code fury by team techyons
 
-> Frontend connections broke on merges, Backend functionalities are working
-
 # Requirements
 
 JDK 8
