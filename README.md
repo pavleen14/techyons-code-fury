@@ -1,5 +1,5 @@
-# techyons-code-fury
-Submission for Code fury by team techyons
+# Hmeets
+A meeting room booking management system
 
 # Requirements
 
